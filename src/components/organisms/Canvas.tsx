@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCanvas } from '../../features/canvas/canvasSlice';
 import { selectMap } from '../../features/map/mapSlice';
+import tilesPositions from '../../assets/tiles/tilesPositions';
 import styled from 'styled-components';
 
 interface IViewportProps {
@@ -27,6 +28,14 @@ function Canvas() {
 
 		ctx.fillStyle = mapSelector.backgroundColor;
 		ctx.fillRect(0, 0, mapSelector.width, mapSelector.height);
+
+		for (let index = 0; index < mapSelector.layers.floor.length - 1; index++) {
+			const value = mapSelector.layers.floor[index];
+			const x = (index % mapSelector.columns) * canvasSelector.tileSize;
+			const y = Math.floor(index / mapSelector.columns) * canvasSelector.tileSize;
+			
+			ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['floor'][value].left, tilesPositions[mapSelector.tileName]['floor'][value].top, 16, 16, x, y, 48, 48);
+		}
 
 		requestAnimationFrame(draw);
 	}

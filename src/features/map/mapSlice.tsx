@@ -5,6 +5,8 @@ import { RootState } from '../../app/store';
 interface IMapState {
     name: string;
     tileName: string;
+    columns: number;
+    rows: number;
     width: number;
     height: number;
     backgroundColor: string;
@@ -15,8 +17,10 @@ interface IMapState {
 }
 
 const initialState: IMapState = {
-    name: "mapa1",
+    name: "map1",
     tileName: "dungeon",
+    columns: 30,
+    rows: 30,
     width: 1440,
     height: 1440,
     backgroundColor: "#1C1117",
@@ -32,17 +36,9 @@ export const mapSlice = createSlice({
     reducers: {
         setMap: (state, action: PayloadAction<string>) => {
             if (maps[action.payload]) {
-                const { name, tileName, width, height, layers, backgroundColor } = maps[action.payload]
-                state = {
-                    name,
-                    tileName,
-                    width,
-                    height,
-                    layers,
-                    backgroundColor
-                }
+                state = { ...maps[action.payload] }
             } else {
-                console.error("No map found with this name");
+                console.error("No map found with this name!");
             }
         }
     }

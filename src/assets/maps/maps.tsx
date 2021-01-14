@@ -2,6 +2,8 @@ interface IMap {
     [key: string]: {
         name: string;
         tileName: string;
+        columns: number;
+        rows: number;
         width: number;
         height: number;
         backgroundColor: string;
@@ -14,8 +16,10 @@ interface IMap {
 
 const maps: IMap = {
     mapa1: {
-        name: "mapa1",
+        name: "map1",
         tileName: "dungeon",
+        columns: 30,
+        rows: 30,
         width: 1440,
         height: 1440,
         backgroundColor: "#1C1117",
