@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { canvasSize, viewportPosition } from './payloadActionTypes';
+import { canvasSize } from './payloadActionTypes';
 import { RootState } from '../../app/store';
 
 interface ICanvasState {
@@ -15,21 +15,23 @@ interface ICanvasState {
     tileSize: number;
     mapLoaded: boolean;
     imagesLoaded: boolean;
+    blockedIndexes: number[]
 }
 
 const initialState: ICanvasState = {
-    width: 800,
-    height: 800,
+    width: 1440,
+    height: 1440,
     viewport: {
         width: 816,
         height: 816,
-        x: 816,
-        y: 816
+        x: 0,
+        y: 0,
     },
-    map: "mapa1",
+    map: "map1",
     tileSize: 48,
     mapLoaded: true,
-    imagesLoaded: true
+    imagesLoaded: true,
+    blockedIndexes: []
 }
 
 export const canvasSlice = createSlice({
@@ -41,15 +43,16 @@ export const canvasSlice = createSlice({
             state.width = width;
             state.height = height;
         },
-        setViewportPosition: (state, action: PayloadAction<viewportPosition>) => {
-            const { x, y } = action.payload;
-            state.viewport.x = x;
-            state.viewport.y = y;
+        setViewportPositionX: (state, action: PayloadAction<number>) => {
+            state.viewport.x = action.payload;
+        },
+        setViewportPositionY: (state, action: PayloadAction<number>) => {
+            state.viewport.y = action.payload;
         }
     }
 })
 
-export const { setCanvasSize, setViewportPosition } = canvasSlice.actions;
+export const { setCanvasSize, setViewportPositionX, setViewportPositionY } = canvasSlice.actions;
 
 export const selectCanvas = (state: RootState) => state.canvas;
 

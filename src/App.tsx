@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Canvas from './components/organisms/Canvas';
-import TilesBuffer from './components/organisms/TilesBuffer';
+import TilesBuffer from './components/organisms/ImagesBuffer';
+import PlayerMovement from './components/organisms/PlayerMovement';
 
 const Container = styled.div`
 	width: 100%;
@@ -14,6 +15,7 @@ const Container = styled.div`
 function App() {
 	return (
 		<Container>
+			<PlayerMovement />
 			<TilesBuffer />
 			<Canvas />
 		</Container>

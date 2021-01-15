@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCanvas } from '../../features/canvas/canvasSlice';
 import { selectMap } from '../../features/map/mapSlice';
+import { selectPlayer } from '../../features/player/playerSlice';
 import tilesPositions from '../../assets/tiles/tilesPositions';
 import styled from 'styled-components';
 
@@ -19,9 +20,11 @@ const Viewport = styled.div<IViewportProps>`
 function Canvas() {
 	const canvasSelector = useSelector(selectCanvas);
 	const mapSelector = useSelector(selectMap);
+	const playerSelector = useSelector(selectPlayer);
 	const canvasRef = useRef<HTMLCanvasElement>(null!);
+	const viewportRef = useRef<HTMLDivElement>(null!);
 
-	const draw = () => {
+	const draw = useCallback(() => {
 		const ctx = canvasRef.current.getContext('2d')!;
 
 		ctx.imageSmoothingEnabled = false;
@@ -34,20 +37,35 @@ function Canvas() {
 			const x = (index % mapSelector.columns) * canvasSelector.tileSize;
 			const y = Math.floor(index / mapSelector.columns) * canvasSelector.tileSize;
 			
-			ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['floor'][value].left, tilesPositions[mapSelector.tileName]['floor'][value].top, 16, 16, x, y, 48, 48);
+			ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['floor'][value].left, tilesPositions[mapSelector.tileName]['floor'][value].top, 16, 16, x, y, canvasSelector.tileSize, canvasSelector.tileSize);
 		}
 
-		requestAnimationFrame(draw);
-	}
+		ctx.drawImage(document.querySelector('.player') as HTMLImageElement, 0, 0, 16, 16, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.tileSize);
+
+		for (let index = 0; index < mapSelector.layers.walls.length - 1; index++) {
+			const value = mapSelector.layers.walls[index];
+			const x = (index % mapSelector.columns) * canvasSelector.tileSize;
+			const y = Math.floor(index / mapSelector.columns) * canvasSelector.tileSize;
+			
+			ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['walls'][value].left, tilesPositions[mapSelector.tileName]['walls'][value].top, 16, 16, x, y, canvasSelector.tileSize, canvasSelector.tileSize);
+		}
+	}, [playerSelector.x, playerSelector.y, mapSelector.width, mapSelector.tileName, mapSelector.layers, mapSelector.backgroundColor, mapSelector.columns, mapSelector.height, canvasSelector.tileSize])
 
 	useEffect(() => {
 		if (canvasRef && canvasRef.current) {
 			requestAnimationFrame(draw);
 		}
-	}, [canvasRef]); //eslint-disable-line
+	}, [canvasRef, draw]);
+
+	useEffect(() => {
+		if (viewportRef && viewportRef.current) {
+			viewportRef.current.scrollLeft = canvasSelector.viewport.x;
+			viewportRef.current.scrollTop = canvasSelector.viewport.y;
+		}
+	}, [viewportRef, playerSelector.x, playerSelector.y]); //eslint-disable-line
 
 	return (
-		<Viewport width={canvasSelector.viewport.width} height={canvasSelector.viewport.height}>
+		<Viewport ref={viewportRef} width={canvasSelector.viewport.width} height={canvasSelector.viewport.height}>
 			<canvas ref={canvasRef} width={canvasSelector.width} height={canvasSelector.height}></canvas>
 		</Viewport>
 	);

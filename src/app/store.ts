@@ -1,13 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
 import canvasReducer from '../features/canvas/canvasSlice';
 import mapReducer from '../features/map/mapSlice';
+import playerReducer from '../features/player/playerSlice';
 
 export const store = configureStore({
   	reducer: {
-		counter: counterReducer,
 		canvas: canvasReducer,
-		map: mapReducer
+		map: mapReducer,
+		player: playerReducer
   	},
 });
 
