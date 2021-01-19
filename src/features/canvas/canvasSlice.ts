@@ -15,7 +15,6 @@ interface ICanvasState {
     tileSize: number;
     mapLoaded: boolean;
     imagesLoaded: boolean;
-    blockedIndexes: number[]
 }
 
 const initialState: ICanvasState = {
@@ -30,8 +29,7 @@ const initialState: ICanvasState = {
     map: "map1",
     tileSize: 48,
     mapLoaded: true,
-    imagesLoaded: true,
-    blockedIndexes: []
+    imagesLoaded: true
 }
 
 export const canvasSlice = createSlice({

@@ -2,6 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectPlayer, setPlayerPosition } from '../../features/player/playerSlice';
 import { selectMap } from '../../features/map/mapSlice';
+import { selectMonster } from '../../features/monster/monsterSlice';
 import { selectCanvas, setViewportPositionX, setViewportPositionY } from '../../features/canvas/canvasSlice';
 
 const PlayerMovement = () => {
@@ -9,6 +10,7 @@ const PlayerMovement = () => {
     const playerSelector = useSelector(selectPlayer);
     const mapSelector = useSelector(selectMap);
     const canvasSelector = useSelector(selectCanvas);
+    const monsterSelector = useSelector(selectMonster);
 
     const handleUserKeyDown = useCallback((event) => {
         const { key } = event;
@@ -40,7 +42,7 @@ const PlayerMovement = () => {
     
         nextPlayerIndex = nextPlayerY * mapSelector.rows + nextPlayerX;
 
-        if (mapSelector.layers.floor[nextPlayerIndex] === 115) {
+        if (mapSelector.layers.floor[nextPlayerY][nextPlayerX] === 115 && !monsterSelector.blockedIndexes.includes(nextPlayerIndex)) {
             if (direction === "right") {
                 if (nextPlayerX * canvasSelector.tileSize >= 384) {
                     dispatch(setViewportPositionX(canvasSelector.viewport.x + 48));
@@ -64,7 +66,7 @@ const PlayerMovement = () => {
                 y: nextPlayerY * canvasSelector.tileSize
             }));
         }
-    }, [dispatch, mapSelector.rows, playerSelector.x, playerSelector.y, mapSelector.layers.floor, canvasSelector.tileSize, canvasSelector.viewport.x, canvasSelector.viewport.y]);
+    }, [dispatch, mapSelector.rows, playerSelector.x, playerSelector.y, mapSelector.layers.floor, canvasSelector.tileSize, canvasSelector.viewport.x, canvasSelector.viewport.y, monsterSelector.blockedIndexes]);
 
     useEffect(() => {
         document.addEventListener('keydown', handleUserKeyDown);

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectCanvas } from '../../features/canvas/canvasSlice';
 import { selectMap } from '../../features/map/mapSlice';
 import { selectPlayer } from '../../features/player/playerSlice';
+import { selectMonster } from '../../features/monster/monsterSlice';
 import tilesPositions from '../../assets/tiles/tilesPositions';
 import styled from 'styled-components';
 
@@ -21,6 +22,7 @@ function Canvas() {
 	const canvasSelector = useSelector(selectCanvas);
 	const mapSelector = useSelector(selectMap);
 	const playerSelector = useSelector(selectPlayer);
+	const monsterSelector = useSelector(selectMonster);
 	const canvasRef = useRef<HTMLCanvasElement>(null!);
 	const viewportRef = useRef<HTMLDivElement>(null!);
 
@@ -32,24 +34,25 @@ function Canvas() {
 		ctx.fillStyle = mapSelector.backgroundColor;
 		ctx.fillRect(0, 0, mapSelector.width, mapSelector.height);
 
-		for (let index = 0; index < mapSelector.layers.floor.length - 1; index++) {
-			const value = mapSelector.layers.floor[index];
-			const x = (index % mapSelector.columns) * canvasSelector.tileSize;
-			const y = Math.floor(index / mapSelector.columns) * canvasSelector.tileSize;
-			
-			ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['floor'][value].left, tilesPositions[mapSelector.tileName]['floor'][value].top, 16, 16, x, y, canvasSelector.tileSize, canvasSelector.tileSize);
-		}
+		mapSelector.layers.floor.forEach((row, y) => {
+			row.forEach((value, x) => {
+				ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['floor'][value].left, tilesPositions[mapSelector.tileName]['floor'][value].top, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
+			});
+		})
 
 		ctx.drawImage(document.querySelector('.player') as HTMLImageElement, 0, 0, 16, 16, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.tileSize);
 
-		for (let index = 0; index < mapSelector.layers.walls.length - 1; index++) {
-			const value = mapSelector.layers.walls[index];
-			const x = (index % mapSelector.columns) * canvasSelector.tileSize;
-			const y = Math.floor(index / mapSelector.columns) * canvasSelector.tileSize;
-			
-			ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['walls'][value].left, tilesPositions[mapSelector.tileName]['walls'][value].top, 16, 16, x, y, canvasSelector.tileSize, canvasSelector.tileSize);
+		for (let [key, value] of Object.entries(monsterSelector.monsters)) { //eslint-disable-line
+			ctx.drawImage(document.querySelector(value.entityImage) as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
 		}
-	}, [playerSelector.x, playerSelector.y, mapSelector.width, mapSelector.tileName, mapSelector.layers, mapSelector.backgroundColor, mapSelector.columns, mapSelector.height, canvasSelector.tileSize])
+
+
+		mapSelector.layers.walls.forEach((row, y) => {
+			row.forEach((value, x) => {
+				ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['walls'][value].left, tilesPositions[mapSelector.tileName]['walls'][value].top, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
+			})
+		})
+	}, [playerSelector.x, playerSelector.y, mapSelector.width, mapSelector.tileName, mapSelector.layers, mapSelector.backgroundColor, mapSelector.height, canvasSelector.tileSize, monsterSelector.monsters])
 
 	useEffect(() => {
 		if (canvasRef && canvasRef.current) {
