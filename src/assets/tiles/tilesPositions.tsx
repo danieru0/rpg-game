@@ -102,6 +102,56 @@ const tilesPositions: ITilesPositions = {
                 left: 64,
                 top: 48
             }
+        },
+        items: {
+            0: {
+                left: 64,
+                top: 224
+            },
+            306: {
+                left: 16,
+                top: 48
+            },
+            321: {
+                left: 0,
+                top: 64
+            },
+            276: {
+                left: 48,
+                top: 16
+            },
+            351: {
+                left: 224,
+                top: 80
+            },
+            352: {
+                left: 240,
+                top: 80
+            },
+            333: {
+                left: 192,
+                top: 64
+            },
+            323: {
+                left: 32,
+                top: 64
+            },
+            409: {
+                left: 128,
+                top: 144
+            },
+            425: {
+                left: 128,
+                top: 160
+            },
+            358: {
+                left: 80,
+                top: 96
+            },
+            374: {
+                left: 96,
+                top: 112
+            }
         }
     }
 }

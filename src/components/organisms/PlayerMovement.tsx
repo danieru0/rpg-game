@@ -42,7 +42,7 @@ const PlayerMovement = () => {
     
         nextPlayerIndex = nextPlayerY * mapSelector.rows + nextPlayerX;
 
-        if (mapSelector.layers.floor[nextPlayerY][nextPlayerX] === 115 && !monsterSelector.blockedIndexes.includes(nextPlayerIndex)) {
+        if (mapSelector.layers.floor[nextPlayerY][nextPlayerX] === 115 && mapSelector.layers.itemsBlock[nextPlayerY][nextPlayerX] !== 130 && !monsterSelector.blockedIndexes.includes(nextPlayerIndex)) {
             if (direction === "right") {
                 if (nextPlayerX * canvasSelector.tileSize >= 384) {
                     dispatch(setViewportPositionX(canvasSelector.viewport.x + 48));
@@ -66,7 +66,7 @@ const PlayerMovement = () => {
                 y: nextPlayerY * canvasSelector.tileSize
             }));
         }
-    }, [dispatch, mapSelector.rows, playerSelector.x, playerSelector.y, mapSelector.layers.floor, canvasSelector.tileSize, canvasSelector.viewport.x, canvasSelector.viewport.y, monsterSelector.blockedIndexes]);
+    }, [dispatch, mapSelector.rows, playerSelector.x, playerSelector.y, mapSelector.layers.floor, canvasSelector.tileSize, canvasSelector.viewport.x, canvasSelector.viewport.y, monsterSelector.blockedIndexes, mapSelector.layers.itemsBlock]);
 
     useEffect(() => {
         document.addEventListener('keydown', handleUserKeyDown);
