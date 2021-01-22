@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { monsterPosition } from './payloadActionTypes';
+import { monsterPosition, closeToPlayer, hitMonsterInterface } from './payloadActionTypes';
 import { RootState } from '../../app/store';
 
 interface IMonsterState {
@@ -8,10 +8,14 @@ interface IMonsterState {
             x: number;
             y: number;
             entityImage: string;
-            walkInterval: any;
-            walkIntervalCounter: number;
             currentIndex: number;
             seeRange: number;
+            closeToPlayer: boolean;
+            id: number;
+            lvl: number;
+            hp: number;
+            attack: number;
+            def: number;
         }
     },
     monstersAreaDetection: {
@@ -35,19 +39,27 @@ const initialState: IMonsterState = {
             x: 240,
             y: 240,
             entityImage: ".monster1",
-            walkInterval: 0,
-            walkIntervalCounter: 0,
             currentIndex: 155,
-            seeRange: 3
+            seeRange: 3,
+            closeToPlayer: false,
+            id: 0,
+            lvl: 1,
+            hp: 24,
+            attack: 5,
+            def: 0
         },
         1: {
             x: 960,
             y: 336,
             entityImage: ".monster1",
-            walkInterval: 0,
-            walkIntervalCounter: 0,
             currentIndex: 230,
-            seeRange: 3
+            seeRange: 3,
+            closeToPlayer: false,
+            id: 1,
+            lvl: 1,
+            hp: 24,
+            attack: 5,
+            def: 0
         }
     },
     monstersAreaDetection: {
@@ -159,11 +171,38 @@ export const monsterSlice = createSlice({
             state.monsters[id].x = x;
             state.monsters[id].y = y;
             state.monsters[id].currentIndex = index;
+        },
+        setMonsterCloseToPlayer: (state, action: PayloadAction<closeToPlayer>) => {
+            const { id, value } = action.payload;
+
+            if (id) {
+                state.monsters[id].closeToPlayer = value;
+            } else {
+                Object.keys(state.monsters).forEach((key) => {
+                    state.monsters[parseInt(key)].closeToPlayer = value;
+                });
+            }
+        },
+        hitMonster: (state, action: PayloadAction<hitMonsterInterface>) => {
+            const { id, value } = action.payload;
+
+            state.monsters[id].hp -= value;
+        },
+        destroyMonster: (state, action: PayloadAction<number>) => {
+            delete state.monsters[action.payload];
+
+            Object.keys(state.monstersAreaDetection.x).forEach((key) => {
+                state.monstersAreaDetection.x[parseInt(key)].ids = state.monstersAreaDetection.x[parseInt(key)].ids.filter(id => id !== action.payload);
+            })
+
+            Object.keys(state.monstersAreaDetection.y).forEach((key) => {
+                state.monstersAreaDetection.y[parseInt(key)].ids = state.monstersAreaDetection.y[parseInt(key)].ids.filter(id => id !== action.payload);
+            });
         }
     }
 })
 
-export const { setMonsterPosition } = monsterSlice.actions;
+export const { setMonsterPosition, setMonsterCloseToPlayer, hitMonster, destroyMonster } = monsterSlice.actions;
 
 export const selectMonster = (state: RootState) => state.monster;
 

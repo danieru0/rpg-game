@@ -4,3 +4,13 @@ export interface monsterPosition {
     y: number;
     index: number;
 }
+
+export interface closeToPlayer {
+    id?: number;
+    value: boolean;
+}
+
+export interface hitMonsterInterface {
+    id: number;
+    value: number;
+}

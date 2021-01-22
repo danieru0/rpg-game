@@ -35,7 +35,7 @@ function Canvas() {
 		ctx.fillStyle = mapSelector.backgroundColor;
 		ctx.fillRect(0, 0, mapSelector.width, mapSelector.height);
 
-		mapSelector.layers.itemsBlock.forEach((row, y) => {
+		mapSelector.layers.blockTiles.forEach((row, y) => {
 			row.forEach((value, x) => {
 				ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['floor'][value].left, tilesPositions[mapSelector.tileName]['floor'][value].top, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
 			});
@@ -55,6 +55,9 @@ function Canvas() {
 			});
 		})
 
+		for (let [key, value] of Object.entries(mapSelector.chests)) { //eslint-disable-line
+			ctx.drawImage(document.querySelector(value.open ? '.chestOpen' : '.chestClosed') as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
+		}
 
 		for (let [key, value] of Object.entries(monsterSelector.monsters)) { //eslint-disable-line
 			ctx.drawImage(document.querySelector(value.entityImage) as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
@@ -71,7 +74,7 @@ function Canvas() {
 				ctx.drawImage(document.querySelector(`.${mapSelector.tileNameItems}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['items'][value].left, tilesPositions[mapSelector.tileName]['items'][value].top, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
 			});
 		})
-	}, [playerSelector.x, playerSelector.y, mapSelector.width, mapSelector.tileName, mapSelector.layers, mapSelector.backgroundColor, mapSelector.height, canvasSelector.tileSize, monsterSelector.monsters, mapSelector.tileNameItems])
+	}, [playerSelector.x, playerSelector.y, mapSelector.width, mapSelector.tileName, mapSelector.layers, mapSelector.backgroundColor, mapSelector.height, canvasSelector.tileSize, monsterSelector.monsters, mapSelector.tileNameItems, mapSelector.chests])
 
 	useEffect(() => {
 		if (canvasRef && canvasRef.current) {
@@ -86,7 +89,7 @@ function Canvas() {
 		const y = Math.floor((e.pageY - offsetTopWithVieport) / 48);
 		const index = Math.floor(y * mapSelector.rows + x);
 
-		dispatch(setClickedIndex(index));
+		dispatch(setClickedIndex({index: index, refresh: Math.random()}));
 	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch]);
 
 

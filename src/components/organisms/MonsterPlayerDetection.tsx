@@ -3,7 +3,7 @@ import ReactInterval from 'react-interval';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectPlayer } from '../../features/player/playerSlice';
 import { selectMap } from '../../features/map/mapSlice';
-import { selectMonster, setMonsterPosition } from '../../features/monster/monsterSlice';
+import { selectMonster, setMonsterPosition, setMonsterCloseToPlayer } from '../../features/monster/monsterSlice';
 import easystarjs from 'easystarjs';
 
 interface monsterObject {
@@ -30,7 +30,7 @@ const MonsterPlayerDetection = () => {
 
     useEffect(() => {
         easystarRef.current = new easystarjs.js();
-        easystarRef.current.setGrid(mapSelector.layers.floor);
+        easystarRef.current.setGrid(mapSelector.layers.blockTiles);
         easystarRef.current.setAcceptableTiles([115]);
         easystarRef.current.enableCornerCutting();
     }, [easystarRef]); //eslint-disable-line
@@ -59,6 +59,7 @@ const MonsterPlayerDetection = () => {
     useEffect(() => {
         setMonstersObject({});
         calculatePath();
+        dispatch(setMonsterCloseToPlayer({value: false}));
     }, [playerSelector.x, playerSelector.y]); //eslint-disable-line
 
     return (
@@ -80,7 +81,7 @@ const MonsterPlayerDetection = () => {
                                     y: path[counter].y * 48,
                                     id: id,
                                     index: monsterIndex
-                                }))
+                                }));
                                 
                                 setMonstersObject({
                                     ...monstersObject,
@@ -98,7 +99,9 @@ const MonsterPlayerDetection = () => {
                                             counter: 0,
                                             enable: false
                                         } 
-                                    })
+                                    });
+                                    
+                                    dispatch(setMonsterCloseToPlayer({id: id, value: true}));
                                 }, 50);
                             }
                         }}
