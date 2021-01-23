@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { monsterPosition, closeToPlayer, hitMonsterInterface } from './payloadActionTypes';
 import { RootState } from '../../app/store';
+import maps from '../../assets/maps/maps';
 
 interface IMonsterState {
     monsters: {
@@ -31,7 +32,7 @@ interface IMonsterState {
             }
         }
     },
-    blockedIndexes: number[];
+    blockedIndexesMonsters: number[];
 }
 
 const initialState: IMonsterState = {
@@ -95,7 +96,7 @@ const initialState: IMonsterState = {
             }
         }
     },
-    blockedIndexes: [155, 230]
+    blockedIndexesMonsters: [155, 230]
 }
 
 export const monsterSlice = createSlice({
@@ -168,8 +169,8 @@ export const monsterSlice = createSlice({
                 }
             }
 
-            state.blockedIndexes = state.blockedIndexes.filter(item => item !== monster.currentIndex);
-            state.blockedIndexes.push(index);
+            state.blockedIndexesMonsters = state.blockedIndexesMonsters.filter(item => item !== monster.currentIndex);
+            state.blockedIndexesMonsters.push(index);
 
             state.monsters[id].x = x;
             state.monsters[id].y = y;
@@ -192,8 +193,6 @@ export const monsterSlice = createSlice({
             state.monsters[id].hp -= value;
         },
         destroyMonster: (state, action: PayloadAction<number>) => {
-            delete state.monsters[action.payload];
-
             Object.keys(state.monstersAreaDetection.x).forEach((key) => {
                 state.monstersAreaDetection.x[parseInt(key)].ids = state.monstersAreaDetection.x[parseInt(key)].ids.filter(id => id !== action.payload);
             })
@@ -201,11 +200,22 @@ export const monsterSlice = createSlice({
             Object.keys(state.monstersAreaDetection.y).forEach((key) => {
                 state.monstersAreaDetection.y[parseInt(key)].ids = state.monstersAreaDetection.y[parseInt(key)].ids.filter(id => id !== action.payload);
             });
+
+            state.blockedIndexesMonsters = state.blockedIndexesMonsters.filter(id => id !== state.monsters[action.payload].currentIndex);
+
+            delete state.monsters[action.payload];
+        },
+        resetMonstersInDungeon: (state, action: PayloadAction<string>) => {
+            if (maps[action.payload]) {
+                state.monsters = maps[action.payload].monsters;
+                state.monstersAreaDetection = maps[action.payload].monstersAreaDetection;
+                state.blockedIndexesMonsters = maps[action.payload].blockedIndexesMonsters;
+            }
         }
     }
 })
 
-export const { setMonsterPosition, setMonsterCloseToPlayer, hitMonster, destroyMonster } = monsterSlice.actions;
+export const { setMonsterPosition, setMonsterCloseToPlayer, hitMonster, destroyMonster, resetMonstersInDungeon } = monsterSlice.actions;
 
 export const selectMonster = (state: RootState) => state.monster;
 

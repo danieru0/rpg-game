@@ -20,21 +20,25 @@ const UserClickHandler = () => {
 
     useEffect(() => {
         new Promise((resolve, reject) => {
-            Object.keys(monsterSelector.monsters).forEach((key, index) => {
-                const monster = monsterSelector.monsters[parseInt(key)];
-    
-                if (monster.currentIndex === playerSelector.clickedIndex.index) {
-                    if (monster.closeToPlayer) {
-                        if (!attackedMonsters.find(item => item.id === monster.id)) {
-                            setAttackedMonsters([...attackedMonsters, {id: monster.id, index: monster.currentIndex}]);
+            if (Object.keys(monsterSelector.monsters).length !== 0) {
+                Object.keys(monsterSelector.monsters).forEach((key, index) => {
+                    const monster = monsterSelector.monsters[parseInt(key)];
+        
+                    if (monster.currentIndex === playerSelector.clickedIndex.index) {
+                        if (monster.closeToPlayer) {
+                            if (!attackedMonsters.find(item => item.id === monster.id)) {
+                                setAttackedMonsters([...attackedMonsters, {id: monster.id, index: monster.currentIndex}]);
+                            }
                         }
                     }
-                }
-
-                if (index === Object.keys(monsterSelector.monsters).length - 1) {
-                    resolve(true);
-                }
-            });
+    
+                    if (index === Object.keys(monsterSelector.monsters).length - 1) {
+                        resolve(true);
+                    }
+                });
+            } else {
+                resolve(true);
+            }
         }).then(() => {
             if (attackedMonsters.length === 0) {
                 if (mapSelector.chestsAreaDetection[playerSelector.currentIndex]) {
@@ -65,8 +69,8 @@ const UserClickHandler = () => {
                         if (monster.hp - playerTotalAttack > 0) {
                             dispatch(hitMonster({id: monster.id, value: playerTotalAttack}));
                         } else {
-                            dispatch(destroyMonster(monster.id));
                             setAttackedMonsters(attackedMonsters.filter(monster => monster.index !== monster.id));
+                            dispatch(destroyMonster(monster.id));
                         }
                     }
                     

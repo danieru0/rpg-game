@@ -107,7 +107,7 @@ function Canvas() {
 			viewportRef.current.scrollLeft = canvasSelector.viewport.x;
 			viewportRef.current.scrollTop = canvasSelector.viewport.y;
 		}
-	}, [viewportRef, playerSelector.x, playerSelector.y]); //eslint-disable-line
+	}, [viewportRef, playerSelector.x, playerSelector.y, canvasSelector.viewport.refresh]); //eslint-disable-line
 
 	return (
 		<Viewport ref={viewportRef} width={canvasSelector.viewport.width} height={canvasSelector.viewport.height}>

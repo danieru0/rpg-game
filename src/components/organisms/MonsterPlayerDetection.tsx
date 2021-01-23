@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactInterval from 'react-interval';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPlayer } from '../../features/player/playerSlice';
+import { selectPlayer, hitPlayer, setPlayerHp, resetPlayerPosition } from '../../features/player/playerSlice';
 import { selectMap } from '../../features/map/mapSlice';
-import { selectMonster, setMonsterPosition, setMonsterCloseToPlayer } from '../../features/monster/monsterSlice';
+import { resetViewport } from '../../features/canvas/canvasSlice';
+import { selectMonster, setMonsterPosition, setMonsterCloseToPlayer, resetMonstersInDungeon } from '../../features/monster/monsterSlice';
 import easystarjs from 'easystarjs';
 
 interface monsterObject {
@@ -106,6 +107,38 @@ const MonsterPlayerDetection = () => {
                             }
                         }}
                     />
+                    )
+                })
+            }
+            {
+                Object.entries(monstersObject).map(([key, value]) => {
+                    return (
+                        <ReactInterval 
+                            enabled={value.enable === false ? true : false}
+                            timeout={1000}
+                            key={key}
+                            callback={() => {
+                                const { id } = value;
+                                const monster = monsterSelector.monsters[id];
+
+                                if (monster) {
+                                    const playerHpAfterHit =  monster.attack - playerSelector.def > 0 ? playerSelector.hp - (monster.attack - playerSelector.def) : false;
+    
+                                    if (playerHpAfterHit > 0) {
+                                        dispatch(hitPlayer(monster.attack - playerSelector.def));
+                                    } else {
+                                        setTimeout(() => {
+                                            setMonstersObject({});
+                                            dispatch(resetMonstersInDungeon(mapSelector.name));
+                                            dispatch(setPlayerHp(null));
+                                            dispatch(resetPlayerPosition());
+                                            dispatch(resetViewport());
+                                        }, 50);
+                                    }
+                                }
+
+                            }}
+                        />
                     )
                 })
             }

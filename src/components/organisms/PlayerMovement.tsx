@@ -46,7 +46,7 @@ const PlayerMovement = () => {
         
             nextPlayerIndex = nextPlayerY * mapSelector.rows + nextPlayerX;
     
-            if (mapSelector.layers.blockTiles[nextPlayerY][nextPlayerX] === 115 && !monsterSelector.blockedIndexes.includes(nextPlayerIndex) && !mapSelector.blockedIndexes.includes(nextPlayerIndex)) {
+            if (mapSelector.layers.blockTiles[nextPlayerY][nextPlayerX] === 115 && !monsterSelector.blockedIndexesMonsters.includes(nextPlayerIndex) && !mapSelector.blockedIndexesMap.includes(nextPlayerIndex)) {
                 if (direction === "right") {
                     if (nextPlayerX * canvasSelector.tileSize >= 384) {
                         dispatch(setViewportPositionX(canvasSelector.viewport.x + 48));
@@ -72,7 +72,7 @@ const PlayerMovement = () => {
                 }));
             }
         }
-    }, [dispatch, mapSelector.rows, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.viewport.x, canvasSelector.viewport.y, monsterSelector.blockedIndexes, mapSelector.layers.blockTiles, keyDown, mapSelector.blockedIndexes]);
+    }, [dispatch, mapSelector.rows, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.viewport.x, canvasSelector.viewport.y, monsterSelector.blockedIndexesMonsters, mapSelector.layers.blockTiles, keyDown, mapSelector.blockedIndexesMap]);
 
     const handleUserKeyUp = useCallback(() => {
         setKeyDown(false);
