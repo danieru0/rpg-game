@@ -14,6 +14,7 @@ interface IMonsterState {
             id: number;
             lvl: number;
             hp: number;
+            maxHP: number;
             attack: number;
             def: number;
         }
@@ -45,6 +46,7 @@ const initialState: IMonsterState = {
             id: 0,
             lvl: 1,
             hp: 24,
+            maxHP: 24,
             attack: 5,
             def: 0
         },
@@ -58,6 +60,7 @@ const initialState: IMonsterState = {
             id: 1,
             lvl: 1,
             hp: 24,
+            maxHP: 24,
             attack: 5,
             def: 0
         }

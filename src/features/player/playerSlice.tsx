@@ -12,9 +12,11 @@ interface IPlayerState {
     currentIndex: number;
     lvl: number;
     hp: number;
+    maxHP: number;
     base_attack: number;
     weapon_attack: number;
     def: number;
+    money: number;
 }
 
 const initialState: IPlayerState = {
@@ -27,9 +29,11 @@ const initialState: IPlayerState = {
     currentIndex: 93,
     lvl: 1,
     hp: 30,
+    maxHP: 30,
     base_attack: 5,
     weapon_attack: 0,
-    def: 0
+    def: 0,
+    money: 0
 }
 
 export const playerSlice = createSlice({
