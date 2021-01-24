@@ -7,6 +7,7 @@ import PlayerMovement from './components/organisms/PlayerMovement';
 import MonsterPlayerDetection from './components/organisms/MonsterPlayerDetection';
 import UserClickHandler from './components/organisms/UserClickHandler';
 import LeftSide from './components/organisms/LeftSide';
+import RightSide from './components/organisms/RightSide';
 
 const Container = styled.div`
 	width: 100%;
@@ -26,6 +27,7 @@ function App() {
 			<TilesBuffer />
 			<LeftSide />
 			<Canvas />
+			<RightSide />
 		</Container>
   	);
 }

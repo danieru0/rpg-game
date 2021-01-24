@@ -15,11 +15,35 @@ interface IPlayerState {
     startIndex: number;
     lvl: number;
     hp: number;
+    armor_hp: number;
     maxHP: number;
     base_attack: number;
     weapon_attack: number;
     def: number;
     money: number;
+    equipmnent: {
+        weapon: {
+            name: string;
+            attack: number;
+            imgName: string;
+            id: number;
+            type: string;
+        } | null;
+        armor: {
+            name: string;
+            hp: number;
+            imgName: string;
+            id: number;
+            type: string;
+        } | null;
+        shield: {
+            name: string;
+            def: number;
+            imgName: string;
+            id: number;
+            type: string;
+        }
+    }
 }
 
 const initialState: IPlayerState = {
@@ -34,12 +58,36 @@ const initialState: IPlayerState = {
     currentIndex: 93,
     startIndex: 93,
     lvl: 1,
-    hp: 30,
-    maxHP: 30,
+    hp: 40,
+    armor_hp: 10,
+    maxHP: 40,
     base_attack: 5,
-    weapon_attack: 0,
-    def: 0,
-    money: 0
+    weapon_attack: 3,
+    def: 1,
+    money: 0,
+    equipmnent: {
+        weapon: {
+            name: "Drewniany miecz",
+            attack: 3,
+            imgName: ".weapon1",
+            id: 0,
+            type: "weapon"
+        },
+        armor: {
+            name: "Niebieska kurtka",
+            hp: 10,
+            imgName: ".armor1",
+            id: 0,
+            type: "armor"
+        },
+        shield: {
+            name: "Drewniana tarcza",
+            def: 1,
+            imgName: ".shield1",
+            id: 0,
+            type: "shield"
+        }
+    }
 }
 
 export const playerSlice = createSlice({

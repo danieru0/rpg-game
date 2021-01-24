@@ -78,9 +78,11 @@ function Canvas() {
 
 	useEffect(() => {
 		if (canvasRef && canvasRef.current) {
-			requestAnimationFrame(draw);
+			if (canvasSelector.imagesLoaded === canvasSelector.allImagesToLoad) {
+				requestAnimationFrame(draw);
+			}
 		}
-	}, [canvasRef, draw]);
+	}, [canvasRef, draw, canvasSelector.allImagesToLoad, canvasSelector.imagesLoaded]);
 
 	const handleUserClick = useCallback((e) => {
 		const offsetLeftWithViewport = canvasRef.current.offsetLeft - canvasSelector.viewport.x;

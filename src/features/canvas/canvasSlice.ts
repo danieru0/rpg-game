@@ -15,7 +15,8 @@ interface ICanvasState {
     map: string;
     tileSize: number;
     mapLoaded: boolean;
-    imagesLoaded: boolean;
+    imagesLoaded: number;
+    allImagesToLoad: number;
 }
 
 const initialState: ICanvasState = {
@@ -31,7 +32,8 @@ const initialState: ICanvasState = {
     map: "map1",
     tileSize: 48,
     mapLoaded: true,
-    imagesLoaded: true
+    imagesLoaded: 0,
+    allImagesToLoad: 9
 }
 
 export const canvasSlice = createSlice({
@@ -53,11 +55,14 @@ export const canvasSlice = createSlice({
             state.viewport.x = 0;
             state.viewport.y = 0;
             state.viewport.refresh = Math.random();
+        },
+        setImagesLoaded: (state) => {
+            state.imagesLoaded += 1;
         }
     }
 })
 
-export const { setCanvasSize, setViewportPositionX, setViewportPositionY, resetViewport } = canvasSlice.actions;
+export const { setCanvasSize, setViewportPositionX, setViewportPositionY, resetViewport, setImagesLoaded } = canvasSlice.actions;
 
 export const selectCanvas = (state: RootState) => state.canvas;
 

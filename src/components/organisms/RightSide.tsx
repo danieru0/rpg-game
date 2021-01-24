@@ -1,25 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import PlayerInfo from '../molecules/PlayerInfo';
-import EnemyInfo from '../molecules/EnemyInfo';
+import PlayerEquimpent from '../molecules/PlayerEquimpent';
 
 const Container = styled.div`
-    width: 250px;
+    width: 300px;
     height: 816px;
     border: 5px solid ${({theme}) => theme.border};
     overflow-y: auto;
     background-color: ${({theme}) => theme.primaryDark};
-    margin-left: 50px;
 `
 
-const LeftSide = () => {
+const RightSide = () => {
     return (
         <Container>
-            <PlayerInfo />
-            <EnemyInfo />
+            <PlayerEquimpent />
         </Container>
     );
 };
 
-export default LeftSide;
+export default RightSide;
