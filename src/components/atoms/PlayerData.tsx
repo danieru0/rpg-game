@@ -36,8 +36,8 @@ const PlayerData = ({lvl, attack, def, money}: IPlayerDataProps) => {
     return (
         <Container>
             <Data>lvl: {lvl}</Data>
-            <Data>Attack: {attack}</Data>
-            <Data>Def: {def}</Data>
+            <Data>attack: {attack}</Data>
+            <Data>def: {def}</Data>
             <Data>
                 <MoneyImg src={Money} alt="" />
                 {money}

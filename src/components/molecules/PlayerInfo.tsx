@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { selectPlayer } from '../../features/player/playerSlice';
 
-import PlayerIcon from '../atoms/PlayerIcon';
+import Player from '../../assets/entites/player.png';
+
+import EntityIcon from '../atoms/EntityIcon';
 import PlayerData from '../atoms/PlayerData';
 import HpBar from '../atoms/HpBar';
 
@@ -17,6 +19,7 @@ const Container = styled.div`
     align-items: center;
     user-select: none;
 `
+
 const Wrapper = styled.div`
     width: 100%;
     display: flex;
@@ -28,7 +31,7 @@ const PlayerInfo = () => {
     return (
         <Container>
             <Wrapper>
-                <PlayerIcon />
+                <EntityIcon img={Player} border={true} />
                 <PlayerData lvl={playerSelector.lvl} attack={playerSelector.base_attack + playerSelector.weapon_attack} def={playerSelector.def} money={playerSelector.money} />
             </Wrapper>
             <HpBar hp={playerSelector.hp} maxHP={playerSelector.maxHP} />

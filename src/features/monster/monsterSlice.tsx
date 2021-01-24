@@ -33,6 +33,7 @@ interface IMonsterState {
         }
     },
     blockedIndexesMonsters: number[];
+    monstersCloseToPlayer: number[];
 }
 
 const initialState: IMonsterState = {
@@ -96,7 +97,8 @@ const initialState: IMonsterState = {
             }
         }
     },
-    blockedIndexesMonsters: [155, 230]
+    blockedIndexesMonsters: [155, 230],
+    monstersCloseToPlayer: []
 }
 
 export const monsterSlice = createSlice({
@@ -211,11 +213,23 @@ export const monsterSlice = createSlice({
                 state.monstersAreaDetection = maps[action.payload].monstersAreaDetection;
                 state.blockedIndexesMonsters = maps[action.payload].blockedIndexesMonsters;
             }
+        },
+        addMonsterCloseToPlayer: (state, action: PayloadAction<number>) => {
+            if (!state.monstersCloseToPlayer.includes(action.payload)) {
+                state.monstersCloseToPlayer = [...state.monstersCloseToPlayer, action.payload];
+            }
+        },
+        clearMonstersCloseToPlayer: (state, action: PayloadAction<number | null>) => {
+            if (action.payload) {
+                state.monstersCloseToPlayer = state.monstersCloseToPlayer.filter(item => item !== action.payload);
+            } else {
+                state.monstersCloseToPlayer = [];
+            }
         }
     }
 })
 
-export const { setMonsterPosition, setMonsterCloseToPlayer, hitMonster, destroyMonster, resetMonstersInDungeon } = monsterSlice.actions;
+export const { setMonsterPosition, setMonsterCloseToPlayer, hitMonster, destroyMonster, resetMonstersInDungeon, addMonsterCloseToPlayer, clearMonstersCloseToPlayer } = monsterSlice.actions;
 
 export const selectMonster = (state: RootState) => state.monster;
 

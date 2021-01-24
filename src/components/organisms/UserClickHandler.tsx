@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectPlayer } from '../../features/player/playerSlice';
-import { selectMonster, hitMonster, destroyMonster } from '../../features/monster/monsterSlice';
+import { selectMonster, hitMonster, destroyMonster, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
 import { selectMap, openChest } from '../../features/map/mapSlice';
 import usePrevious from '../../hooks/usePrevious';
 
@@ -70,6 +70,7 @@ const UserClickHandler = () => {
                             dispatch(hitMonster({id: monster.id, value: playerTotalAttack}));
                         } else {
                             setAttackedMonsters(attackedMonsters.filter(monster => monster.index !== monster.id));
+                            dispatch(clearMonstersCloseToPlayer(monster.id));
                             dispatch(destroyMonster(monster.id));
                         }
                     }

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectPlayer, hitPlayer, setPlayerHp, resetPlayerPosition } from '../../features/player/playerSlice';
 import { selectMap } from '../../features/map/mapSlice';
 import { resetViewport } from '../../features/canvas/canvasSlice';
-import { selectMonster, setMonsterPosition, setMonsterCloseToPlayer, resetMonstersInDungeon } from '../../features/monster/monsterSlice';
+import { selectMonster, setMonsterPosition, setMonsterCloseToPlayer, resetMonstersInDungeon, addMonsterCloseToPlayer, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
 import easystarjs from 'easystarjs';
 
 interface monsterObject {
@@ -61,6 +61,7 @@ const MonsterPlayerDetection = () => {
         setMonstersObject({});
         calculatePath();
         dispatch(setMonsterCloseToPlayer({value: false}));
+        dispatch(clearMonstersCloseToPlayer(null));
     }, [playerSelector.x, playerSelector.y]); //eslint-disable-line
 
     return (
@@ -103,6 +104,7 @@ const MonsterPlayerDetection = () => {
                                     });
                                     
                                     dispatch(setMonsterCloseToPlayer({id: id, value: true}));
+                                    dispatch(addMonsterCloseToPlayer(id));
                                 }, 50);
                             }
                         }}
