@@ -21,9 +21,9 @@ const PlayerEquimpent = () => {
 
     return (
         <Container>
-            <EquimpentIcon image={playerSelector.equipmnent.weapon && playerSelector.equipmnent.weapon.imgName} text="weapon"/>
-            <EquimpentIcon image={playerSelector.equipmnent.armor && playerSelector.equipmnent.armor.imgName} text="armor"/>
-            <EquimpentIcon image={playerSelector.equipmnent.shield && playerSelector.equipmnent.shield.imgName} text="shield"/>
+            <EquimpentIcon iconWidth={48} wrapperWidth={64} wrapperHeight={64} image={playerSelector.equipmnent.weapon && playerSelector.equipmnent.weapon.imgName} text="weapon"/>
+            <EquimpentIcon iconWidth={48} wrapperWidth={64} wrapperHeight={64} image={playerSelector.equipmnent.armor && playerSelector.equipmnent.armor.imgName} text="armor"/>
+            <EquimpentIcon iconWidth={48} wrapperWidth={64} wrapperHeight={64} image={playerSelector.equipmnent.shield && playerSelector.equipmnent.shield.imgName} text="shield"/>
         </Container>
     );
 };

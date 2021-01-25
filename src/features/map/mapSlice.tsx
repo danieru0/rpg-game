@@ -25,6 +25,7 @@ interface IMapState {
             index: number;
             x: number;
             y: number;
+            itemsId: { id: number; type: string }[];
         }
     },
     chestsAreaDetection: {
@@ -58,7 +59,21 @@ const initialState: IMapState = {
             open: false,
             index: 81,
             x: 1008,
-            y: 96
+            y: 96,
+            itemsId: [
+                {
+                    id: 0,
+                    type: "weapon"
+                },
+                {
+                    id: 0,
+                    type: "shield"
+                },
+                {
+                    id: 0,
+                    type: "armor"
+                }
+            ]
         }
     },
     chestsAreaDetection: {

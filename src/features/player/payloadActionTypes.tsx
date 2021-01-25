@@ -8,3 +8,8 @@ export interface clickedIndex {
     index: number;
     refresh: number;
 }
+
+export interface giveItem {
+    id: number;
+    type: string;
+}

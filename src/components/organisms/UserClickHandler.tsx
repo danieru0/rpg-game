@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPlayer } from '../../features/player/playerSlice';
+import { selectPlayer, giveItems } from '../../features/player/playerSlice';
 import { selectMonster, hitMonster, destroyMonster, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
 import { selectMap, openChest } from '../../features/map/mapSlice';
 import usePrevious from '../../hooks/usePrevious';
@@ -45,6 +45,13 @@ const UserClickHandler = () => {
                     if (playerSelector.clickedIndex.index === mapSelector.chestsAreaDetection[playerSelector.currentIndex].chestIndex) {
                         if (mapSelector.chests[mapSelector.chestsAreaDetection[playerSelector.currentIndex].id].open === false) {
                             dispatch(openChest(mapSelector.chestsAreaDetection[playerSelector.currentIndex].id));
+
+                            mapSelector.chests[mapSelector.chestsAreaDetection[playerSelector.currentIndex].id].itemsId.forEach((item) => {
+                                dispatch(giveItems({
+                                    id: item.id,
+                                    type: item.type
+                                }))
+                            })
                         }
                     }
                 }

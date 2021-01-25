@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { playerPosition, clickedIndex } from './payloadActionTypes';
+import { playerPosition, clickedIndex, giveItem } from './payloadActionTypes';
 import { RootState } from '../../app/store';
+import { weapons, shields, armors } from '../../assets/items/items';
 
 interface IPlayerState {
     x: number;
@@ -18,6 +19,7 @@ interface IPlayerState {
     armor_hp: number;
     maxHP: number;
     base_attack: number;
+    inventoryItemsNumber: number;
     weapon_attack: number;
     def: number;
     money: number;
@@ -42,7 +44,13 @@ interface IPlayerState {
             imgName: string;
             id: number;
             type: string;
-        }
+        } | null;
+    },
+    inventory: {
+        [key: number]: {
+            id: number;
+            type: string;
+        } | null;
     }
 }
 
@@ -58,35 +66,40 @@ const initialState: IPlayerState = {
     currentIndex: 93,
     startIndex: 93,
     lvl: 1,
-    hp: 40,
-    armor_hp: 10,
-    maxHP: 40,
+    hp: 30,
+    armor_hp: 0,
+    maxHP: 30,
     base_attack: 5,
-    weapon_attack: 3,
-    def: 1,
+    inventoryItemsNumber: 0,
+    weapon_attack: 0,
+    def: 0,
     money: 0,
     equipmnent: {
-        weapon: {
-            name: "Drewniany miecz",
-            attack: 3,
-            imgName: ".weapon1",
-            id: 0,
-            type: "weapon"
-        },
-        armor: {
-            name: "Niebieska kurtka",
-            hp: 10,
-            imgName: ".armor1",
-            id: 0,
-            type: "armor"
-        },
-        shield: {
-            name: "Drewniana tarcza",
-            def: 1,
-            imgName: ".shield1",
-            id: 0,
-            type: "shield"
-        }
+        weapon: null,
+        armor: null,
+        shield: null
+    },
+    inventory: {
+        0: null,
+        1: null,
+        2: null,
+        3: null,
+        4: null,
+        5: null,
+        6: null,
+        7: null,
+        8: null,
+        9: null,
+        10: null,
+        11: null,
+        12: null,
+        13: null,
+        14: null,
+        15: null,
+        16: null,
+        17: null,
+        18: null,
+        19: null
     }
 }
 
@@ -117,11 +130,21 @@ export const playerSlice = createSlice({
             state.x = state.xStart;
             state.y = state.yStart;
             state.currentIndex = state.startIndex;
+        },
+        giveItems: (state, action: PayloadAction<giveItem>) => {
+            if (state.inventoryItemsNumber < 21) {
+                state.inventory[state.inventoryItemsNumber] = {
+                    id: action.payload.id,
+                    type: action.payload.type
+                }
+
+                state.inventoryItemsNumber += 1;
+            }
         }
     }
 })
 
-export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition } = playerSlice.actions;
+export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems } = playerSlice.actions;
 
 export const selectPlayer = (state: RootState) => state.player;
 

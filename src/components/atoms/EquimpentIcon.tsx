@@ -4,8 +4,20 @@ import { useSelector } from 'react-redux';
 import { selectCanvas } from '../../features/canvas/canvasSlice';
 
 interface IEquipmentIconProps {
-    text: string;
-    image: string | null;
+    text?: string;
+    image: string | null | undefined;
+    wrapperWidth: number;
+    wrapperHeight: number;
+    iconWidth: number;
+}
+
+interface IWrapperProps {
+    width: number;
+    height: number;
+}
+
+interface IIconProps {
+    width: number;
 }
 
 const Container = styled.div`
@@ -15,9 +27,9 @@ const Container = styled.div`
     align-items: center;
 `
 
-const ItemWrapper = styled.div`
-    width: 64px;
-    height: 64px;
+const ItemWrapper = styled.div<IWrapperProps>`
+    width: ${({width}) => width}px;
+    height: ${({height}) => height}px;
     border: 5px solid ${({theme}) => theme.border};
     background-color: ${({theme}) => theme.primaryDark};
     display: flex;
@@ -31,14 +43,14 @@ const ItemText = styled.p`
     font-size: 14px
 `
 
-const ItemIcon = styled.img`
-    width: 48px;
+const ItemIcon = styled.img<IIconProps>`
+    width: ${({width}) => width}px;
     image-rendering: pixelated;
     user-select: none;
     user-drag: none;
 `
 
-const EquimpentIcon = ({text, image}: IEquipmentIconProps) => {
+const EquimpentIcon = ({text, image, wrapperHeight, wrapperWidth, iconWidth}: IEquipmentIconProps) => {
     const canvasSelector = useSelector(selectCanvas);
     const iconRef = useRef<HTMLImageElement | null>();
     const [refresh, setRefresh] = useState(0); //eslint-disable-line
@@ -55,14 +67,16 @@ const EquimpentIcon = ({text, image}: IEquipmentIconProps) => {
 
     return (
         <Container>
-            <ItemWrapper>
+            <ItemWrapper width={wrapperWidth} height={wrapperHeight}>
                 {
                     iconRef && iconRef.current && (
-                        <ItemIcon src={iconRef.current.src} />
+                        <ItemIcon width={iconWidth} src={iconRef.current.src} />
                     )
                 }
             </ItemWrapper>
-            <ItemText>{text}</ItemText>
+            {
+                text && <ItemText>{text}</ItemText>
+            }
         </Container>
     );
 };
