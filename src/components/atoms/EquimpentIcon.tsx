@@ -9,6 +9,8 @@ interface IEquipmentIconProps {
     wrapperWidth: number;
     wrapperHeight: number;
     iconWidth: number;
+    onMouseEnter: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    onMouseLeave: () => void;
 }
 
 interface IWrapperProps {
@@ -50,7 +52,7 @@ const ItemIcon = styled.img<IIconProps>`
     user-drag: none;
 `
 
-const EquimpentIcon = ({text, image, wrapperHeight, wrapperWidth, iconWidth}: IEquipmentIconProps) => {
+const EquimpentIcon = ({text, image, wrapperHeight, wrapperWidth, iconWidth, onMouseEnter, onMouseLeave}: IEquipmentIconProps) => {
     const canvasSelector = useSelector(selectCanvas);
     const iconRef = useRef<HTMLImageElement | null>();
     const [refresh, setRefresh] = useState(0); //eslint-disable-line
@@ -70,7 +72,7 @@ const EquimpentIcon = ({text, image, wrapperHeight, wrapperWidth, iconWidth}: IE
             <ItemWrapper width={wrapperWidth} height={wrapperHeight}>
                 {
                     iconRef && iconRef.current && (
-                        <ItemIcon width={iconWidth} src={iconRef.current.src} />
+                        <ItemIcon onMouseLeave={onMouseLeave} onMouseEnter={(e) => onMouseEnter(e)} width={iconWidth} src={iconRef.current.src} />
                     )
                 }
             </ItemWrapper>

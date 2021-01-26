@@ -8,6 +8,7 @@ import MonsterPlayerDetection from './components/organisms/MonsterPlayerDetectio
 import UserClickHandler from './components/organisms/UserClickHandler';
 import LeftSide from './components/organisms/LeftSide';
 import RightSide from './components/organisms/RightSide';
+import ItemInfoHover from './components/organisms/ItemInfoHover';
 
 const Container = styled.div`
 	width: 100%;
@@ -21,6 +22,7 @@ const Container = styled.div`
 function App() {
 	return (
 		<Container>
+			<ItemInfoHover />
 			<UserClickHandler />
 			<MonsterPlayerDetection />
 			<PlayerMovement />

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { playerPosition, clickedIndex, giveItem } from './payloadActionTypes';
 import { RootState } from '../../app/store';
-import { weapons, shields, armors } from '../../assets/items/items';
+//import { weapons, shields, armors } from '../../assets/items/items';
 
 interface IPlayerState {
     x: number;

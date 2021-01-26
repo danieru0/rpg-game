@@ -1,32 +1,36 @@
 type itemType = "weapon" | "shield" | "armor";
+type rarityType = "white" | "green" | "purple" | "red";
 
-interface IWeapons {
+export interface IWeapons {
     [key: number]: {
         name: string;
         attack: number;
         imgName: string;
         id: number;
         type: itemType;
+        rarity: rarityType;
     }
 }
 
-interface IArmors {
+export interface IArmors {
     [key: number]: {
         name: string;
         hp: number;
         imgName: string;
         id: number;
-        type: itemType
+        type: itemType;
+        rarity: rarityType;
     }
 }
 
-interface IShields {
+export interface IShields {
     [key: number]: {
         name: string;
         def: number;
         imgName: string;
         id: number;
         type: itemType;
+        rarity: rarityType;
     }
 }
 
@@ -36,7 +40,8 @@ const weapons: IWeapons = {
         attack: 3,
         imgName: ".weapon1",
         id: 0,
-        type: "weapon"
+        type: "weapon",
+        rarity: "white",
     }
 }
 
@@ -46,7 +51,8 @@ const armors: IArmors = {
         hp: 10,
         imgName: ".armor1",
         id: 0,
-        type: "armor"
+        type: "armor",
+        rarity: "white",
     }
 }
 
@@ -56,7 +62,8 @@ const shields: IShields = {
         def: 1,
         imgName: ".shield1",
         id: 0,
-        type: "shield"
+        type: "shield",
+        rarity: "white",
     }
 }
 

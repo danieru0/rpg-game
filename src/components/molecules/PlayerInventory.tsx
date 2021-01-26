@@ -6,6 +6,11 @@ import { armors, shields, weapons } from '../../assets/items/items';
 
 import EquimpentIcon from '../atoms/EquimpentIcon';
 
+interface IPlayerInventory {
+    onMouseEnter: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number | undefined, type: string | undefined) => void;
+    onMouseLeave: () => void;
+}
+
 const Container = styled.div`
     width: 100%;
     height: 350px;
@@ -18,7 +23,7 @@ const Container = styled.div`
     user-select: none;
 `
 
-const PlayerInventory = () => {
+const PlayerInventory = ({onMouseEnter, onMouseLeave}: IPlayerInventory) => {
     const playerSelector = useSelector(selectPlayer);
     
     return (
@@ -47,7 +52,7 @@ const PlayerInventory = () => {
                     }
 
                     return (
-                        <EquimpentIcon iconWidth={32} wrapperWidth={48} wrapperHeight={48} image={itemData && itemData.imgName} />
+                        <EquimpentIcon onMouseLeave={onMouseLeave} key={key} onMouseEnter={(e) => onMouseEnter(e, inventorySlot?.id, inventorySlot?.type)} iconWidth={32} wrapperWidth={48} wrapperHeight={48} image={itemData && itemData.imgName} />
                     )
                 })
             }
