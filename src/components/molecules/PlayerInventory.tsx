@@ -9,6 +9,7 @@ import EquimpentIcon from '../atoms/EquimpentIcon';
 interface IPlayerInventory {
     onMouseEnter: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number | undefined, type: string | undefined) => void;
     onMouseLeave: () => void;
+    onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number | undefined, type: string | undefined) => void;
 }
 
 const Container = styled.div`
@@ -23,11 +24,11 @@ const Container = styled.div`
     user-select: none;
 `
 
-const PlayerInventory = ({onMouseEnter, onMouseLeave}: IPlayerInventory) => {
+const PlayerInventory = ({onMouseEnter, onMouseLeave, onContextMenu}: IPlayerInventory) => {
     const playerSelector = useSelector(selectPlayer);
     
     return (
-        <Container>
+        <Container onContextMenu={(e) => e.preventDefault()}>
             {
                 Object.keys(playerSelector.inventory).map((item, key) => {
                     const inventorySlot = playerSelector.inventory[parseInt(item)];
@@ -52,7 +53,7 @@ const PlayerInventory = ({onMouseEnter, onMouseLeave}: IPlayerInventory) => {
                     }
 
                     return (
-                        <EquimpentIcon onMouseLeave={onMouseLeave} key={key} onMouseEnter={(e) => onMouseEnter(e, inventorySlot?.id, inventorySlot?.type)} iconWidth={32} wrapperWidth={48} wrapperHeight={48} image={itemData && itemData.imgName} />
+                        <EquimpentIcon onContextMenu={(e) => onContextMenu(e, inventorySlot?.slotId, inventorySlot?.type)} onMouseLeave={onMouseLeave} key={key} onMouseEnter={(e) => onMouseEnter(e, inventorySlot?.id, inventorySlot?.type)} iconWidth={32} wrapperWidth={48} wrapperHeight={48} image={itemData && itemData.imgName} />
                     )
                 })
             }

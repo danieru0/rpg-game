@@ -12,12 +12,12 @@ interface IItemInfoHover {
 }
 
 const initialState: IItemInfoHover = {
-    x: 0,
-    y: 0,
-    name: "Drewniany miecz",
-    buffName: "attack",
-    buffValue: 3,
-    rarity: "white"
+    x: -9999,
+    y: -9999,
+    name: "",
+    buffName: "",
+    buffValue: 0,
+    rarity: ""
 }
 
 export const itemInfoHoverSlice = createSlice({
@@ -26,6 +26,7 @@ export const itemInfoHoverSlice = createSlice({
     reducers: {
         setItem: (state, action: PayloadAction<setItemInterface>) => {
             const { x, y, name, buffName, buffValue, rarity } = action.payload;
+            
             state.x = x;
             state.y = y;
             state.name = name;

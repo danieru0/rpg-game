@@ -113,7 +113,7 @@ function Canvas() {
 
 	return (
 		<Viewport ref={viewportRef} width={canvasSelector.viewport.width} height={canvasSelector.viewport.height}>
-			<canvas ref={canvasRef} width={canvasSelector.width} height={canvasSelector.height}></canvas>
+			<canvas onContextMenu={(e) => e.preventDefault()} ref={canvasRef} width={canvasSelector.width} height={canvasSelector.height}></canvas>
 		</Viewport>
 	);
 }

@@ -8,6 +8,7 @@ import EquimpentIcon from '../atoms/EquimpentIcon';
 interface IPlayerEquipment {
     onMouseEnter: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number | undefined, type: string | undefined) => void;
     onMouseLeave: () => void;
+    onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number | undefined, type: string | undefined, equipment: boolean) => void;
 }
 
 const Container = styled.div`
@@ -21,14 +22,14 @@ const Container = styled.div`
     user-select: none;
 `
 
-const PlayerEquimpent = ({onMouseEnter, onMouseLeave}: IPlayerEquipment) => {
+const PlayerEquimpent = ({onMouseEnter, onMouseLeave, onContextMenu}: IPlayerEquipment) => {
     const playerSelector = useSelector(selectPlayer);
 
     return (
         <Container>
-            <EquimpentIcon onMouseLeave={onMouseLeave} onMouseEnter={(e) => onMouseEnter(e, playerSelector.equipmnent.weapon?.id, playerSelector.equipmnent.weapon?.type)} iconWidth={48} wrapperWidth={64} wrapperHeight={64} image={playerSelector.equipmnent.weapon && playerSelector.equipmnent.weapon.imgName} text="weapon"/>
-            <EquimpentIcon onMouseLeave={onMouseLeave} onMouseEnter={(e) => onMouseEnter(e, playerSelector.equipmnent.armor?.id, playerSelector.equipmnent.armor?.type)} iconWidth={48} wrapperWidth={64} wrapperHeight={64} image={playerSelector.equipmnent.armor && playerSelector.equipmnent.armor.imgName} text="armor"/>
-            <EquimpentIcon onMouseLeave={onMouseLeave} onMouseEnter={(e) => onMouseEnter(e, playerSelector.equipmnent.shield?.id, playerSelector.equipmnent.shield?.type)} iconWidth={48} wrapperWidth={64} wrapperHeight={64} image={playerSelector.equipmnent.shield && playerSelector.equipmnent.shield.imgName} text="shield"/>
+            <EquimpentIcon onContextMenu={(e) => onContextMenu(e, playerSelector.equipmnent.weapon?.id, playerSelector.equipmnent.weapon?.type, true)} onMouseLeave={onMouseLeave} onMouseEnter={(e) => onMouseEnter(e, playerSelector.equipmnent.weapon?.id, playerSelector.equipmnent.weapon?.type)} iconWidth={48} wrapperWidth={64} wrapperHeight={64} image={playerSelector.equipmnent.weapon && playerSelector.equipmnent.weapon.imgName} text="weapon"/>
+            <EquimpentIcon onContextMenu={(e) => onContextMenu(e, playerSelector.equipmnent.armor?.id, playerSelector.equipmnent.armor?.type, true)} onMouseLeave={onMouseLeave} onMouseEnter={(e) => onMouseEnter(e, playerSelector.equipmnent.armor?.id, playerSelector.equipmnent.armor?.type)} iconWidth={48} wrapperWidth={64} wrapperHeight={64} image={playerSelector.equipmnent.armor && playerSelector.equipmnent.armor.imgName} text="armor"/>
+            <EquimpentIcon onContextMenu={(e) => onContextMenu(e, playerSelector.equipmnent.shield?.id, playerSelector.equipmnent.shield?.type, true)} onMouseLeave={onMouseLeave} onMouseEnter={(e) => onMouseEnter(e, playerSelector.equipmnent.shield?.id, playerSelector.equipmnent.shield?.type)} iconWidth={48} wrapperWidth={64} wrapperHeight={64} image={playerSelector.equipmnent.shield && playerSelector.equipmnent.shield.imgName} text="shield"/>
         </Container>
     );
 };

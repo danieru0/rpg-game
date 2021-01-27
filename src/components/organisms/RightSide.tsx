@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setItem, clearItem } from '../../features/itemInfoHover/itemInfoHoverSlice';
+import { setContextMenu, clearContextMenu } from '../../features/itemContextMenu/itemContextMenuSlice';
 import { weapons, shields, armors } from '../../assets/items/items';
 
 import PlayerEquimpent from '../molecules/PlayerEquimpent';
@@ -65,10 +66,38 @@ const RightSide = () => {
         dispatch(clearItem());
     }
 
+    const handleContextMenu = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number | undefined, type: string | undefined, equipment?: boolean) => {
+        event.preventDefault();
+        event.stopPropagation();
+        event.nativeEvent.stopImmediatePropagation();
+
+        if (id !== undefined && type !== undefined) {
+            const itemRect = event.currentTarget.getBoundingClientRect();
+            dispatch(clearItem());
+            dispatch(setContextMenu({
+                x: itemRect.left,
+                y: itemRect.top + 3,
+                type: type,
+                id: id,
+                equipment: equipment ? equipment : false
+            }));
+        }
+    }
+
+    const handleOutsideClick = useCallback(() => {
+        dispatch(clearContextMenu()); 
+    }, [dispatch]);
+
+    useEffect(() => {
+        window.addEventListener('click', handleOutsideClick);
+
+        return () => window.removeEventListener('click', handleOutsideClick);
+    }, [handleOutsideClick]);
+
     return (
         <Container>
-            <PlayerEquimpent onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} />
-            <PlayerInventory onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} />
+            <PlayerEquimpent onContextMenu={handleContextMenu} onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} />
+            <PlayerInventory onContextMenu={handleContextMenu} onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} />
         </Container>
     );
 };

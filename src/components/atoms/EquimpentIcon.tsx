@@ -11,6 +11,7 @@ interface IEquipmentIconProps {
     iconWidth: number;
     onMouseEnter: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     onMouseLeave: () => void;
+    onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 interface IWrapperProps {
@@ -52,7 +53,7 @@ const ItemIcon = styled.img<IIconProps>`
     user-drag: none;
 `
 
-const EquimpentIcon = ({text, image, wrapperHeight, wrapperWidth, iconWidth, onMouseEnter, onMouseLeave}: IEquipmentIconProps) => {
+const EquimpentIcon = ({text, image, wrapperHeight, wrapperWidth, iconWidth, onMouseEnter, onMouseLeave, onContextMenu}: IEquipmentIconProps) => {
     const canvasSelector = useSelector(selectCanvas);
     const iconRef = useRef<HTMLImageElement | null>();
     const [refresh, setRefresh] = useState(0); //eslint-disable-line
@@ -62,17 +63,19 @@ const EquimpentIcon = ({text, image, wrapperHeight, wrapperWidth, iconWidth, onM
             if (image) {
                 iconRef.current = document.querySelector(image) as HTMLImageElement;
                 setRefresh(Math.random());
+            } else {
+                iconRef.current = undefined;
+                setRefresh(Math.random());
             }
         }
     }, [canvasSelector.imagesLoaded, canvasSelector.allImagesToLoad, image]);
-
 
     return (
         <Container>
             <ItemWrapper width={wrapperWidth} height={wrapperHeight}>
                 {
                     iconRef && iconRef.current && (
-                        <ItemIcon onMouseLeave={onMouseLeave} onMouseEnter={(e) => onMouseEnter(e)} width={iconWidth} src={iconRef.current.src} />
+                        <ItemIcon onContextMenu={(e) => onContextMenu(e)} onMouseLeave={onMouseLeave} onMouseEnter={(e) => onMouseEnter(e)} width={iconWidth} src={iconRef.current.src} />
                     )
                 }
             </ItemWrapper>
