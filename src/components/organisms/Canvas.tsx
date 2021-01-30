@@ -4,7 +4,6 @@ import { selectCanvas } from '../../features/canvas/canvasSlice';
 import { selectMap } from '../../features/map/mapSlice';
 import { selectPlayer, setClickedIndex } from '../../features/player/playerSlice';
 import { selectMonster } from '../../features/monster/monsterSlice';
-import tilesPositions from '../../assets/tiles/tilesPositions';
 import styled from 'styled-components';
 
 interface IViewportProps {
@@ -17,6 +16,9 @@ const Viewport = styled.div<IViewportProps>`
 	height: ${({height}) => height}px;
 	overflow: hidden;
 `
+
+// temporary change later
+type layersNames = "blockTiles" | "floor" | "player" | "items" | "chests" | "monsters" | "walls" | "wallsDecoration";
 
 function Canvas() {
 	const dispatch = useDispatch();
@@ -35,46 +37,32 @@ function Canvas() {
 		ctx.fillStyle = mapSelector.backgroundColor;
 		ctx.fillRect(0, 0, mapSelector.width, mapSelector.height);
 
-		mapSelector.layers.blockTiles.forEach((row, y) => {
-			row.forEach((value, x) => {
-				ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['floor'][value].left, tilesPositions[mapSelector.tileName]['floor'][value].top, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
-			});
+		Object.keys(mapSelector.layers).forEach(item => {
+			const layerName = item as layersNames;
+			const layer = mapSelector.layers[layerName];
+
+			if (item === 'player') {
+				ctx.drawImage(document.querySelector('.player') as HTMLImageElement, 0, 0, 16, 16, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.tileSize);
+			} else if (item === 'chests') {
+				for (let [key, value] of Object.entries(mapSelector.chests)) { //eslint-disable-line
+					ctx.drawImage(document.querySelector(value.open ? '.chestOpen' : '.chestClosed') as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
+				}
+			} else if (item === 'monsters') {
+				for (let [key, value] of Object.entries(monsterSelector.monsters)) { //eslint-disable-line
+					ctx.drawImage(document.querySelector(value.entityImage) as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
+				}
+			} else if (layer) {
+				layer.tiles.forEach((row, y) => {
+					row.forEach((value, x) => {
+						const left = (value - 1 - layer.firstGrid) % mapSelector.tileWidth;
+						const top = (value - 1 - left - layer.firstGrid) / mapSelector.tileHeight;
+
+						ctx.drawImage(document.querySelector(layer.tileName) as HTMLImageElement, left * 16, top * 16, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
+					})
+				})
+			}
 		})
-
-		mapSelector.layers.floor.forEach((row, y) => {
-			row.forEach((value, x) => {
-				ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['floor'][value].left, tilesPositions[mapSelector.tileName]['floor'][value].top, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
-			});
-		})
-
-		ctx.drawImage(document.querySelector('.player') as HTMLImageElement, 0, 0, 16, 16, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.tileSize);
-		
-		mapSelector.layers.items.forEach((row, y) => {
-			row.forEach((value, x) => {
-				ctx.drawImage(document.querySelector(`.${mapSelector.tileNameItems}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['items'][value].left, tilesPositions[mapSelector.tileName]['items'][value].top, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
-			});
-		})
-
-		for (let [key, value] of Object.entries(mapSelector.chests)) { //eslint-disable-line
-			ctx.drawImage(document.querySelector(value.open ? '.chestOpen' : '.chestClosed') as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
-		}
-
-		for (let [key, value] of Object.entries(monsterSelector.monsters)) { //eslint-disable-line
-			ctx.drawImage(document.querySelector(value.entityImage) as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
-		}
-
-		mapSelector.layers.walls.forEach((row, y) => {
-			row.forEach((value, x) => {
-				ctx.drawImage(document.querySelector(`.${mapSelector.tileName}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['walls'][value].left, tilesPositions[mapSelector.tileName]['walls'][value].top, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
-			})
-		})
-
-		mapSelector.layers.wallsDecoration.forEach((row, y) => {
-			row.forEach((value, x) => {
-				ctx.drawImage(document.querySelector(`.${mapSelector.tileNameItems}`) as HTMLImageElement, tilesPositions[mapSelector.tileName]['items'][value].left, tilesPositions[mapSelector.tileName]['items'][value].top, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
-			});
-		})
-	}, [playerSelector.x, playerSelector.y, mapSelector.width, mapSelector.tileName, mapSelector.layers, mapSelector.backgroundColor, mapSelector.height, canvasSelector.tileSize, monsterSelector.monsters, mapSelector.tileNameItems, mapSelector.chests])
+	}, [playerSelector.x, playerSelector.y, mapSelector.width, mapSelector.layers, mapSelector.backgroundColor, mapSelector.height, canvasSelector.tileSize, monsterSelector.monsters, mapSelector.chests, mapSelector.tileHeight, mapSelector.tileWidth])
 
 	useEffect(() => {
 		if (canvasRef && canvasRef.current) {

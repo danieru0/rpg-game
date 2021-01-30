@@ -31,7 +31,7 @@ const MonsterPlayerDetection = () => {
 
     useEffect(() => {
         easystarRef.current = new easystarjs.js();
-        easystarRef.current.setGrid(mapSelector.layers.blockTiles);
+        easystarRef.current.setGrid(mapSelector.layers.blockTiles.tiles);
         easystarRef.current.setAcceptableTiles([115]);
         easystarRef.current.enableCornerCutting();
     }, [easystarRef]); //eslint-disable-line
