@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { playerPosition, clickedIndex, giveItem } from './payloadActionTypes';
 import { RootState } from '../../app/store';
 import { weapons, shields, armors } from '../../assets/items/items';
+import maps from '../../assets/maps/maps';
 
 interface IPlayerState {
     x: number;
@@ -109,6 +110,7 @@ export const playerSlice = createSlice({
     initialState,
     reducers: {
         setPlayerPosition: (state, action: PayloadAction<playerPosition>) => {
+            console.log('a');
             const { x, y, currentIndex } = action.payload;
             state.x = x;
             state.y = y;
@@ -131,6 +133,14 @@ export const playerSlice = createSlice({
             state.x = state.xStart;
             state.y = state.yStart;
             state.currentIndex = state.startIndex;
+        },
+        setNewPositionFromMap: (state, action: PayloadAction<string>) => {
+            if (maps[action.payload]) {
+                state.x = maps[action.payload].playerXStart;
+                state.y = maps[action.payload].playerYStart;
+                state.currentIndex = maps[action.payload].playerStartIndex;
+                state.startIndex = maps[action.payload].playerStartIndex;
+            }
         },
         giveItems: (state, action: PayloadAction<giveItem>) => {
             if (state.inventoryItemsNumber < 21) {
@@ -213,7 +223,7 @@ export const playerSlice = createSlice({
     }
 })
 
-export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem } = playerSlice.actions;
+export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap } = playerSlice.actions;
 
 export const selectPlayer = (state: RootState) => state.player;
 

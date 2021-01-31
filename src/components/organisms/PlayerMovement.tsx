@@ -14,8 +14,9 @@ const PlayerMovement = () => {
     const [keyDown, setKeyDown] = useState(false);
 
     const handleUserKeyDown = useCallback((event) => {
-        if (!keyDown) {            
+        if (!keyDown && event.srcElement.nodeName !== 'INPUT') {            
             const { key } = event;
+
             let nextPlayerX, nextPlayerY, nextPlayerIndex, direction;
     
             setKeyDown(true);
@@ -45,7 +46,7 @@ const PlayerMovement = () => {
             }
         
             nextPlayerIndex = nextPlayerY * mapSelector.rows + nextPlayerX;
-    
+
             if (mapSelector.layers.blockTiles.tiles[nextPlayerY][nextPlayerX] === 115 && !monsterSelector.blockedIndexesMonsters.includes(nextPlayerIndex) && !mapSelector.blockedIndexesMap.includes(nextPlayerIndex)) {
                 if (direction === "right") {
                     if (nextPlayerX * canvasSelector.tileSize >= 384) {

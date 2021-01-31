@@ -1,42 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { monsterPosition, closeToPlayer, hitMonsterInterface } from './payloadActionTypes';
 import { RootState } from '../../app/store';
-import maps from '../../assets/maps/maps';
+import maps from '../../assets/maps/maps'; 
+import { MonsterDetails } from '../../assets/maps/mapsInterfaces';
 
-interface IMonsterState {
-    monsters: {
-        [key: number]: {
-            x: number;
-            y: number;
-            entityImage: string;
-            currentIndex: number;
-            seeRange: number;
-            closeToPlayer: boolean;
-            id: number;
-            lvl: number;
-            hp: number;
-            maxHP: number;
-            attack: number;
-            def: number;
-        }
-    },
-    monstersAreaDetection: {
-        x: {
-            [key: number]: {
-                ids: number[];
-            }
-        },
-        y: {
-            [key: number]: {
-                ids: number[];
-            }
-        }
-    },
-    blockedIndexesMonsters: number[];
-    monstersCloseToPlayer: number[];
-}
-
-const initialState: IMonsterState = {
+const initialState: MonsterDetails = {
     monsters: {
         0: {
             x: 240,
@@ -225,11 +193,21 @@ export const monsterSlice = createSlice({
             } else {
                 state.monstersCloseToPlayer = [];
             }
+        },
+        setMonsters: (state, action: PayloadAction<string>) => {
+            if (maps[action.payload]) {
+                const { monsters, monstersAreaDetection, monstersCloseToPlayer, blockedIndexesMonsters } = maps[action.payload];
+
+                state.monsters = monsters;
+                state.monstersAreaDetection = monstersAreaDetection;
+                state.monstersCloseToPlayer = monstersCloseToPlayer;
+                state.blockedIndexesMonsters = blockedIndexesMonsters;
+            }
         }
     }
 })
 
-export const { setMonsterPosition, setMonsterCloseToPlayer, hitMonster, destroyMonster, resetMonstersInDungeon, addMonsterCloseToPlayer, clearMonstersCloseToPlayer } = monsterSlice.actions;
+export const { setMonsterPosition, setMonsterCloseToPlayer, hitMonster, destroyMonster, resetMonstersInDungeon, addMonsterCloseToPlayer, clearMonstersCloseToPlayer, setMonsters } = monsterSlice.actions;
 
 export const selectMonster = (state: RootState) => state.monster;
 

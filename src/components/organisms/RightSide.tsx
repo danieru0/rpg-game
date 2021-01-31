@@ -7,13 +7,16 @@ import { weapons, shields, armors } from '../../assets/items/items';
 
 import PlayerEquimpent from '../molecules/PlayerEquimpent';
 import PlayerInventory from '../molecules/PlayerInventory';
+import Console from '../molecules/Console';
 
 const Container = styled.div`
     width: 300px;
     border: 5px solid ${({theme}) => theme.border};
-    border-bottom: none;
     overflow-y: auto;
     background-color: ${({theme}) => theme.primaryDark};
+    display: flex;
+    flex-direction: column;
+    height: 816px;
 `
 
 const RightSide = () => {
@@ -98,6 +101,7 @@ const RightSide = () => {
         <Container>
             <PlayerEquimpent onContextMenu={handleContextMenu} onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} />
             <PlayerInventory onContextMenu={handleContextMenu} onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter} />
+            <Console />
         </Container>
     );
 };

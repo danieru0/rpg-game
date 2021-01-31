@@ -1,69 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import maps from '../../assets/maps/maps';
 import { RootState } from '../../app/store';
+import { MapDetails } from '../../assets/maps/mapsInterfaces'; 
 
-interface IMapState {
-    name: string;
-    tileName: string;
-    tileNameItems: string;
-    tileWidth: number;
-    tileHeight: number;
-    tileSize: number;
-    columns: number;
-    rows: number;
-    width: number;
-    height: number;
-    backgroundColor: string;
-    layers: {
-        blockTiles: {
-            tileName: string;
-            tiles: number[][];
-            firstGrid: number;
-        }
-        floor: {
-            tileName: string;
-            tiles: number[][];
-            firstGrid: number;
-        }
-        player: null;
-        items: {
-            tileName: string;
-            tiles: number[][];
-            firstGrid: number;
-        }
-        chests: null;
-        monsters: null;
-        walls: {
-            tileName: string;
-            tiles: number[][];
-            firstGrid: number;
-        }
-        wallsDecoration: {
-            tileName: string;
-            tiles: number[][];
-            firstGrid: number;
-        }
-    },
-    blockedIndexesMap: number[];
-    chests: {
-        [key: number]: {
-            open: boolean;
-            index: number;
-            x: number;
-            y: number;
-            itemsId: { id: number; type: string }[];
-        }
-    },
-    chestsAreaDetection: {
-        [key: number]: {
-            id: number;
-            chestIndex: number;
-        }
-    },
-
-}
-
-const initialState: IMapState = {
+const initialState: MapDetails = {
     name: "map1",
     tileName: ".dungeon",
     tileNameItems: ".dungeonItems",
@@ -75,6 +15,9 @@ const initialState: IMapState = {
     width: 1440,
     height: 1440,
     backgroundColor: "#1C1117",
+    playerXStart: 144,
+    playerYStart: 144,
+    playerStartIndex: 93,
     layers: {
         blockTiles: {
             firstGrid: 0,
@@ -146,7 +89,9 @@ export const mapSlice = createSlice({
     reducers: {
         setMap: (state, action: PayloadAction<string>) => {
             if (maps[action.payload]) {
-                // to do
+                const { monsters, monstersAreaDetection, monstersCloseToPlayer, blockedIndexesMonsters, ...mapInfo } = maps[action.payload];
+                return {...mapInfo};
+                
             } else {
                 console.error("No map found with this name!");
             }
