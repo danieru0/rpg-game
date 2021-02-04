@@ -55,7 +55,7 @@ function Canvas() {
 				layer.tiles.forEach((row, y) => {
 					row.forEach((value, x) => {
 						const left = (value - 1 - layer.firstGrid) % mapSelector.tileWidth;
-						const top = (value - 1 - left - layer.firstGrid) / mapSelector.tileHeight;
+						const top = Math.floor((value - 1 - left - layer.firstGrid) / mapSelector.tileHeight);
 
 						ctx.drawImage(document.querySelector(layer.tileName) as HTMLImageElement, left * 16, top * 16, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
 					})
@@ -78,8 +78,6 @@ function Canvas() {
 		const x = Math.floor((e.pageX - offsetLeftWithViewport) / 48);
 		const y = Math.floor((e.pageY - offsetTopWithVieport) / 48);
 		const index = Math.floor(y * mapSelector.rows + x);
-
-		console.log(x, y, index);
 
 		dispatch(setClickedIndex({index: index, refresh: Math.random()}));
 	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch]);

@@ -134,7 +134,7 @@ const MonsterPlayerDetection = () => {
                                             dispatch(resetMonstersInDungeon(mapSelector.name));
                                             dispatch(setPlayerHp(null));
                                             dispatch(resetPlayerPosition());
-                                            dispatch(resetViewport());
+                                            dispatch(resetViewport(null));
                                         }, 50);
                                     }
                                 }

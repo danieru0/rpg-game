@@ -110,7 +110,6 @@ export const playerSlice = createSlice({
     initialState,
     reducers: {
         setPlayerPosition: (state, action: PayloadAction<playerPosition>) => {
-            console.log('a');
             const { x, y, currentIndex } = action.payload;
             state.x = x;
             state.y = y;

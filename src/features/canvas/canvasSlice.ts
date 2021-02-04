@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { canvasSize } from './payloadActionTypes';
 import { RootState } from '../../app/store';
+import maps from '../../assets/maps/maps';
 
 interface ICanvasState {
     width: number;
@@ -33,7 +34,7 @@ const initialState: ICanvasState = {
     tileSize: 48,
     mapLoaded: true,
     imagesLoaded: 0,
-    allImagesToLoad: 9
+    allImagesToLoad: 10
 }
 
 export const canvasSlice = createSlice({
@@ -51,9 +52,9 @@ export const canvasSlice = createSlice({
         setViewportPositionY: (state, action: PayloadAction<number>) => {
             state.viewport.y = action.payload;
         },
-        resetViewport: (state) => {
-            state.viewport.x = 0;
-            state.viewport.y = 0;
+        resetViewport: (state, action: PayloadAction<string | null>) => {
+            state.viewport.x = action.payload ? maps[action.payload as string].viewport.x : 0;
+            state.viewport.y = action.payload ? maps[action.payload as string].viewport.y : 0;
             state.viewport.refresh = Math.random();
         },
         setImagesLoaded: (state) => {

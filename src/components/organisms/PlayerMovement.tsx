@@ -47,7 +47,7 @@ const PlayerMovement = () => {
         
             nextPlayerIndex = nextPlayerY * mapSelector.rows + nextPlayerX;
 
-            if (mapSelector.layers.blockTiles.tiles[nextPlayerY][nextPlayerX] === 115 && !monsterSelector.blockedIndexesMonsters.includes(nextPlayerIndex) && !mapSelector.blockedIndexesMap.includes(nextPlayerIndex)) {
+            if ((mapSelector.layers.blockTiles.tiles[nextPlayerY][nextPlayerX] === 115 || mapSelector.layers.blockTiles.tiles[nextPlayerY][nextPlayerX] === 58) && !monsterSelector.blockedIndexesMonsters.includes(nextPlayerIndex) && !mapSelector.blockedIndexesMap.includes(nextPlayerIndex)) {
                 if (direction === "right") {
                     if (nextPlayerX * canvasSelector.tileSize >= 384) {
                         dispatch(setViewportPositionX(canvasSelector.viewport.x + 48));

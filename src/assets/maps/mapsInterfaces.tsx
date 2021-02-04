@@ -46,35 +46,21 @@ export interface MapDetails {
     playerXStart: number;
     playerYStart: number;
     playerStartIndex: number;
+    viewport: {
+        x: number;
+        y: number;
+    }
     layers: {
+        [key: string]: {
+            tileName: string;
+            tiles: number[][];
+            firstGrid: number;
+        } | null;
         blockTiles: {
             tileName: string;
             tiles: number[][];
             firstGrid: number;
         }
-        floor: {
-            tileName: string;
-            tiles: number[][];
-            firstGrid: number;
-        }
-        player: null;
-        items: {
-            tileName: string;
-            tiles: number[][];
-            firstGrid: number;
-        } | null
-        chests: null;
-        monsters: null;
-        walls: {
-            tileName: string;
-            tiles: number[][];
-            firstGrid: number;
-        }
-        wallsDecoration: {
-            tileName: string;
-            tiles: number[][];
-            firstGrid: number;
-        } | null
     },
     blockedIndexesMap: number[]
     chests: {

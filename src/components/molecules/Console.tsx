@@ -72,7 +72,7 @@ const Console = () => {
                         dispatch(setMap(commandArray[2]));
                         dispatch(setNewPositionFromMap(commandArray[2]));
                         dispatch(setMonsters(commandArray[2]));
-                        dispatch(resetViewport());
+                        dispatch(resetViewport(commandArray[2]));
                     }
                     break;
                 }
@@ -86,12 +86,7 @@ const Console = () => {
     return (
         <Container>
             <Wrapper>
-                <Text>Zabiłeś baby zombie</Text>
-                <Text>Zabiłeś baby zombie</Text>
-                <Text>Zabiłeś baby zombie</Text>
-                <Text>Zabiłeś baby zombie</Text>
-                <Text>Zabiłeś baby zombie</Text>
-                <Text>Zabiłeś baby zombie</Text>
+                
             </Wrapper>
             <Form onSubmit={handleConsoleSubmit}> 
                 <Input value={consoleText} onChange={handleInputChange}/>

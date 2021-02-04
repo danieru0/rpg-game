@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setImagesLoaded } from '../../features/canvas/canvasSlice';
 
 import Dungeon from '../../assets/tiles/dungeon.png';
+import Village from '../../assets/tiles/village.png';
 import DungeonItems from '../../assets/tiles/dungeonItems.png';
 import Player from '../../assets/entites/player.png';
 import Monster1 from '../../assets/entites/monster-1.png';
@@ -27,6 +28,7 @@ function TilesBuffer() {
 	return (
 		<Container>
             <img onLoad={handleImageLoad} className="dungeon" alt="" src={Dungeon} />
+            <img onLoad={handleImageLoad} className="village" alt="" src={Village} />
             <img onLoad={handleImageLoad} className="dungeonItems" alt="" src={DungeonItems} />
             <img onLoad={handleImageLoad} className="player" alt="" src={Player} />
             <img onLoad={handleImageLoad} className="monster1" alt="" src={Monster1} />
