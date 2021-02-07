@@ -22,6 +22,7 @@ interface IPlayerState {
     base_attack: number;
     inventoryItemsNumber: number;
     weapon_attack: number;
+    canMove: boolean;
     def: number;
     money: number;
     equipmnent: {
@@ -70,6 +71,7 @@ const initialState: IPlayerState = {
     lvl: 1,
     hp: 30,
     armor_hp: 0,
+    canMove: true,
     maxHP: 30,
     base_attack: 5,
     inventoryItemsNumber: 0,
@@ -218,11 +220,14 @@ export const playerSlice = createSlice({
                     }
                 }
             }
+        },
+        setCanMove: (state, action: PayloadAction<boolean>) => {
+            state.canMove = action.payload;
         }
     }
 })
 
-export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap } = playerSlice.actions;
+export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove } = playerSlice.actions;
 
 export const selectPlayer = (state: RootState) => state.player;
 

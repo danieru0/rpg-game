@@ -144,7 +144,8 @@ const maps: IMap = {
             }
         },
         blockedIndexesMonsters: [155, 230],
-        monstersCloseToPlayer: []
+        monstersCloseToPlayer: [],
+        triggers: null
     },
     map2: {
         name: "map2",
@@ -198,7 +199,8 @@ const maps: IMap = {
             y: {}
         },
         blockedIndexesMonsters: [],
-        monstersCloseToPlayer: []
+        monstersCloseToPlayer: [],
+        triggers: null
     },
     map3: {
         name: "map3",
@@ -254,7 +256,19 @@ const maps: IMap = {
             y: {}
         },
         blockedIndexesMonsters: [],
-        monstersCloseToPlayer: []
+        monstersCloseToPlayer: [],
+        triggers: {
+            773: {
+                map: 'map3',
+                type: "modal-exit",
+                value: ['map1']
+            },
+            774: {
+                map: 'map3',
+                type: "modal-exit",
+                value: ['map1']
+            }
+        }
     }
 }
 

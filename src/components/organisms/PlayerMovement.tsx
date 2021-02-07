@@ -4,6 +4,7 @@ import { selectPlayer, setPlayerPosition } from '../../features/player/playerSli
 import { selectMap } from '../../features/map/mapSlice';
 import { selectMonster } from '../../features/monster/monsterSlice';
 import { selectCanvas, setViewportPositionX, setViewportPositionY } from '../../features/canvas/canvasSlice';
+import { selectTriggers, triggerActions } from '../../features/triggers/triggersSlice';
 
 const PlayerMovement = () => {
     const dispatch = useDispatch();
@@ -11,10 +12,11 @@ const PlayerMovement = () => {
     const mapSelector = useSelector(selectMap);
     const canvasSelector = useSelector(selectCanvas);
     const monsterSelector = useSelector(selectMonster);
+    const triggersSelector = useSelector(selectTriggers);
     const [keyDown, setKeyDown] = useState(false);
 
     const handleUserKeyDown = useCallback((event) => {
-        if (!keyDown && event.srcElement.nodeName !== 'INPUT') {            
+        if (!keyDown && event.srcElement.nodeName !== 'INPUT' && playerSelector.canMove) {       
             const { key } = event;
 
             let nextPlayerX, nextPlayerY, nextPlayerIndex, direction;
@@ -49,19 +51,19 @@ const PlayerMovement = () => {
 
             if ((mapSelector.layers.blockTiles.tiles[nextPlayerY][nextPlayerX] === 115 || mapSelector.layers.blockTiles.tiles[nextPlayerY][nextPlayerX] === 58) && !monsterSelector.blockedIndexesMonsters.includes(nextPlayerIndex) && !mapSelector.blockedIndexesMap.includes(nextPlayerIndex)) {
                 if (direction === "right") {
-                    if (nextPlayerX * canvasSelector.tileSize >= 384) {
+                    if (nextPlayerX * canvasSelector.tileSize >= 384 && nextPlayerX * canvasSelector.tileSize <= canvasSelector.width - 384) {
                         dispatch(setViewportPositionX(canvasSelector.viewport.x + 48));
                     }
                 } else if (direction === "left") {
-                    if (nextPlayerX * canvasSelector.tileSize >= 336) {
+                    if (nextPlayerX * canvasSelector.tileSize >= 336 && nextPlayerX * canvasSelector.tileSize <= canvasSelector.width - 432) {
                         dispatch(setViewportPositionX(canvasSelector.viewport.x - 48));
                     }
                 } else if (direction === "down") {
-                    if (nextPlayerY * canvasSelector.tileSize >= 384) {
+                    if (nextPlayerY * canvasSelector.tileSize >= 384 && nextPlayerY * canvasSelector.tileSize <= canvasSelector.height - 384) {
                         dispatch(setViewportPositionY(canvasSelector.viewport.y + 48));
                     }
                 } else if (direction === "up") {
-                    if (nextPlayerY * canvasSelector.tileSize >= 336) {
+                    if (nextPlayerY * canvasSelector.tileSize >= 336 && nextPlayerY * canvasSelector.tileSize <= canvasSelector.height - 432) {
                         dispatch(setViewportPositionY(canvasSelector.viewport.y - 48));
                     }
                 }
@@ -71,9 +73,13 @@ const PlayerMovement = () => {
                     y: nextPlayerY * canvasSelector.tileSize,
                     currentIndex: nextPlayerIndex
                 }));
+
+                if (triggersSelector.triggers && triggersSelector.triggers[nextPlayerIndex] && triggersSelector.triggers[nextPlayerIndex].map === mapSelector.name) {
+                    dispatch(triggerActions(nextPlayerIndex));
+                }
             }
         }
-    }, [dispatch, mapSelector.rows, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.viewport.x, canvasSelector.viewport.y, monsterSelector.blockedIndexesMonsters, mapSelector.layers.blockTiles, keyDown, mapSelector.blockedIndexesMap]);
+    }, [dispatch, mapSelector.rows, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.viewport.x, canvasSelector.viewport.y, monsterSelector.blockedIndexesMonsters, mapSelector.layers.blockTiles, keyDown, mapSelector.blockedIndexesMap, mapSelector.name, triggersSelector.triggers, canvasSelector.height, canvasSelector.width, playerSelector.canMove]);
 
     const handleUserKeyUp = useCallback(() => {
         setKeyDown(false);

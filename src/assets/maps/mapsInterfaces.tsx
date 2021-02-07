@@ -80,7 +80,17 @@ export interface MapDetails {
     },
 }
 
-export interface MergedMap extends MapDetails, MonsterDetails {};
+export interface MapTriggers {
+    triggers: {
+        [key: number]: {
+            map: string;
+            type: string;
+            value: string[] | null;
+        }
+    } | null
+}
+
+export interface MergedMap extends MapDetails, MonsterDetails, MapTriggers {};
 
 export interface IMap {
     [key: string]: MergedMap;

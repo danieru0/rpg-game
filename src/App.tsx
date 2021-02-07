@@ -10,6 +10,7 @@ import LeftSide from './components/organisms/LeftSide';
 import RightSide from './components/organisms/RightSide';
 import ItemInfoHover from './components/organisms/ItemInfoHover';
 import ItemContextMenu from './components/organisms/ItemContextMenu'
+import Modal from './components/organisms/Modal';
 
 const Container = styled.div`
 	width: 100%;
@@ -23,6 +24,7 @@ const Container = styled.div`
 function App() {
 	return (
 		<Container>
+			<Modal />
 			<ItemContextMenu />
 			<ItemInfoHover />
 			<UserClickHandler />

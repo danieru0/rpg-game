@@ -5,6 +5,8 @@ import playerReducer from '../features/player/playerSlice';
 import monsterReducer from '../features/monster/monsterSlice';
 import itemInfoHoverReducer from '../features/itemInfoHover/itemInfoHoverSlice';
 import itemContextMenuReducer from '../features/itemContextMenu/itemContextMenuSlice';
+import triggersReducer from '../features/triggers/triggersSlice';
+import modalReducer from '../features/modal/modalSlice';
 
 export const store = configureStore({
   	reducer: {
@@ -13,7 +15,9 @@ export const store = configureStore({
 		player: playerReducer,
 		monster: monsterReducer,
 		itemInfoHover: itemInfoHoverReducer,
-		itemContextMenu: itemContextMenuReducer
+		itemContextMenu: itemContextMenuReducer,
+		triggers: triggersReducer,
+		modal: modalReducer
   	},
 });
 

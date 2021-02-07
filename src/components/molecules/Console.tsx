@@ -5,6 +5,7 @@ import { setMap } from '../../features/map/mapSlice';
 import { setNewPositionFromMap } from '../../features/player/playerSlice';
 import { setMonsters } from '../../features/monster/monsterSlice';
 import { resetViewport } from '../../features/canvas/canvasSlice';
+import { setTriggers } from '../../features/triggers/triggersSlice';
 import maps from '../../assets/maps/maps';
 
 const Container = styled.div`
@@ -73,6 +74,7 @@ const Console = () => {
                         dispatch(setNewPositionFromMap(commandArray[2]));
                         dispatch(setMonsters(commandArray[2]));
                         dispatch(resetViewport(commandArray[2]));
+                        dispatch(setTriggers(commandArray[2]));
                     }
                     break;
                 }
