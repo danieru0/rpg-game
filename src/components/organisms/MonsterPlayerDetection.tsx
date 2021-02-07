@@ -37,24 +37,28 @@ const MonsterPlayerDetection = () => {
     }, [easystarRef]); //eslint-disable-line
 
     const calculatePath = () => {
-        if (monsterSelector.monstersAreaDetection.x[playerSelector.x] || monsterSelector.monstersAreaDetection.y[playerSelector.y]) {
-            const areaFound = monsterSelector.monstersAreaDetection.x[playerSelector.x] ? monsterSelector.monstersAreaDetection.x[playerSelector.x] : monsterSelector.monstersAreaDetection.y[playerSelector.y];
-            easystarRef.current.cancelPath();
-            if (areaFound.ids.length !== 0) {
-                areaFound.ids.forEach((item) => {
-                    easystarRef.current.findPath(monsterSelector.monsters[item].x / 48, monsterSelector.monsters[item].y / 48, playerSelector.x / 48, playerSelector.y / 48, (path: any) => {
+        easystarRef.current.cancelPath();
+
+        Object.keys(monsterSelector.monsters).forEach((item) => {
+            const monster = monsterSelector.monsters[item as unknown as number];
+
+            if (monster) {
+                const monsterSeeRange = monster.seeRange * 48;
+                if (Math.abs(playerSelector.x - monster.x) <= monsterSeeRange && Math.abs(playerSelector.y - monster.y) <= monsterSeeRange) {
+                    easystarRef.current.findPath(monster.x / 48, monster.y / 48, playerSelector.x / 48, playerSelector.y / 48, (path: any) => {
                         setMonstersObject(prev => ({...prev, [item]: {
                             path: path,
                             enable: true,
-                            id: item,
+                            id: monster.id,
                             counter: 0
-                        }}))
+                        }}));
                     })
     
                     easystarRef.current.calculate();
-                });
+                }
             }
-        }
+
+        })
     }
 
     useEffect(() => {

@@ -35,36 +35,6 @@ const initialState: MonsterDetails = {
             def: 0
         }
     },
-    monstersAreaDetection: {
-        x: {
-            96: {
-                ids: [0]
-            },
-            384: {
-                ids: [0]
-            },
-            816: {
-                ids: [1]
-            },
-            1104: {
-                ids: [1]
-            }
-        },
-        y: {
-            96: {
-                ids: [0]
-            },
-            192: {
-                ids: [1]
-            },
-            384: {
-                ids: [0]
-            },
-            480: {
-                ids: [1]
-            }
-        }
-    },
     blockedIndexesMonsters: [155, 230],
     monstersCloseToPlayer: []
 }
@@ -76,68 +46,6 @@ export const monsterSlice = createSlice({
         setMonsterPosition: (state, action: PayloadAction<monsterPosition>) => {
             const { x, y, id, index } = action.payload;
             const monster = state.monsters[id];
-
-            if (x !== monster.x) {
-                state.monstersAreaDetection.x[monster.x - monster.seeRange * 48].ids = state.monstersAreaDetection.x[monster.x - monster.seeRange * 48].ids.filter(item => item !== id);
-                state.monstersAreaDetection.x[monster.x + monster.seeRange * 48].ids = state.monstersAreaDetection.x[monster.x + monster.seeRange * 48].ids.filter(item => item !== id);
-
-                let areaCounter = 1;
-
-                while (areaCounter <= monster.seeRange) {
-                    if (!state.monstersAreaDetection.x[x - areaCounter * 48]) {
-                        state.monstersAreaDetection.x[x - areaCounter * 48] = {
-                            ids: []
-                        }
-                    }
-
-                    if (!state.monstersAreaDetection.x[x + areaCounter * 48]) {
-                        state.monstersAreaDetection.x[x + areaCounter * 48] = {
-                            ids: []
-                        }
-                    }
-
-                    if (!state.monstersAreaDetection.x[x - areaCounter * 48].ids.includes(id)) {
-                        state.monstersAreaDetection.x[x - areaCounter * 48].ids.push(id);
-                    }
-
-                    if (!state.monstersAreaDetection.x[x + areaCounter * 48].ids.includes(id)) {
-                        state.monstersAreaDetection.x[x + areaCounter * 48].ids.push(id);
-                    }
-
-                    areaCounter++;
-                }
-            }
-
-            if (y !== monster.y) {
-                state.monstersAreaDetection.y[monster.y - monster.seeRange * 48].ids = state.monstersAreaDetection.y[monster.y - monster.seeRange * 48].ids.filter(item => item !== id);
-                state.monstersAreaDetection.y[monster.y + monster.seeRange * 48].ids = state.monstersAreaDetection.y[monster.y + monster.seeRange * 48].ids.filter(item => item !== id);
-            
-                let areaCounter = 1;
-
-                while (areaCounter <= monster.seeRange) {
-                    if (!state.monstersAreaDetection.y[y - areaCounter * 48]) {
-                        state.monstersAreaDetection.y[y - areaCounter * 48] = {
-                            ids: []
-                        }
-                    }
-
-                    if (!state.monstersAreaDetection.y[y + areaCounter * 48]) {
-                        state.monstersAreaDetection.y[y + areaCounter * 48] = {
-                            ids: []
-                        }
-                    }
-
-                    if (!state.monstersAreaDetection.y[y - areaCounter * 48].ids.includes(id)) {
-                        state.monstersAreaDetection.y[y - areaCounter * 48].ids.push(id);
-                    }
-
-                    if (!state.monstersAreaDetection.y[y + areaCounter * 48].ids.includes(id)) {
-                        state.monstersAreaDetection.y[y + areaCounter * 48].ids.push(id);
-                    }
-
-                    areaCounter++;
-                }
-            }
 
             state.blockedIndexesMonsters = state.blockedIndexesMonsters.filter(item => item !== monster.currentIndex);
             state.blockedIndexesMonsters.push(index);
@@ -163,14 +71,6 @@ export const monsterSlice = createSlice({
             state.monsters[id].hp -= value;
         },
         destroyMonster: (state, action: PayloadAction<number>) => {
-            Object.keys(state.monstersAreaDetection.x).forEach((key) => {
-                state.monstersAreaDetection.x[parseInt(key)].ids = state.monstersAreaDetection.x[parseInt(key)].ids.filter(id => id !== action.payload);
-            })
-
-            Object.keys(state.monstersAreaDetection.y).forEach((key) => {
-                state.monstersAreaDetection.y[parseInt(key)].ids = state.monstersAreaDetection.y[parseInt(key)].ids.filter(id => id !== action.payload);
-            });
-
             state.blockedIndexesMonsters = state.blockedIndexesMonsters.filter(id => id !== state.monsters[action.payload].currentIndex);
 
             delete state.monsters[action.payload];
@@ -178,7 +78,6 @@ export const monsterSlice = createSlice({
         resetMonstersInDungeon: (state, action: PayloadAction<string>) => {
             if (maps[action.payload]) {
                 state.monsters = maps[action.payload].monsters;
-                state.monstersAreaDetection = maps[action.payload].monstersAreaDetection;
                 state.blockedIndexesMonsters = maps[action.payload].blockedIndexesMonsters;
             }
         },
@@ -196,10 +95,9 @@ export const monsterSlice = createSlice({
         },
         setMonsters: (state, action: PayloadAction<string>) => {
             if (maps[action.payload]) {
-                const { monsters, monstersAreaDetection, monstersCloseToPlayer, blockedIndexesMonsters } = maps[action.payload];
+                const { monsters, monstersCloseToPlayer, blockedIndexesMonsters } = maps[action.payload];
 
                 state.monsters = monsters;
-                state.monstersAreaDetection = monstersAreaDetection;
                 state.monstersCloseToPlayer = monstersCloseToPlayer;
                 state.blockedIndexesMonsters = blockedIndexesMonsters;
             }

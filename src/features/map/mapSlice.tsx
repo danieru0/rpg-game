@@ -93,7 +93,7 @@ export const mapSlice = createSlice({
     reducers: {
         setMap: (state, action: PayloadAction<string>) => {
             if (maps[action.payload]) {
-                const { monsters, monstersAreaDetection, monstersCloseToPlayer, blockedIndexesMonsters, ...mapInfo } = maps[action.payload];
+                const { monsters, monstersCloseToPlayer, blockedIndexesMonsters, ...mapInfo } = maps[action.payload];
                 return {...mapInfo};
             } else {
                 console.error("No map found with this name!");

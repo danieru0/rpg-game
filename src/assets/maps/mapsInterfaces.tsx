@@ -15,18 +15,6 @@ export interface MonsterDetails {
             def: number;
         }
     },
-    monstersAreaDetection: {
-        x: {
-            [key: number]: {
-                ids: number[];
-            }
-        },
-        y: {
-            [key: number]: {
-                ids: number[];
-            }
-        }
-    },
     blockedIndexesMonsters: number[];
     monstersCloseToPlayer: number[];
 }

@@ -113,36 +113,6 @@ const maps: IMap = {
                 def: 0
             }
         },
-        monstersAreaDetection: {
-            x: {
-                96: {
-                    ids: [0]
-                },
-                384: {
-                    ids: [0]
-                },
-                816: {
-                    ids: [1]
-                },
-                1104: {
-                    ids: [1]
-                }
-            },
-            y: {
-                96: {
-                    ids: [0]
-                },
-                192: {
-                    ids: [1]
-                },
-                384: {
-                    ids: [0]
-                },
-                480: {
-                    ids: [1]
-                }
-            }
-        },
         blockedIndexesMonsters: [155, 230],
         monstersCloseToPlayer: [],
         triggers: null
@@ -194,10 +164,6 @@ const maps: IMap = {
         chests: {},
         chestsAreaDetection: {},
         monsters: {},
-        monstersAreaDetection: {
-            x: {},
-            y: {}
-        },
         blockedIndexesMonsters: [],
         monstersCloseToPlayer: [],
         triggers: null
@@ -251,10 +217,6 @@ const maps: IMap = {
         chests: {},
         chestsAreaDetection: {},
         monsters: {},
-        monstersAreaDetection: {
-            x: {},
-            y: {}
-        },
         blockedIndexesMonsters: [],
         monstersCloseToPlayer: [],
         triggers: {
