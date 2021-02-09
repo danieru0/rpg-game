@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import { playerPosition, clickedIndex, giveItem } from './payloadActionTypes';
 import { RootState } from '../../app/store';
 import { weapons, shields, armors } from '../../assets/items/items';
@@ -223,11 +223,19 @@ export const playerSlice = createSlice({
         },
         setCanMove: (state, action: PayloadAction<boolean>) => {
             state.canMove = action.payload;
+        },
+        savePlayer: (state, action: PayloadAction<string>) => {
+            if (maps[action.payload]) {
+                maps[action.payload].playerXStart = current(state).x;
+                maps[action.payload].playerYStart = current(state).y;
+                maps[action.payload].playerStartIndex = current(state).currentIndex;
+
+            }
         }
     }
 })
 
-export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove } = playerSlice.actions;
+export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer } = playerSlice.actions;
 
 export const selectPlayer = (state: RootState) => state.player;
 

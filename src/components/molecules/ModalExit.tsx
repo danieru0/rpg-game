@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { hideModal } from '../../features/modal/modalSlice';
-import { setMap } from '../../features/map/mapSlice';
-import { setCanMove, setNewPositionFromMap } from '../../features/player/playerSlice';
-import { setMonsters } from '../../features/monster/monsterSlice';
-import { resetViewport } from '../../features/canvas/canvasSlice';
+import { setMap, selectMap, saveMap } from '../../features/map/mapSlice';
+import { setCanMove, setNewPositionFromMap, savePlayer } from '../../features/player/playerSlice';
+import { setMonsters, saveMonsters } from '../../features/monster/monsterSlice';
+import { resetViewport, saveCanvas } from '../../features/canvas/canvasSlice';
 import { setTriggers } from '../../features/triggers/triggersSlice';
 
 import ModalButton from '../atoms/ModalButton';
@@ -54,14 +54,20 @@ const ButtonsWrapper = styled.div`
 
 const ModalExit = ({map}: IModalExitProps) => {
     const dispatch = useDispatch();
+    const mapSelector = useSelector(selectMap);
 
     const handleYesClick = () => {
+        dispatch(saveMap(mapSelector.name));
+        dispatch(saveMonsters(mapSelector.name));
+        dispatch(savePlayer(mapSelector.name));
+        dispatch(saveCanvas(mapSelector.name));
         dispatch(setMap(map));
         dispatch(hideModal());
         dispatch(setNewPositionFromMap(map));
         dispatch(setMonsters(map));
         dispatch(resetViewport(map));
         dispatch(setTriggers(map));
+        dispatch(setCanMove(true));
     }
 
     const handleNoClick = () => {

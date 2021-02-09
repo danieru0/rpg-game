@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import { canvasSize } from './payloadActionTypes';
 import { RootState } from '../../app/store';
 import maps from '../../assets/maps/maps';
@@ -59,11 +59,16 @@ export const canvasSlice = createSlice({
         },
         setImagesLoaded: (state) => {
             state.imagesLoaded += 1;
+        },
+        saveCanvas: (state, action: PayloadAction<string>) => {
+            if (maps[action.payload]) {
+                maps[action.payload].viewport = {...maps[action.payload].viewport, x: current(state).viewport.x, y: current(state).viewport.y};
+            }
         }
     }
 })
 
-export const { setCanvasSize, setViewportPositionX, setViewportPositionY, resetViewport, setImagesLoaded } = canvasSlice.actions;
+export const { setCanvasSize, setViewportPositionX, setViewportPositionY, resetViewport, setImagesLoaded, saveCanvas } = canvasSlice.actions;
 
 export const selectCanvas = (state: RootState) => state.canvas;
 

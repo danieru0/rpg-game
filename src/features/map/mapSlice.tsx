@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import maps from '../../assets/maps/maps';
 import { RootState } from '../../app/store';
 import { MapDetails } from '../../assets/maps/mapsInterfaces'; 
@@ -101,11 +101,16 @@ export const mapSlice = createSlice({
         },
         openChest: (state, action: PayloadAction<number>) => {
             state.chests[action.payload].open = true;
+        },
+        saveMap: (state, action: PayloadAction<string>) => {
+            if (maps[action.payload]) {
+                maps[action.payload].chests = current(state).chests;
+            }
         }
     }
 })
 
-export const { setMap, openChest } = mapSlice.actions;
+export const { setMap, openChest, saveMap } = mapSlice.actions;
 
 export const selectMap = (state: RootState) => state.map;
 

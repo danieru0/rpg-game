@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { setMap } from '../../features/map/mapSlice';
-import { setNewPositionFromMap } from '../../features/player/playerSlice';
-import { setMonsters } from '../../features/monster/monsterSlice';
-import { resetViewport } from '../../features/canvas/canvasSlice';
+import { setMap, saveMap, selectMap } from '../../features/map/mapSlice';
+import { setNewPositionFromMap, savePlayer } from '../../features/player/playerSlice';
+import { setMonsters, saveMonsters } from '../../features/monster/monsterSlice';
+import { resetViewport, saveCanvas } from '../../features/canvas/canvasSlice';
 import { setTriggers } from '../../features/triggers/triggersSlice';
 import maps from '../../assets/maps/maps';
 
@@ -52,6 +52,7 @@ const Input = styled.input`
 
 const Console = () => {
     const dispatch = useDispatch();
+    const mapSelector = useSelector(selectMap);
     const [consoleText, setConsoleText] = useState('');
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +71,10 @@ const Console = () => {
             switch(commandArray[1]) {
                 case "setmap": {
                     if (commandArray[2] && maps[commandArray[2]]) {
+                        dispatch(saveMap(mapSelector.name));
+                        dispatch(saveMonsters(mapSelector.name));
+                        dispatch(savePlayer(mapSelector.name));
+                        dispatch(saveCanvas(mapSelector.name));
                         dispatch(setMap(commandArray[2]));
                         dispatch(setNewPositionFromMap(commandArray[2]));
                         dispatch(setMonsters(commandArray[2]));

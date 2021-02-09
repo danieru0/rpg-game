@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import { monsterPosition, closeToPlayer, hitMonsterInterface } from './payloadActionTypes';
 import { RootState } from '../../app/store';
 import maps from '../../assets/maps/maps'; 
@@ -101,11 +101,18 @@ export const monsterSlice = createSlice({
                 state.monstersCloseToPlayer = monstersCloseToPlayer;
                 state.blockedIndexesMonsters = blockedIndexesMonsters;
             }
+        },
+        saveMonsters: (state, action: PayloadAction<string>) => {
+            if (maps[action.payload]) {
+                maps[action.payload].monsters = current(state).monsters;
+                maps[action.payload].monstersCloseToPlayer = current(state).monstersCloseToPlayer;
+                maps[action.payload].blockedIndexesMonsters = current(state).blockedIndexesMonsters;
+            }
         }
     }
 })
 
-export const { setMonsterPosition, setMonsterCloseToPlayer, hitMonster, destroyMonster, resetMonstersInDungeon, addMonsterCloseToPlayer, clearMonstersCloseToPlayer, setMonsters } = monsterSlice.actions;
+export const { setMonsterPosition, setMonsterCloseToPlayer, hitMonster, destroyMonster, resetMonstersInDungeon, addMonsterCloseToPlayer, clearMonstersCloseToPlayer, setMonsters, saveMonsters } = monsterSlice.actions;
 
 export const selectMonster = (state: RootState) => state.monster;
 
