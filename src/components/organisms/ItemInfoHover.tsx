@@ -37,8 +37,8 @@ const ItemInfoHover = () => {
 
     return (
         <Container left={itemInfoHoverSelector.x} top={itemInfoHoverSelector.y}>
-            <ItemName color={itemInfoHoverSelector.rarity}>{itemInfoHoverSelector.name}</ItemName>
-            <ItemBuff>{itemInfoHoverSelector.buffName}: +{itemInfoHoverSelector.buffValue}</ItemBuff>
+            <ItemName color={itemInfoHoverSelector.details.rarity}>{itemInfoHoverSelector.details.name}</ItemName>
+            <ItemBuff>{itemInfoHoverSelector.details.buffName}: +{itemInfoHoverSelector.details.buffValue}</ItemBuff>
         </Container>
     );
 };

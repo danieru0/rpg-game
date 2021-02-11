@@ -66,6 +66,23 @@ export interface MapDetails {
             chestIndex: number;
         }
     },
+    npc: {
+        [key: number]: {
+            id: number;
+            npcIndex: number;
+            type: string;
+            x: number;
+            y: number;
+            entityImage: string;
+            items: {id: number; type: string}[];
+        }
+    };
+    npcAreaDetection: {
+        [key: number]: {
+            id: number;
+            npcIndex: number;
+        }
+    };
 }
 
 export interface MapTriggers {

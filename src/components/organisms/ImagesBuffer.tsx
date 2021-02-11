@@ -13,6 +13,7 @@ import chestClosed from '../../assets/items/chestClosed.png';
 import Weapon1 from '../../assets/items/weapon1.png';
 import Armor1 from '../../assets/items/armor1.png';
 import Shield1 from '../../assets/items/shield1.png';
+import NpcShop from '../../assets/entites/npc-shop.png';
 
 const Container = styled.div`
     display: none;
@@ -37,6 +38,7 @@ function TilesBuffer() {
             <img onLoad={handleImageLoad} className="weapon1" alt="" src={Weapon1} />
             <img onLoad={handleImageLoad} className="armor1" alt="" src={Armor1} />
             <img onLoad={handleImageLoad} className="shield1" alt="" src={Shield1} />
+            <img onLoad={handleImageLoad} className="npc-shop" alt="" src={NpcShop} />
 		</Container>
 	);
 }

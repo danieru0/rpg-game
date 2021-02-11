@@ -34,30 +34,42 @@ const RightSide = () => {
                     dispatch(setItem({
                         x: itemRect.left - 5,
                         y: itemRect.top + 34,
-                        buffName: "hp",
-                        buffValue: armors[id].hp,
-                        name: armors[id].name,
-                        rarity: armors[id].rarity
+                        type: 'wearable',
+                        details: {
+                            buffName: "hp",
+                            buffValue: armors[id].hp,
+                            name: armors[id].name,
+                            rarity: armors[id].rarity,
+                            money: armors[id].money
+                        }
                     }))
                     break;
                 case "weapon":
                     dispatch(setItem({
                         x: itemRect.left - 5,
                         y: itemRect.top + 34,
-                        buffName: "attack",
-                        buffValue: weapons[id].attack,
-                        name: weapons[id].name,
-                        rarity: weapons[id].rarity
+                        type: 'wearable',
+                        details: {
+                            buffName: "attack",
+                            buffValue: weapons[id].attack,
+                            name: weapons[id].name,
+                            rarity: weapons[id].rarity,
+                            money: weapons[id].money
+                        }
                     }))
                     break;
                 case "shield":
                     dispatch(setItem({
                         x: itemRect.left - 5,
                         y: itemRect.top + 34,
-                        buffName: "def",
-                        buffValue: shields[id].def,
-                        name: shields[id].name,
-                        rarity: shields[id].rarity
+                        type: 'wearable',
+                        details: {
+                            buffName: "def",
+                            buffValue: shields[id].def,
+                            name: shields[id].name,
+                            rarity: shields[id].rarity,
+                            money: shields[id].money
+                        }
                     }))
                     break;
                 default: return false;
@@ -80,9 +92,12 @@ const RightSide = () => {
             dispatch(setContextMenu({
                 x: itemRect.left,
                 y: itemRect.top + 3,
-                type: type,
-                id: id,
-                equipment: equipment ? equipment : false
+                type: 'wearable',
+                details: {
+                    type: type,
+                    id: id,
+                    equipment: equipment ? equipment : false
+                }
             }));
         }
     }

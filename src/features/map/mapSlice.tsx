@@ -84,7 +84,9 @@ const initialState: MapDetails = {
             id: 0,
             chestIndex: 81
         }
-    }
+    },
+    npc: {},
+    npcAreaDetection: {},
 }
 
 export const mapSlice = createSlice({

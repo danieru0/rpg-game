@@ -41,28 +41,44 @@ function Canvas() {
 			const layerName = item as layersNames;
 			const layer = mapSelector.layers[layerName];
 
-			if (item === 'player') {
-				ctx.drawImage(document.querySelector('.player') as HTMLImageElement, 0, 0, 16, 16, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.tileSize);
-			} else if (item === 'chests') {
-				for (let [key, value] of Object.entries(mapSelector.chests)) { //eslint-disable-line
-					ctx.drawImage(document.querySelector(value.open ? '.chestOpen' : '.chestClosed') as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
-				}
-			} else if (item === 'monsters') {
-				for (let [key, value] of Object.entries(monsterSelector.monsters)) { //eslint-disable-line
-					ctx.drawImage(document.querySelector(value.entityImage) as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
-				}
-			} else if (layer) {
-				layer.tiles.forEach((row, y) => {
-					row.forEach((value, x) => {
-						const left = (value - 1 - layer.firstGrid) % mapSelector.tileWidth;
-						const top = Math.floor((value - 1 - left - layer.firstGrid) / mapSelector.tileHeight);
-
-						ctx.drawImage(document.querySelector(layer.tileName) as HTMLImageElement, left * 16, top * 16, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
-					})
-				})
+			switch(item) {
+				case "player":
+					ctx.drawImage(document.querySelector('.player') as HTMLImageElement, 0, 0, 16, 16, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.tileSize);
+					break;
+				case "item":
+					for (let [key, value] of Object.entries(mapSelector.chests)) { //eslint-disable-line
+						ctx.drawImage(document.querySelector(value.open ? '.chestOpen' : '.chestClosed') as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
+					}
+					break;
+				case "monsters":
+					for (let [key, value] of Object.entries(monsterSelector.monsters)) { //eslint-disable-line
+						ctx.drawImage(document.querySelector(value.entityImage) as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
+					}
+					break;
+				case "npc":
+					for (let [key, value] of Object.entries(mapSelector.npc)) { //eslint-disable-line
+						ctx.drawImage(document.querySelector(value.entityImage) as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
+					}
+					break;
+				case 'chests':
+					for (let [key, value] of Object.entries(mapSelector.chests)) { //eslint-disable-line
+						ctx.drawImage(document.querySelector(value.open ? '.chestOpen' : '.chestClosed') as HTMLImageElement, 0, 0, 16, 16, value.x, value.y, canvasSelector.tileSize, canvasSelector.tileSize);
+					}
+					break;
+				default:
+					if (layer) {
+						layer.tiles.forEach((row, y) => {
+							row.forEach((value, x) => {
+								const left = (value - 1 - layer.firstGrid) % mapSelector.tileWidth;
+								const top = Math.floor((value - 1 - left - layer.firstGrid) / mapSelector.tileHeight);
+		
+								ctx.drawImage(document.querySelector(layer.tileName) as HTMLImageElement, left * 16, top * 16, 16, 16, x * canvasSelector.tileSize, y * canvasSelector.tileSize, canvasSelector.tileSize, canvasSelector.tileSize);
+							})
+						})
+					}
 			}
 		})
-	}, [playerSelector.x, playerSelector.y, mapSelector.width, mapSelector.layers, mapSelector.backgroundColor, mapSelector.height, canvasSelector.tileSize, monsterSelector.monsters, mapSelector.chests, mapSelector.tileHeight, mapSelector.tileWidth])
+	}, [playerSelector.x, playerSelector.y, mapSelector.width, mapSelector.layers, mapSelector.backgroundColor, mapSelector.height, canvasSelector.tileSize, monsterSelector.monsters, mapSelector.chests, mapSelector.tileHeight, mapSelector.tileWidth, mapSelector.npc])
 
 	useEffect(() => {
 		if (canvasRef && canvasRef.current) {
@@ -75,12 +91,13 @@ function Canvas() {
 	const handleUserClick = useCallback((e) => {
 		const offsetLeftWithViewport = canvasRef.current.offsetLeft - canvasSelector.viewport.x;
 		const offsetTopWithVieport = canvasRef.current.offsetTop - canvasSelector.viewport.y;
-		const x = Math.floor((e.pageX - offsetLeftWithViewport) / 48);
+		let x = Math.floor((e.pageX - offsetLeftWithViewport) / 48);
+		x = canvasSelector.width - canvasSelector.viewport.x <= 720 ? x -= 2 : x;
 		const y = Math.floor((e.pageY - offsetTopWithVieport) / 48);
 		const index = Math.floor(y * mapSelector.rows + x);
 
 		dispatch(setClickedIndex({index: index, refresh: Math.random()}));
-	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch]);
+	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch, canvasSelector.width]);
 
 
 	useEffect(() => {

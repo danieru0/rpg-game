@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setMap, saveMap, selectMap } from '../../features/map/mapSlice';
 import { setNewPositionFromMap, savePlayer } from '../../features/player/playerSlice';
 import { setMonsters, saveMonsters } from '../../features/monster/monsterSlice';
-import { resetViewport, saveCanvas } from '../../features/canvas/canvasSlice';
+import { resetViewport, setCanvas, saveCanvas } from '../../features/canvas/canvasSlice';
 import { setTriggers } from '../../features/triggers/triggersSlice';
 import maps from '../../assets/maps/maps';
 
@@ -79,6 +79,7 @@ const Console = () => {
                         dispatch(setNewPositionFromMap(commandArray[2]));
                         dispatch(setMonsters(commandArray[2]));
                         dispatch(resetViewport(commandArray[2]));
+                        dispatch(setCanvas(commandArray[2]));
                         dispatch(setTriggers(commandArray[2]));
                     }
                     break;

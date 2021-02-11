@@ -1,23 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { setItemInterface } from './payloadActionTypes';
+import { WearableItem, setItemInterface } from './payloadActionTypes';
 
 interface IItemInfoHover {
     x: number;
     y: number;
-    name: string;
-    buffName: string;
-    buffValue: number;
-    rarity: string;
+    type: string;
+    details: WearableItem;
 }
 
 const initialState: IItemInfoHover = {
     x: -9999,
     y: -9999,
-    name: "",
-    buffName: "",
-    buffValue: 0,
-    rarity: ""
+    details: {
+        name: "",
+        buffName: "",
+        buffValue: 0,
+        rarity: "",
+        money: 0
+    },
+    type: '',
 }
 
 export const itemInfoHoverSlice = createSlice({
@@ -25,14 +27,13 @@ export const itemInfoHoverSlice = createSlice({
     initialState,
     reducers: {
         setItem: (state, action: PayloadAction<setItemInterface>) => {
-            const { x, y, name, buffName, buffValue, rarity } = action.payload;
-            
+            const { x, y, type, details } = action.payload;
+
             state.x = x;
             state.y = y;
-            state.name = name;
-            state.buffName = buffName;
-            state.buffValue = buffValue;
-            state.rarity = rarity;
+            state.type = type;
+            state.details = details;
+
         },
         clearItem: (state) => {
             state.x = -9999;

@@ -34,7 +34,7 @@ const initialState: ICanvasState = {
     tileSize: 48,
     mapLoaded: true,
     imagesLoaded: 0,
-    allImagesToLoad: 10
+    allImagesToLoad: 11
 }
 
 export const canvasSlice = createSlice({
@@ -60,6 +60,12 @@ export const canvasSlice = createSlice({
         setImagesLoaded: (state) => {
             state.imagesLoaded += 1;
         },
+        setCanvas: (state, action: PayloadAction<string>) => {
+            if (maps[action.payload]) {
+                state.width = maps[action.payload].width;
+                state.height = maps[action.payload].height;
+            }
+        },
         saveCanvas: (state, action: PayloadAction<string>) => {
             if (maps[action.payload]) {
                 maps[action.payload].viewport = {...maps[action.payload].viewport, x: current(state).viewport.x, y: current(state).viewport.y};
@@ -68,7 +74,7 @@ export const canvasSlice = createSlice({
     }
 })
 
-export const { setCanvasSize, setViewportPositionX, setViewportPositionY, resetViewport, setImagesLoaded, saveCanvas } = canvasSlice.actions;
+export const { setCanvasSize, setViewportPositionX, setViewportPositionY, resetViewport, setImagesLoaded, saveCanvas, setCanvas } = canvasSlice.actions;
 
 export const selectCanvas = (state: RootState) => state.canvas;
 

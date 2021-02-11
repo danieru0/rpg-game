@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPlayer, giveItems } from '../../features/player/playerSlice';
+import { selectPlayer, giveItems, setCanMove } from '../../features/player/playerSlice';
 import { selectMonster, hitMonster, destroyMonster, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
 import { selectMap, openChest } from '../../features/map/mapSlice';
+import { showModal } from '../../features/modal/modalSlice';
 import usePrevious from '../../hooks/usePrevious';
 
 interface IAttackedMonsters {
@@ -53,6 +54,14 @@ const UserClickHandler = () => {
                                 }))
                             })
                         }
+                    }
+                } else if (mapSelector.npcAreaDetection[playerSelector.currentIndex]) {
+                    if (playerSelector.clickedIndex.index === mapSelector.npcAreaDetection[playerSelector.currentIndex].npcIndex) {
+                        dispatch(showModal({
+                            type: 'modal-shop',
+                            value: ['0']
+                        }))
+                        dispatch(setCanMove(false));
                     }
                 }
             }

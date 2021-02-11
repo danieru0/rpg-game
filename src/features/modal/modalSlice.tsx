@@ -8,7 +8,7 @@ interface IModalSlice {
 }
 
 const initialState: IModalSlice = {
-    type: null,
+    type: '',
     value: []
 }
 

@@ -53,18 +53,44 @@ const ItemContextMenu = () => {
 
     const handleUseButton = (equip: boolean) => {
         if (equip) {
-            dispatch(takeOffItem(itemContextMenuSelector.type));
+            dispatch(takeOffItem(itemContextMenuSelector.details.type));
         } else {
-            dispatch(equipItem(itemContextMenuSelector.id));
+            dispatch(equipItem(itemContextMenuSelector.details.id));
         }
+    }
+
+    const handleBuy = (id: number, type: string) => {
+
+    }
+
+    const handleSell = (id: number, type: string) => {
+
     }
 
     return (
         <Container left={itemContextMenuSelector.x} top={itemContextMenuSelector.y}>
             <List>
-                <Item>
-                    <Button onClick={() => handleUseButton(itemContextMenuSelector.equipment)}>{itemContextMenuSelector.equipment ? 'Take off' : 'Use'}</Button>
-                </Item>
+                {
+                    itemContextMenuSelector.type === "buy" && (
+                        <Item>
+                            <Button onClick={() => handleBuy(itemContextMenuSelector.details.id, itemContextMenuSelector.details.type)}>Buy</Button>
+                        </Item>
+                    )
+                }
+                {
+                    itemContextMenuSelector.type === 'wearable' && (
+                        <Item>
+                            <Button onClick={() => handleUseButton(itemContextMenuSelector.details.equipment)}>{itemContextMenuSelector.details.equipment ? 'Take off' : 'Use'}</Button>
+                        </Item>
+                    )
+                }
+                {
+                    itemContextMenuSelector.type === 'sell' && (
+                        <Item>
+                            <Button onClick={() => handleSell(itemContextMenuSelector.details.id, itemContextMenuSelector.details.type)}>Sell</Button>
+                        </Item>
+                    )
+                }
             </List>
         </Container>
     );
