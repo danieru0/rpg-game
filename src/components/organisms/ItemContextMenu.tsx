@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectItemContextMenu } from '../../features/itemContextMenu/itemContextMenuSlice';
-import { equipItem, takeOffItem } from '../../features/player/playerSlice';
+import { equipItem, takeOffItem, selectPlayer, giveItems, takeMoneyAway, removeItem, giveMoney } from '../../features/player/playerSlice';
+import returnItemData from '../../helpers/returnItemData';
 
 interface IContainer {
     left: number;
@@ -50,6 +51,7 @@ const Button = styled.button`
 const ItemContextMenu = () => {
     const dispatch = useDispatch();
     const itemContextMenuSelector = useSelector(selectItemContextMenu);
+    const playerSelector = useSelector(selectPlayer);
 
     const handleUseButton = (equip: boolean) => {
         if (equip) {
@@ -60,11 +62,28 @@ const ItemContextMenu = () => {
     }
 
     const handleBuy = (id: number, type: string) => {
+        let itemData = returnItemData(id, type);
+        
+        if (itemData) {
+            if (playerSelector.money - itemData.buyMoney >= 0) {
+                dispatch(giveItems({id: id, type: type}));
+                dispatch(takeMoneyAway(itemData.buyMoney));
+            } else {
+                alert('no money');
+            }
+        }
 
     }
 
     const handleSell = (id: number, type: string) => {
+        if (playerSelector.inventory[id]) {
+            const itemData = returnItemData(playerSelector.inventory[id]!.id, type);
+        
+            dispatch(removeItem(id));
+            dispatch(giveMoney(itemData!.sellMoney));
+        }
 
+        
     }
 
     return (

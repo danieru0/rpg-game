@@ -133,7 +133,7 @@ const ModalShop = ({npc}: IModalShopProps) => {
                             buffValue: armors[id].hp,
                             name: armors[id].name,
                             rarity: armors[id].rarity,
-                            money: armors[id].money
+                            money: armors[id].sellMoney
                         }
                     }))
                     break;
@@ -147,7 +147,7 @@ const ModalShop = ({npc}: IModalShopProps) => {
                             buffValue: weapons[id].attack,
                             name: weapons[id].name,
                             rarity: weapons[id].rarity,
-                            money: weapons[id].money
+                            money: weapons[id].sellMoney
                         }
                     }))
                     break;
@@ -161,7 +161,7 @@ const ModalShop = ({npc}: IModalShopProps) => {
                             buffValue: shields[id].def,
                             name: shields[id].name,
                             rarity: shields[id].rarity,
-                            money: shields[id].money
+                            money: shields[id].sellMoney
                         }
                     }))
                     break;

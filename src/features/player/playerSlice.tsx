@@ -77,7 +77,7 @@ const initialState: IPlayerState = {
     inventoryItemsNumber: 0,
     weapon_attack: 0,
     def: 0,
-    money: 0,
+    money: 50,
     equipmnent: {
         weapon: null,
         armor: null,
@@ -166,22 +166,34 @@ export const playerSlice = createSlice({
             if (item) {
                 switch(item.type) {
                     case "weapon":
-                        state.equipmnent.weapon = weapons[item.id];
-                        state.weapon_attack = weapons[item.id].attack;
+                        if (state.equipmnent.weapon === null) {
+                            state.equipmnent.weapon = weapons[item.id];
+                            state.weapon_attack = weapons[item.id].attack;
+                            state.inventory[action.payload] = null;
+                            state.inventoryItemsNumber -= 1;
+                        }
                         break;
                     case "armor":
-                        state.equipmnent.armor = armors[item.id];
-                        state.maxHP += armors[item.id].hp;
+                        if (state.equipmnent.armor === null) {
+                            state.equipmnent.armor = armors[item.id];
+                            state.maxHP += armors[item.id].hp;
+                            state.inventory[action.payload] = null;
+                            state.inventoryItemsNumber -= 1;
+                        }
                         break;
                     case "shield":
-                        state.equipmnent.shield = shields[item.id];
-                        state.def = shields[item.id].def;
+                        if (state.equipmnent.shield === null) {
+                            state.equipmnent.shield = shields[item.id];
+                            state.def = shields[item.id].def;
+                            state.inventory[action.payload] = null;
+                            state.inventoryItemsNumber -= 1;
+                        }
                         break;
                 }
             }
-
+        },
+        removeItem: (state, action: PayloadAction<number>) => {
             state.inventory[action.payload] = null;
-            state.inventoryItemsNumber -= 1;
         },
         takeOffItem: (state, action: PayloadAction<string>) => {
             const itemType = action.payload;
@@ -231,11 +243,17 @@ export const playerSlice = createSlice({
                 maps[action.payload].playerStartIndex = current(state).currentIndex;
 
             }
+        },
+        takeMoneyAway: (state, action: PayloadAction<number>) => {
+            state.money -= action.payload;
+        },
+        giveMoney: (state, action: PayloadAction<number>) => {
+            state.money += action.payload;
         }
     }
 })
 
-export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer } = playerSlice.actions;
+export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney } = playerSlice.actions;
 
 export const selectPlayer = (state: RootState) => state.player;
 
