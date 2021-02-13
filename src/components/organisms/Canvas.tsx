@@ -96,6 +96,8 @@ function Canvas() {
 		const y = Math.floor((e.pageY - offsetTopWithVieport) / 48);
 		const index = Math.floor(y * mapSelector.rows + x);
 
+		console.log(x, y, index);
+
 		dispatch(setClickedIndex({index: index, refresh: Math.random()}));
 	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch, canvasSelector.width]);
 

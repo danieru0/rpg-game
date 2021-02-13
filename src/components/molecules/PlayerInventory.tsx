@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { selectPlayer } from '../../features/player/playerSlice';
-import { armors, shields, weapons } from '../../assets/items/items';
+import returnItemData from '../../helpers/returnItemData';
 
 import EquimpentIcon from '../atoms/EquimpentIcon';
 
@@ -32,24 +32,11 @@ const PlayerInventory = ({onMouseEnter, onMouseLeave, onContextMenu}: IPlayerInv
             {
                 Object.keys(playerSelector.inventory).map((item, key) => {
                     const inventorySlot = playerSelector.inventory[parseInt(item)];
+                    
                     let itemData;
 
                     if (inventorySlot) {
-                        switch(inventorySlot.type) {
-                            case "weapon": {
-                                itemData = weapons[inventorySlot.id];
-                                break;
-                            }
-                            case "armor": {
-                                itemData = armors[inventorySlot.id];
-                                break;
-                            }
-                            case "shield": {
-                                itemData = shields[inventorySlot.id];
-                                break;
-                            }
-                            default: return false;
-                        }
+                        itemData = returnItemData(inventorySlot.id, inventorySlot.type);
                     }
 
                     return (

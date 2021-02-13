@@ -7,6 +7,7 @@ import { hideModal } from '../../features/modal/modalSlice';
 import { setItem, clearItem } from '../../features/itemInfoHover/itemInfoHoverSlice';
 import { setContextMenu } from '../../features/itemContextMenu/itemContextMenuSlice';
 import { weapons, shields, armors }  from '../../assets/items/items';
+import returnItemData from '../../helpers/returnItemData';
 
 import EquimpentIcon from '../atoms/EquimpentIcon';
 
@@ -192,23 +193,7 @@ const ModalShop = ({npc}: IModalShopProps) => {
                         [...Array(20)].map((item, key) => {
                             if (mapSelector.npc[npc] && mapSelector.npc[npc].items[key]) {
                                 const item = mapSelector.npc[npc].items[key];
-                                let itemData;
-
-                                switch(item.type) {
-                                    case "weapon": {
-                                        itemData = weapons[item.id];
-                                        break;
-                                    }
-                                    case "armor": {
-                                        itemData = armors[item.id];
-                                        break;
-                                    }
-                                    case "shield": {
-                                        itemData = shields[item.id];
-                                        break;
-                                    }
-                                    default: return null;
-                                }
+                                let itemData = returnItemData(item.id, item.type);
 
                                 return (
                                     <EquimpentIcon  
@@ -247,21 +232,7 @@ const ModalShop = ({npc}: IModalShopProps) => {
                             let itemData;
 
                             if (inventorySlot) {
-                                switch(inventorySlot.type) {
-                                    case "weapon": {
-                                        itemData = weapons[inventorySlot.id];
-                                        break;
-                                    }
-                                    case "armor": {
-                                        itemData = armors[inventorySlot.id];
-                                        break;
-                                    }
-                                    case "shield": {
-                                        itemData = shields[inventorySlot.id];
-                                        break;
-                                    }
-                                    default: return false;
-                                }
+                                itemData = returnItemData(inventorySlot.id, inventorySlot.type);
                             }
 
                             return (

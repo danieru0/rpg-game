@@ -6,7 +6,7 @@ const returnItemData = (id: number, type: string) => {
             return weapons[id];
         case "shield":
             return shields[id];
-        case "armors":
+        case "armor":
             return armors[id];
         default: return null;
     }

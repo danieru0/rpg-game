@@ -58,8 +58,8 @@ const UserClickHandler = () => {
                 } else if (mapSelector.npcAreaDetection[playerSelector.currentIndex]) {
                     if (playerSelector.clickedIndex.index === mapSelector.npcAreaDetection[playerSelector.currentIndex].npcIndex) {
                         dispatch(showModal({
-                            type: 'modal-shop',
-                            value: ['0']
+                            type: mapSelector.npc[mapSelector.npcAreaDetection[playerSelector.currentIndex].id].type,
+                            value: [mapSelector.npc[mapSelector.npcAreaDetection[playerSelector.currentIndex].id].id as unknown as string]
                         }))
                         dispatch(setCanMove(false));
                     }

@@ -81,9 +81,7 @@ const ItemContextMenu = () => {
         
             dispatch(removeItem(id));
             dispatch(giveMoney(itemData!.sellMoney));
-        }
-
-        
+        }        
     }
 
     return (

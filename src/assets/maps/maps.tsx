@@ -227,7 +227,7 @@ const maps: IMap = {
             0: {
                 id: 0,
                 npcIndex: 237,
-                type: "shop",
+                type: "modal-shop",
                 x: 1296,
                 y: 336,
                 entityImage: '.npc-shop',
@@ -237,12 +237,25 @@ const maps: IMap = {
                         type: 'weapon'
                     }
                 ]
+            },
+            1: {
+                id: 1,
+                npcIndex: 327,
+                type: "modal-heal",
+                x: 1296,
+                y: 480,
+                entityImage: '.npc-heal',
+                items: []
             }
         },
         npcAreaDetection: {
             236: {
                 id: 0,
                 npcIndex: 237
+            },
+            326: {
+                id: 1,
+                npcIndex: 327
             }
         },
         monsters: {},
