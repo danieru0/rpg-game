@@ -19,6 +19,8 @@ interface IPlayerState {
     hp: number;
     armor_hp: number;
     maxHP: number;
+    exp: number;
+    expNeeded: number;
     base_attack: number;
     inventoryItemsNumber: number;
     weapon_attack: number;
@@ -73,6 +75,8 @@ const initialState: IPlayerState = {
     armor_hp: 0,
     canMove: true,
     maxHP: 30,
+    exp: 0,
+    expNeeded: 20,
     base_attack: 5,
     inventoryItemsNumber: 0,
     weapon_attack: 0,
@@ -249,11 +253,20 @@ export const playerSlice = createSlice({
         },
         giveMoney: (state, action: PayloadAction<number>) => {
             state.money += action.payload;
+        },
+        giveExp: (state, action: PayloadAction<number>) => {
+            if (state.exp + action.payload >= state.expNeeded) {
+                state.lvl += 1;
+                state.expNeeded = 20 * (state.lvl * 1.5);
+                state.exp = 0;
+            } else {
+                state.exp += action.payload;
+            }
         }
     }
 })
 
-export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney } = playerSlice.actions;
+export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney, giveExp } = playerSlice.actions;
 
 export const selectPlayer = (state: RootState) => state.player;
 

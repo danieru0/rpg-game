@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPlayer, giveItems, setCanMove } from '../../features/player/playerSlice';
+import { selectPlayer, giveItems, setCanMove, giveExp, giveMoney } from '../../features/player/playerSlice';
 import { selectMonster, hitMonster, destroyMonster, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
 import { selectMap, openChest } from '../../features/map/mapSlice';
 import { showModal } from '../../features/modal/modalSlice';
@@ -88,6 +88,8 @@ const UserClickHandler = () => {
                             setAttackedMonsters(attackedMonsters.filter(monster => monster.index !== monster.id));
                             dispatch(clearMonstersCloseToPlayer(monster.id));
                             dispatch(destroyMonster(monster.id));
+                            dispatch(giveExp(monster.lvl * 5));
+                            dispatch(giveMoney(monster.lvl * 10));
                         }
                     }
                     

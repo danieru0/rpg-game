@@ -33,9 +33,37 @@ const initialState: MonsterDetails = {
             maxHP: 24,
             attack: 5,
             def: 0
+        },
+        2: {
+            x: 768,
+            y: 96,
+            entityImage: ".monster1",
+            currentIndex: 76,
+            seeRange: 3,
+            closeToPlayer: false,
+            id: 2,
+            lvl: 1,
+            hp: 24,
+            maxHP: 24,
+            attack: 5,
+            def: 0,
+        },
+        3: {
+            x: 720,
+            y: 240,
+            entityImage: ".monster1",
+            currentIndex: 165,
+            seeRange: 3,
+            closeToPlayer: false,
+            id: 3,
+            lvl: 1,
+            hp: 24,
+            maxHP: 24,
+            attack: 5,
+            def: 0
         }
     },
-    blockedIndexesMonsters: [155, 230],
+    blockedIndexesMonsters: [155, 230, 76, 165],
     monstersCloseToPlayer: []
 }
 

@@ -8,5 +8,7 @@ declare module "styled-components" {
         fontColor: string;
         roboto: string;
         border: string;
+        hpColor: string;
+        expColor: string;
     }
 }

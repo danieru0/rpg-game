@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { selectMonster } from '../../features/monster/monsterSlice';
 
 import EntityIcon from '../atoms/EntityIcon';
-import HpBar from '../atoms/HpBar';
+import Bar from '../atoms/Bar';
 
 const Container = styled.div`
     width: 100%;
@@ -38,7 +38,7 @@ const EnemyInfo = () => {
                         <Container key={key}>
                             <EntityIcon autoWidth={true} img={monsterImg.src} />
                             <Level>lvl: {monster.lvl}</Level>
-                            <HpBar hp={monster.hp} maxHP={monster.maxHP} />
+                            <Bar text="HP:" color="red" value={monster.hp} maxValue={monster.maxHP} />
                         </Container>
                     )
                 })

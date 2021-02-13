@@ -99,7 +99,7 @@ const ModalHeal = () => {
         const cost = playerSelector.lvl * 25;
         const healAmount = playerSelector.lvl * 15;
 
-        if (playerSelector.money - cost >= 0) {
+        if (playerSelector.money - cost >= 0 && playerSelector.hp !== playerSelector.maxHP) {
             if (playerSelector.hp + healAmount > playerSelector.maxHP) {
                 const newHp = (playerSelector.maxHP - playerSelector.hp) + playerSelector.hp; 
                 dispatch(setPlayerHp(newHp));
