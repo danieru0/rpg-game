@@ -119,11 +119,11 @@ const ModalShop = ({npc}: IModalShopProps) => {
 
     }
 
-    const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number | undefined, type: string | undefined) => {
-        if (id !== undefined && type) {
+    const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: number | undefined, itemType: string | undefined, type: string) => {
+        if (id !== undefined && itemType) {
             const itemRect = event.currentTarget.getBoundingClientRect();
     
-            switch(type) {
+            switch(itemType) {
                 case "armor":
                     dispatch(setItem({
                         x: itemRect.left - 5,
@@ -134,7 +134,8 @@ const ModalShop = ({npc}: IModalShopProps) => {
                             buffValue: armors[id].hp,
                             name: armors[id].name,
                             rarity: armors[id].rarity,
-                            money: armors[id].sellMoney
+                            money: type === 'buy' ? armors[id].buyMoney : armors[id].sellMoney,
+                            lvl: armors[id].lvl
                         }
                     }))
                     break;
@@ -148,7 +149,8 @@ const ModalShop = ({npc}: IModalShopProps) => {
                             buffValue: weapons[id].attack,
                             name: weapons[id].name,
                             rarity: weapons[id].rarity,
-                            money: weapons[id].sellMoney
+                            money: type === 'buy' ? weapons[id].buyMoney : weapons[id].sellMoney,
+                            lvl: weapons[id].lvl
                         }
                     }))
                     break;
@@ -162,7 +164,8 @@ const ModalShop = ({npc}: IModalShopProps) => {
                             buffValue: shields[id].def,
                             name: shields[id].name,
                             rarity: shields[id].rarity,
-                            money: shields[id].sellMoney
+                            money: type === 'buy' ? shields[id].buyMoney : shields[id].sellMoney,
+                            lvl: shields[id].lvl
                         }
                     }))
                     break;
@@ -198,7 +201,7 @@ const ModalShop = ({npc}: IModalShopProps) => {
                                 return (
                                     <EquimpentIcon  
                                         onContextMenu={(e) => handleContextMenu(e, item.id, item.type, 'buy')}
-                                        onMouseEnter={(e) => handleMouseEnter(e, item.id, item.type)}
+                                        onMouseEnter={(e) => handleMouseEnter(e, item.id, item.type, 'buy')}
                                         onMouseLeave={() => handleMouseLeave()}
                                         key={key}
                                         iconWidth={32}
@@ -238,7 +241,7 @@ const ModalShop = ({npc}: IModalShopProps) => {
                             return (
                                 <EquimpentIcon  
                                     onContextMenu={(e) => handleContextMenu(e, inventorySlot?.slotId, inventorySlot?.type, 'sell')}
-                                    onMouseEnter={(e) => handleMouseEnter(e, inventorySlot?.id, inventorySlot?.type)}
+                                    onMouseEnter={(e) => handleMouseEnter(e, inventorySlot?.id, inventorySlot?.type, 'sell')}
                                     onMouseLeave={() => handleMouseLeave()}
                                     key={key}
                                     iconWidth={32}

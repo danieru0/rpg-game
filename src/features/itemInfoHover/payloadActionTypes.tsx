@@ -4,6 +4,7 @@ export interface WearableItem {
     buffValue: number;
     rarity: string;
     money: number;
+    lvl: number;
 }
 
 export interface setItemInterface {

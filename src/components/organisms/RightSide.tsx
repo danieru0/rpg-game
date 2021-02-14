@@ -40,7 +40,8 @@ const RightSide = () => {
                             buffValue: armors[id].hp,
                             name: armors[id].name,
                             rarity: armors[id].rarity,
-                            money: armors[id].sellMoney
+                            money: armors[id].sellMoney,
+                            lvl: armors[id].lvl
                         }
                     }))
                     break;
@@ -54,7 +55,8 @@ const RightSide = () => {
                             buffValue: weapons[id].attack,
                             name: weapons[id].name,
                             rarity: weapons[id].rarity,
-                            money: weapons[id].sellMoney
+                            money: weapons[id].sellMoney,
+                            lvl: weapons[id].lvl
                         }
                     }))
                     break;
@@ -68,7 +70,8 @@ const RightSide = () => {
                             buffValue: shields[id].def,
                             name: shields[id].name,
                             rarity: shields[id].rarity,
-                            money: shields[id].sellMoney
+                            money: shields[id].sellMoney,
+                            lvl: shields[id].lvl
                         }
                     }))
                     break;

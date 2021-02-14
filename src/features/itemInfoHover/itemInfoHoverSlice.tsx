@@ -17,7 +17,8 @@ const initialState: IItemInfoHover = {
         buffName: "",
         buffValue: 0,
         rarity: "",
-        money: 0
+        money: 0,
+        lvl: 0
     },
     type: '',
 }

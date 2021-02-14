@@ -71,10 +71,10 @@ const initialState: IPlayerState = {
     currentIndex: 93,
     startIndex: 93,
     lvl: 1,
-    hp: 30,
+    hp: 20,
     armor_hp: 0,
     canMove: true,
-    maxHP: 30,
+    maxHP: 20,
     exp: 0,
     expNeeded: 20,
     base_attack: 5,
@@ -170,7 +170,7 @@ export const playerSlice = createSlice({
             if (item) {
                 switch(item.type) {
                     case "weapon":
-                        if (state.equipmnent.weapon === null) {
+                        if (state.equipmnent.weapon === null && weapons[item.id].lvl <= state.lvl) {
                             state.equipmnent.weapon = weapons[item.id];
                             state.weapon_attack = weapons[item.id].attack;
                             state.inventory[action.payload] = null;
@@ -178,7 +178,7 @@ export const playerSlice = createSlice({
                         }
                         break;
                     case "armor":
-                        if (state.equipmnent.armor === null) {
+                        if (state.equipmnent.armor === null && armors[item.id].lvl <= state.lvl) {
                             state.equipmnent.armor = armors[item.id];
                             state.maxHP += armors[item.id].hp;
                             state.inventory[action.payload] = null;
@@ -186,7 +186,7 @@ export const playerSlice = createSlice({
                         }
                         break;
                     case "shield":
-                        if (state.equipmnent.shield === null) {
+                        if (state.equipmnent.shield === null && shields[item.id].lvl <= state.lvl) {
                             state.equipmnent.shield = shields[item.id];
                             state.def = shields[item.id].def;
                             state.inventory[action.payload] = null;
@@ -259,6 +259,8 @@ export const playerSlice = createSlice({
                 state.lvl += 1;
                 state.expNeeded = 20 * (state.lvl * 1.5);
                 state.exp = 0;
+                state.base_attack = Math.floor((5 * state.lvl) / 1.5);
+                state.maxHP = Math.floor((30 * state.lvl) / 1.5);
             } else {
                 state.exp += action.payload;
             }

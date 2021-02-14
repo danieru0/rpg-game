@@ -11,6 +11,7 @@ export interface IWeapons {
         rarity: rarityType;
         sellMoney: number;
         buyMoney: number;
+        lvl: number;
     }
 }
 
@@ -24,6 +25,7 @@ export interface IArmors {
         rarity: rarityType;
         sellMoney: number;
         buyMoney: number;
+        lvl: number;
     }
 }
 
@@ -37,6 +39,7 @@ export interface IShields {
         rarity: rarityType;
         sellMoney: number;
         buyMoney: number;
+        lvl: number;
     }
 }
 
@@ -49,7 +52,8 @@ const weapons: IWeapons = {
         type: "weapon",
         rarity: "white",
         sellMoney: 1,
-        buyMoney: 10
+        buyMoney: 10,
+        lvl: 1
     }
 }
 
@@ -62,7 +66,8 @@ const armors: IArmors = {
         type: "armor",
         rarity: "white",
         sellMoney: 1,
-        buyMoney: 10
+        buyMoney: 10,
+        lvl: 1
     }
 }
 
@@ -75,7 +80,8 @@ const shields: IShields = {
         type: "shield",
         rarity: "white",
         sellMoney: 1,
-        buyMoney: 10
+        buyMoney: 10,
+        lvl: 2
     }
 }
 
