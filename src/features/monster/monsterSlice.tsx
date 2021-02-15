@@ -107,6 +107,7 @@ export const monsterSlice = createSlice({
             if (maps[action.payload]) {
                 state.monsters = maps[action.payload].monsters;
                 state.blockedIndexesMonsters = maps[action.payload].blockedIndexesMonsters;
+                state.monstersCloseToPlayer = [];
             }
         },
         addMonsterCloseToPlayer: (state, action: PayloadAction<number>) => {

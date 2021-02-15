@@ -118,6 +118,12 @@ function Canvas() {
 		}
 	}, [viewportRef, playerSelector.x, playerSelector.y, canvasSelector.viewport.refresh]); //eslint-disable-line
 
+	useEffect(() => {
+		if (document.querySelector('.boundy')) {
+			document.querySelector('.boundy')!.scrollTop = 48;
+		}
+	}, []);
+
 	return (
 		<Viewport ref={viewportRef} width={canvasSelector.viewport.width} height={canvasSelector.viewport.height}>
 			<canvas onContextMenu={(e) => e.preventDefault()} ref={canvasRef} width={canvasSelector.width} height={canvasSelector.height}></canvas>

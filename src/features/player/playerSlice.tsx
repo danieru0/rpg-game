@@ -128,7 +128,7 @@ export const playerSlice = createSlice({
             state.hp -= action.payload;
         },
         setPlayerHp: (state, action: PayloadAction<number | null>) => {
-            if (action.payload) {
+            if (action.payload !== null) {
                 state.hp = action.payload;
             } else {
                 state.hp = state.maxHP;

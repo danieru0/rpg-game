@@ -7,8 +7,8 @@ interface ICanvasState {
     width: number;
     height: number;
     viewport: {
-        width: 816,
-        height: 816,
+        width: number;
+        height: number;
         x: number;
         y: number;
         refresh: number;

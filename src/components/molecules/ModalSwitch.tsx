@@ -3,6 +3,7 @@ import React from 'react';
 import ModalExit from './ModalExit';
 import ModalShop from './ModalShop';
 import ModalHeal from './ModalHeal';
+import ModalDeath from './ModalDeath';
 
 interface IModalSwitchProps {
     type: string | null;
@@ -17,6 +18,8 @@ const ModalSwitch = ({type, value}: IModalSwitchProps) => {
             return <ModalShop npc={value[0] as unknown as number} />
         case 'modal-heal':
             return <ModalHeal />
+        case 'modal-death':
+            return <ModalDeath />
         default: return null;
     }
 };

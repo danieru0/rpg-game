@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactInterval from 'react-interval';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPlayer, hitPlayer, setPlayerHp, resetPlayerPosition } from '../../features/player/playerSlice';
+import { selectPlayer, hitPlayer, setPlayerHp, setCanMove } from '../../features/player/playerSlice';
 import { selectMap } from '../../features/map/mapSlice';
-import { resetViewport } from '../../features/canvas/canvasSlice';
-import { selectMonster, setMonsterPosition, setMonsterCloseToPlayer, resetMonstersInDungeon, addMonsterCloseToPlayer, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
+import { showModal } from '../../features/modal/modalSlice';
+import { selectMonster, setMonsterPosition, setMonsterCloseToPlayer, addMonsterCloseToPlayer, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
 import easystarjs from 'easystarjs';
 
 interface monsterObject {
@@ -134,15 +134,16 @@ const MonsterPlayerDetection = () => {
                                         dispatch(hitPlayer(monster.attack - playerSelector.def));
                                     } else {
                                         setTimeout(() => {
+                                            dispatch(setCanMove(false));
+                                            dispatch(setPlayerHp(0));
                                             setMonstersObject({});
-                                            dispatch(resetMonstersInDungeon(mapSelector.name));
-                                            dispatch(setPlayerHp(null));
-                                            dispatch(resetPlayerPosition());
-                                            dispatch(resetViewport(null));
+                                            dispatch(showModal({
+                                                type: 'modal-death',
+                                                value: []
+                                            }))
                                         }, 50);
                                     }
                                 }
-
                             }}
                         />
                     )
