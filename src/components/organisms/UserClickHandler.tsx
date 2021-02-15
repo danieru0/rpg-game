@@ -4,6 +4,7 @@ import { selectPlayer, giveItems, setCanMove, giveExp, giveMoney } from '../../f
 import { selectMonster, hitMonster, destroyMonster, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
 import { selectMap, openChest } from '../../features/map/mapSlice';
 import { showModal } from '../../features/modal/modalSlice';
+import { addMessage } from '../../features/console/consoleSlice';
 import usePrevious from '../../hooks/usePrevious';
 
 interface IAttackedMonsters {
@@ -46,6 +47,8 @@ const UserClickHandler = () => {
                     if (playerSelector.clickedIndex.index === mapSelector.chestsAreaDetection[playerSelector.currentIndex].chestIndex) {
                         if (mapSelector.chests[mapSelector.chestsAreaDetection[playerSelector.currentIndex].id].open === false) {
                             dispatch(openChest(mapSelector.chestsAreaDetection[playerSelector.currentIndex].id));
+
+                            dispatch(addMessage(`You have opened a chest!`));
 
                             mapSelector.chests[mapSelector.chestsAreaDetection[playerSelector.currentIndex].id].itemsId.forEach((item) => {
                                 dispatch(giveItems({
@@ -90,6 +93,8 @@ const UserClickHandler = () => {
                             dispatch(destroyMonster(monster.id));
                             dispatch(giveExp(monster.lvl * 5));
                             dispatch(giveMoney(monster.lvl * 10));
+                            dispatch(addMessage(`You have gained: ${monster.lvl * 5} exp!`));
+                            dispatch(addMessage(`You have got: ${monster.lvl * 10} gold!`));
                         }
                     }
                     

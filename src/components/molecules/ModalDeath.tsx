@@ -6,7 +6,7 @@ import { resetViewport } from '../../features/canvas/canvasSlice';
 import { resetMonstersInDungeon } from '../../features/monster/monsterSlice';
 import { selectMap } from '../../features/map/mapSlice';
 import { hideModal } from '../../features/modal/modalSlice';
-
+import { addMessage } from '../../features/console/consoleSlice';
 
 const Container = styled.div`
     width: 400px;
@@ -50,6 +50,7 @@ const ModalDeath = () => {
     const mapSelector = useSelector(selectMap);
 
     const handleRespawnBtn = () => {
+        dispatch(addMessage('Respawning...'));
         dispatch(resetMonstersInDungeon(mapSelector.name));
         dispatch(setPlayerHp(null));
         dispatch(resetPlayerPosition());

@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
 import { MapTriggers } from '../../assets/maps/mapsInterfaces';
 import maps from '../../assets/maps/maps';
-
 import { showModal } from '../modal/modalSlice';
 import { setCanMove } from '../player/playerSlice';
 

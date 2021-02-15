@@ -7,6 +7,7 @@ import { setCanMove, setNewPositionFromMap, savePlayer } from '../../features/pl
 import { setMonsters, saveMonsters } from '../../features/monster/monsterSlice';
 import { resetViewport, saveCanvas } from '../../features/canvas/canvasSlice';
 import { setTriggers } from '../../features/triggers/triggersSlice';
+import { addMessage } from '../../features/console/consoleSlice';
 
 import ModalButton from '../atoms/ModalButton';
 
@@ -57,6 +58,7 @@ const ModalExit = ({map}: IModalExitProps) => {
     const mapSelector = useSelector(selectMap);
 
     const handleYesClick = () => {
+        dispatch(addMessage('Changing map...'))
         dispatch(saveMap(mapSelector.name));
         dispatch(saveMonsters(mapSelector.name));
         dispatch(savePlayer(mapSelector.name));
@@ -68,6 +70,7 @@ const ModalExit = ({map}: IModalExitProps) => {
         dispatch(resetViewport(map));
         dispatch(setTriggers(map));
         dispatch(setCanMove(true));
+        dispatch(addMessage('Map changed!'));
     }
 
     const handleNoClick = () => {

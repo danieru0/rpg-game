@@ -7,6 +7,7 @@ import itemInfoHoverReducer from '../features/itemInfoHover/itemInfoHoverSlice';
 import itemContextMenuReducer from '../features/itemContextMenu/itemContextMenuSlice';
 import triggersReducer from '../features/triggers/triggersSlice';
 import modalReducer from '../features/modal/modalSlice';
+import consoleReducer from '../features/console/consoleSlice';
 
 export const store = configureStore({
   	reducer: {
@@ -17,7 +18,8 @@ export const store = configureStore({
 		itemInfoHover: itemInfoHoverReducer,
 		itemContextMenu: itemContextMenuReducer,
 		triggers: triggersReducer,
-		modal: modalReducer
+		modal: modalReducer,
+		console: consoleReducer
   	},
 });
 

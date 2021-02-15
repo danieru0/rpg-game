@@ -245,7 +245,6 @@ export const playerSlice = createSlice({
                 maps[action.payload].playerXStart = current(state).x;
                 maps[action.payload].playerYStart = current(state).y;
                 maps[action.payload].playerStartIndex = current(state).currentIndex;
-
             }
         },
         takeMoneyAway: (state, action: PayloadAction<number>) => {

@@ -6,6 +6,7 @@ import { setNewPositionFromMap, savePlayer } from '../../features/player/playerS
 import { setMonsters, saveMonsters } from '../../features/monster/monsterSlice';
 import { resetViewport, setCanvas, saveCanvas } from '../../features/canvas/canvasSlice';
 import { setTriggers } from '../../features/triggers/triggersSlice';
+import { selectConsole, addMessage } from '../../features/console/consoleSlice';
 import maps from '../../assets/maps/maps';
 
 const Container = styled.div`
@@ -53,6 +54,7 @@ const Input = styled.input`
 const Console = () => {
     const dispatch = useDispatch();
     const mapSelector = useSelector(selectMap);
+    const consoleSelector = useSelector(selectConsole);
     const [consoleText, setConsoleText] = useState('');
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,6 +73,7 @@ const Console = () => {
             switch(commandArray[1]) {
                 case "setmap": {
                     if (commandArray[2] && maps[commandArray[2]]) {
+                        dispatch(addMessage('Changing map...'));
                         dispatch(saveMap(mapSelector.name));
                         dispatch(saveMonsters(mapSelector.name));
                         dispatch(savePlayer(mapSelector.name));
@@ -81,6 +84,9 @@ const Console = () => {
                         dispatch(resetViewport(commandArray[2]));
                         dispatch(setCanvas(commandArray[2]));
                         dispatch(setTriggers(commandArray[2]));
+                        dispatch(addMessage('Map changed!'));
+                    } else {
+                        dispatch(addMessage('There is no map with that name!'));
                     }
                     break;
                 }
@@ -94,7 +100,13 @@ const Console = () => {
     return (
         <Container>
             <Wrapper>
-                
+                {
+                    consoleSelector.messages.map((item, key) => {
+                        return (
+                            <Text key={key}>{item}</Text>
+                        )
+                    })
+                }
             </Wrapper>
             <Form onSubmit={handleConsoleSubmit}> 
                 <Input value={consoleText} onChange={handleInputChange}/>
