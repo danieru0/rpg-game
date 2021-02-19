@@ -1,19 +1,24 @@
 {
   "files": {
-    "main.js": "/rpg-game/static/js/main.cd1c3e06.chunk.js",
-    "main.js.map": "/rpg-game/static/js/main.cd1c3e06.chunk.js.map",
+    "main.js": "/rpg-game/static/js/main.27d9da70.chunk.js",
+    "main.js.map": "/rpg-game/static/js/main.27d9da70.chunk.js.map",
     "runtime-main.js": "/rpg-game/static/js/runtime-main.86d4a9dc.js",
     "runtime-main.js.map": "/rpg-game/static/js/runtime-main.86d4a9dc.js.map",
     "static/js/2.f6568e38.chunk.js": "/rpg-game/static/js/2.f6568e38.chunk.js",
     "static/js/2.f6568e38.chunk.js.map": "/rpg-game/static/js/2.f6568e38.chunk.js.map",
     "index.html": "/rpg-game/index.html",
     "static/js/2.f6568e38.chunk.js.LICENSE.txt": "/rpg-game/static/js/2.f6568e38.chunk.js.LICENSE.txt",
+    "static/media/chest.c49ea6d6.mp3": "/rpg-game/static/media/chest.c49ea6d6.mp3",
+    "static/media/dungeon.706b256c.ogg": "/rpg-game/static/media/dungeon.706b256c.ogg",
     "static/media/dungeonItems.24235a64.png": "/rpg-game/static/media/dungeonItems.24235a64.png",
-    "static/media/village.8ee4808d.png": "/rpg-game/static/media/village.8ee4808d.png"
+    "static/media/dungeonStep.d5231ca5.ogg": "/rpg-game/static/media/dungeonStep.d5231ca5.ogg",
+    "static/media/village.8ee4808d.png": "/rpg-game/static/media/village.8ee4808d.png",
+    "static/media/village.b7b90a0a.mp3": "/rpg-game/static/media/village.b7b90a0a.mp3",
+    "static/media/villageStep.a7766d03.ogg": "/rpg-game/static/media/villageStep.a7766d03.ogg"
   },
   "entrypoints": [
     "static/js/runtime-main.86d4a9dc.js",
     "static/js/2.f6568e38.chunk.js",
-    "static/js/main.cd1c3e06.chunk.js"
+    "static/js/main.27d9da70.chunk.js"
   ]
 }
