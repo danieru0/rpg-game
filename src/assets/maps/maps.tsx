@@ -1,5 +1,10 @@
 import { IMap } from './mapsInterfaces';
 
+import DungeonBg from '../audio/dungeon.ogg';
+import DungeonStep from '../audio/dungeonStep.ogg';
+import Village from '../audio/village.mp3';
+import VillageStep from '../audio/villageStep.ogg';
+
 const maps: IMap = {
     map1: {
         name: "map1",
@@ -20,8 +25,8 @@ const maps: IMap = {
         playerYStart: 144,
         playerStartIndex: 93,
         backgroundColor: "#1C1117",
-        musicTheme: '/audio/dungeon.ogg',
-        stepSound: '/audio/dungeonStep.ogg',
+        musicTheme: DungeonBg,
+        stepSound: DungeonStep,
         layers: {
             blockTiles: {
                 firstGrid: 0,
@@ -225,8 +230,8 @@ const maps: IMap = {
         },
         playerStartIndex: 301,
         backgroundColor: "#1C1117",
-        musicTheme: '/audio/village.mp3',
-        stepSound: '/audio/villageStep.ogg',
+        musicTheme: Village,
+        stepSound: VillageStep,
         layers: {
             blockTiles: {
                 firstGrid: 0,
@@ -264,13 +269,13 @@ const maps: IMap = {
                 type: "modal-shop",
                 x: 1296,
                 y: 336,
-                entityImage: '.npc-shop',
+                entityImage: '.npc-shopLeft',
                 items: [
                     {
                         id: 0,
                         type: 'weapon'
                     }
-                ]
+                ],
             },
             1: {
                 id: 1,
@@ -278,8 +283,8 @@ const maps: IMap = {
                 type: "modal-heal",
                 x: 1296,
                 y: 480,
-                entityImage: '.npc-heal',
-                items: []
+                entityImage: '.npc-healLeft',
+                items: [],
             }
         },
         npcAreaDetection: {

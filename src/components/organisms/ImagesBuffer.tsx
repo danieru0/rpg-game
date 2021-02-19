@@ -14,7 +14,9 @@ import Weapon1 from '../../assets/items/weapon1.png';
 import Armor1 from '../../assets/items/armor1.png';
 import Shield1 from '../../assets/items/shield1.png';
 import NpcShop from '../../assets/entites/npc-shop.png';
+import NpcShopLeft from '../../assets/entites/npc-shopLeft.png';
 import NpcHeal from '../../assets/entites/npc-heal.png';
+import NpcHealLeft from '../../assets/entites/npc-healLeft.png';
 
 const Container = styled.div`
     display: none;
@@ -40,7 +42,9 @@ function TilesBuffer() {
             <img onLoad={handleImageLoad} className="armor1" alt="" src={Armor1} />
             <img onLoad={handleImageLoad} className="shield1" alt="" src={Shield1} />
             <img onLoad={handleImageLoad} className="npc-shop" alt="" src={NpcShop} />
+            <img onLoad={handleImageLoad} className="npc-shopLeft" alt="" src={NpcShopLeft} />
             <img onLoad={handleImageLoad} className="npc-heal" alt="" src={NpcHeal} />
+            <img onLoad={handleImageLoad} className="npc-healLeft" alt="" src={NpcHealLeft} />
 		</Container>
 	);
 }

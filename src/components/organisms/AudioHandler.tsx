@@ -2,14 +2,19 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { selectMap } from '../../features/map/mapSlice';
 import { selectPlayer } from '../../features/player/playerSlice';
-import { selectGlobal } from '../../features/global/globalSlice';
+import { selectGlobal } from '../../features/global/globalSlice'
+
+import Chest from '../../assets/audio/chest.mp3';
+import Dungeon from '../../assets/audio/dungeon.ogg';
+import DungeonStep from '../../assets/audio/dungeonStep.ogg';
+
 
 const AudioHandler = () => {
     const mapSelector = useSelector(selectMap);
     const playerSelector = useSelector(selectPlayer);
     const globalSelector = useSelector(selectGlobal);
-    const [backgroundAudio, setBackgroundAudio] = useState('/audio/dungeon.ogg');
-    const [stepSound, setStepSound] = useState('/audio/dungeonStep.ogg');
+    const [backgroundAudio, setBackgroundAudio] = useState(Dungeon);
+    const [stepSound, setStepSound] = useState(DungeonStep);
     const [miscSound, setMiscSound] = useState('');
     const backgroundAudioRef = useRef<HTMLAudioElement>(new Audio());
     const stepSoundRef = useRef<HTMLAudioElement>(new Audio());
@@ -47,7 +52,7 @@ const AudioHandler = () => {
     }, [playerSelector.x, playerSelector.y, playerSelector.yStart, playerSelector.xStart]);
 
     useEffect(() => {
-        setMiscSound('/audio/chest.mp3');
+        setMiscSound(Chest);
         miscSoundRef.current.pause();
         miscSoundRef.current.load();
         miscSoundRef.current.play();

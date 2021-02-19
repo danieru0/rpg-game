@@ -2,6 +2,7 @@ export interface playerPosition {
     x: number;
     y: number;
     currentIndex: number;
+    direction: string;
 }
 
 export interface clickedIndex {

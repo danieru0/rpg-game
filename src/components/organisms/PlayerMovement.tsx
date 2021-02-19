@@ -71,7 +71,8 @@ const PlayerMovement = () => {
                 dispatch(setPlayerPosition({
                     x: nextPlayerX * canvasSelector.tileSize,
                     y: nextPlayerY * canvasSelector.tileSize,
-                    currentIndex: nextPlayerIndex
+                    currentIndex: nextPlayerIndex,
+                    direction: direction
                 }));
 
                 if (triggersSelector.triggers && triggersSelector.triggers[nextPlayerIndex] && triggersSelector.triggers[nextPlayerIndex].map === mapSelector.name) {
