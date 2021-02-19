@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/rpg-game/static/js/main.cd1c3e06.chunk.js",
+    "main.js.map": "/rpg-game/static/js/main.cd1c3e06.chunk.js.map",
+    "runtime-main.js": "/rpg-game/static/js/runtime-main.86d4a9dc.js",
+    "runtime-main.js.map": "/rpg-game/static/js/runtime-main.86d4a9dc.js.map",
+    "static/js/2.f6568e38.chunk.js": "/rpg-game/static/js/2.f6568e38.chunk.js",
+    "static/js/2.f6568e38.chunk.js.map": "/rpg-game/static/js/2.f6568e38.chunk.js.map",
+    "index.html": "/rpg-game/index.html",
+    "static/js/2.f6568e38.chunk.js.LICENSE.txt": "/rpg-game/static/js/2.f6568e38.chunk.js.LICENSE.txt",
+    "static/media/dungeonItems.24235a64.png": "/rpg-game/static/media/dungeonItems.24235a64.png",
+    "static/media/village.8ee4808d.png": "/rpg-game/static/media/village.8ee4808d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.86d4a9dc.js",
+    "static/js/2.f6568e38.chunk.js",
+    "static/js/main.cd1c3e06.chunk.js"
+  ]
+}
