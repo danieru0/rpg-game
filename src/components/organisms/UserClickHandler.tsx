@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPlayer, giveItems, setCanMove, giveExp, giveMoney } from '../../features/player/playerSlice';
-import { selectMonster, hitMonster, destroyMonster, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
+import { selectPlayer, giveItems, setCanMove } from '../../features/player/playerSlice';
+import { selectMonster, hitMonster } from '../../features/monster/monsterSlice';
 import { selectMap, openChest } from '../../features/map/mapSlice';
 import { showModal } from '../../features/modal/modalSlice';
 import { addMessage } from '../../features/console/consoleSlice';
+import { setAudioRefresh, killMonster } from '../../features/global/globalSlice';
 import usePrevious from '../../hooks/usePrevious';
 
 interface IAttackedMonsters {
@@ -49,6 +50,7 @@ const UserClickHandler = () => {
                             dispatch(openChest(mapSelector.chestsAreaDetection[playerSelector.currentIndex].id));
 
                             dispatch(addMessage(`You have opened a chest!`));
+                            dispatch(setAudioRefresh('chest'));
 
                             mapSelector.chests[mapSelector.chestsAreaDetection[playerSelector.currentIndex].id].itemsId.forEach((item) => {
                                 dispatch(giveItems({
@@ -89,12 +91,10 @@ const UserClickHandler = () => {
                             dispatch(hitMonster({id: monster.id, value: playerTotalAttack}));
                         } else {
                             setAttackedMonsters(attackedMonsters.filter(monster => monster.index !== monster.id));
-                            dispatch(clearMonstersCloseToPlayer(monster.id));
-                            dispatch(destroyMonster(monster.id));
-                            dispatch(giveExp(monster.lvl * 5));
-                            dispatch(giveMoney(monster.lvl * 10));
-                            dispatch(addMessage(`You have gained: ${monster.lvl * 5} exp!`));
-                            dispatch(addMessage(`You have got: ${monster.lvl * 10} gold!`));
+                            dispatch(killMonster({
+                                id: monster.id,
+                                lvl: monster.lvl
+                            }))
                         }
                     }
                     

@@ -2,10 +2,12 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { selectMap } from '../../features/map/mapSlice';
 import { selectPlayer } from '../../features/player/playerSlice';
+import { selectGlobal } from '../../features/global/globalSlice';
 
 const AudioHandler = () => {
     const mapSelector = useSelector(selectMap);
     const playerSelector = useSelector(selectPlayer);
+    const globalSelector = useSelector(selectGlobal);
     const [backgroundAudio, setBackgroundAudio] = useState('/audio/dungeon.ogg');
     const [stepSound, setStepSound] = useState('/audio/dungeonStep.ogg');
     const [miscSound, setMiscSound] = useState('');
@@ -49,7 +51,7 @@ const AudioHandler = () => {
         miscSoundRef.current.pause();
         miscSoundRef.current.load();
         miscSoundRef.current.play();
-    }, [mapSelector.chests]);
+    }, [globalSelector.refresh.chest]);
 
     useEffect(() => {
         const backgroundAudioRefCopy = backgroundAudioRef;

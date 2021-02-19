@@ -17,9 +17,6 @@ const Viewport = styled.div<IViewportProps>`
 	overflow: hidden;
 `
 
-// temporary change later
-type layersNames = "blockTiles" | "floor" | "player" | "items" | "chests" | "monsters" | "walls" | "wallsDecoration";
-
 function Canvas() {
 	const dispatch = useDispatch();
 	const canvasSelector = useSelector(selectCanvas);
@@ -38,8 +35,7 @@ function Canvas() {
 		ctx.fillRect(0, 0, mapSelector.width, mapSelector.height);
 
 		Object.keys(mapSelector.layers).forEach(item => {
-			const layerName = item as layersNames;
-			const layer = mapSelector.layers[layerName];
+			const layer = mapSelector.layers[item];
 
 			switch(item) {
 				case "player":
@@ -95,8 +91,6 @@ function Canvas() {
 		x = canvasSelector.width - canvasSelector.viewport.x <= 720 ? x -= 2 : x;
 		const y = Math.floor((e.pageY - offsetTopWithVieport) / canvasSelector.tileSize);
 		const index = Math.floor(y * mapSelector.rows + x);
-
-		console.log(x, y, index);
 
 		dispatch(setClickedIndex({index: index, refresh: Math.random()}));
 	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch, canvasSelector.width, canvasSelector.tileSize]);

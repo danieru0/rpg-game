@@ -8,6 +8,7 @@ import itemContextMenuReducer from '../features/itemContextMenu/itemContextMenuS
 import triggersReducer from '../features/triggers/triggersSlice';
 import modalReducer from '../features/modal/modalSlice';
 import consoleReducer from '../features/console/consoleSlice';
+import globalReducer from '../features/global/globalSlice';
 
 export const store = configureStore({
   	reducer: {
@@ -19,7 +20,8 @@ export const store = configureStore({
 		itemContextMenu: itemContextMenuReducer,
 		triggers: triggersReducer,
 		modal: modalReducer,
-		console: consoleReducer
+		console: consoleReducer,
+		global: globalReducer
   	},
 });
 

@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { setMap, saveMap, selectMap } from '../../features/map/mapSlice';
-import { setNewPositionFromMap, savePlayer } from '../../features/player/playerSlice';
-import { setMonsters, saveMonsters } from '../../features/monster/monsterSlice';
-import { resetViewport, setCanvas, saveCanvas } from '../../features/canvas/canvasSlice';
-import { setTriggers } from '../../features/triggers/triggersSlice';
+import { selectMap } from '../../features/map/mapSlice';
 import { selectConsole, addMessage } from '../../features/console/consoleSlice';
+import { changeMap } from '../../features/global/globalSlice';
 import maps from '../../assets/maps/maps';
 
 const Container = styled.div`
@@ -73,18 +70,7 @@ const Console = () => {
             switch(commandArray[1]) {
                 case "setmap": {
                     if (commandArray[2] && maps[commandArray[2]]) {
-                        dispatch(addMessage('Changing map...'));
-                        dispatch(saveMap(mapSelector.name));
-                        dispatch(saveMonsters(mapSelector.name));
-                        dispatch(savePlayer(mapSelector.name));
-                        dispatch(saveCanvas(mapSelector.name));
-                        dispatch(setMap(commandArray[2]));
-                        dispatch(setNewPositionFromMap(commandArray[2]));
-                        dispatch(setMonsters(commandArray[2]));
-                        dispatch(resetViewport(commandArray[2]));
-                        dispatch(setCanvas(commandArray[2]));
-                        dispatch(setTriggers(commandArray[2]));
-                        dispatch(addMessage('Map changed!'));
+                        dispatch(changeMap({newMap: commandArray[2], prevMap: mapSelector.name}));
                     } else {
                         dispatch(addMessage('There is no map with that name!'));
                     }

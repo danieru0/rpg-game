@@ -1,12 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPlayerHp, resetPlayerPosition, setCanMove } from '../../features/player/playerSlice';
-import { resetViewport } from '../../features/canvas/canvasSlice';
-import { resetMonstersInDungeon } from '../../features/monster/monsterSlice';
 import { selectMap } from '../../features/map/mapSlice';
-import { hideModal } from '../../features/modal/modalSlice';
-import { addMessage } from '../../features/console/consoleSlice';
+import { respawnPlayer } from '../../features/global/globalSlice';
 
 const Container = styled.div`
     width: 400px;
@@ -50,13 +46,7 @@ const ModalDeath = () => {
     const mapSelector = useSelector(selectMap);
 
     const handleRespawnBtn = () => {
-        dispatch(addMessage('Respawning...'));
-        dispatch(resetMonstersInDungeon(mapSelector.name));
-        dispatch(setPlayerHp(null));
-        dispatch(resetPlayerPosition());
-        dispatch(resetViewport(null));
-        dispatch(hideModal());
-        dispatch(setCanMove(true));
+        dispatch(respawnPlayer(mapSelector.name));
     }
 
     return (
