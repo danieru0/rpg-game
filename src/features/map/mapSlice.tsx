@@ -15,6 +15,8 @@ const initialState: MapDetails = {
     width: 1440,
     height: 1440,
     backgroundColor: "#1C1117",
+    musicTheme: '/audio/dungeon.ogg',
+    stepSound: '/audio/dungeonStep.ogg',
     playerXStart: 144,
     playerYStart: 144,
     viewport: {

@@ -20,6 +20,8 @@ const maps: IMap = {
         playerYStart: 144,
         playerStartIndex: 93,
         backgroundColor: "#1C1117",
+        musicTheme: '/audio/dungeon.ogg',
+        stepSound: '/audio/dungeonStep.ogg',
         layers: {
             blockTiles: {
                 firstGrid: 0,
@@ -167,6 +169,8 @@ const maps: IMap = {
         },
         playerStartIndex: 125,
         backgroundColor: "#1C1117",
+        musicTheme: '/audio/dungeon.ogg',
+        stepSound: '/audio/dungeonStep.ogg',
         layers: {
             blockTiles: {
                 firstGrid: 0,
@@ -221,6 +225,8 @@ const maps: IMap = {
         },
         playerStartIndex: 301,
         backgroundColor: "#1C1117",
+        musicTheme: '/audio/village.mp3',
+        stepSound: '/audio/villageStep.ogg',
         layers: {
             blockTiles: {
                 firstGrid: 0,

@@ -34,6 +34,8 @@ export interface MapDetails {
     playerXStart: number;
     playerYStart: number;
     playerStartIndex: number;
+    musicTheme: string;
+    stepSound: string;
     viewport: {
         x: number;
         y: number;

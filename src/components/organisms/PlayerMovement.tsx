@@ -52,19 +52,19 @@ const PlayerMovement = () => {
             if ((mapSelector.layers.blockTiles.tiles[nextPlayerY][nextPlayerX] === 115 || mapSelector.layers.blockTiles.tiles[nextPlayerY][nextPlayerX] === 58) && !monsterSelector.blockedIndexesMonsters.includes(nextPlayerIndex) && !mapSelector.blockedIndexesMap.includes(nextPlayerIndex)) {
                 if (direction === "right") {
                     if (nextPlayerX * canvasSelector.tileSize >= 384 && nextPlayerX * canvasSelector.tileSize <= canvasSelector.width - 384) {
-                        dispatch(setViewportPositionX(canvasSelector.viewport.x + 48));
+                        dispatch(setViewportPositionX(canvasSelector.viewport.x + canvasSelector.tileSize));
                     }
                 } else if (direction === "left") {
                     if (nextPlayerX * canvasSelector.tileSize >= 336 && nextPlayerX * canvasSelector.tileSize <= canvasSelector.width - 432) {
-                        dispatch(setViewportPositionX(canvasSelector.viewport.x - 48));
+                        dispatch(setViewportPositionX(canvasSelector.viewport.x - canvasSelector.tileSize));
                     }
                 } else if (direction === "down") {
                     if (nextPlayerY * canvasSelector.tileSize >= 384 && nextPlayerY * canvasSelector.tileSize <= canvasSelector.height - 384) {
-                        dispatch(setViewportPositionY(canvasSelector.viewport.y + 48));
+                        dispatch(setViewportPositionY(canvasSelector.viewport.y + canvasSelector.tileSize));
                     }
                 } else if (direction === "up") {
                     if (nextPlayerY * canvasSelector.tileSize >= 336 && nextPlayerY * canvasSelector.tileSize <= canvasSelector.height - 432) {
-                        dispatch(setViewportPositionY(canvasSelector.viewport.y - 48));
+                        dispatch(setViewportPositionY(canvasSelector.viewport.y - canvasSelector.tileSize));
                     }
                 }
     

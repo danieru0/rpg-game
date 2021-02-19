@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectPlayer, hitPlayer, setPlayerHp, setCanMove } from '../../features/player/playerSlice';
 import { selectMap } from '../../features/map/mapSlice';
 import { showModal } from '../../features/modal/modalSlice';
+import { selectCanvas } from '../../features/canvas/canvasSlice';
 import { selectMonster, setMonsterPosition, setMonsterCloseToPlayer, addMonsterCloseToPlayer, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
 import easystarjs from 'easystarjs';
 
@@ -26,6 +27,7 @@ const MonsterPlayerDetection = () => {
     const playerSelector = useSelector(selectPlayer);
     const mapSelector = useSelector(selectMap);
     const monsterSelector = useSelector(selectMonster);
+    const canvasSelector = useSelector(selectCanvas);
     const easystarRef = useRef<any>(null);
     const [monstersObject, setMonstersObject] = useState<monsterObject>({});
 
@@ -43,9 +45,9 @@ const MonsterPlayerDetection = () => {
             const monster = monsterSelector.monsters[item as unknown as number];
 
             if (monster) {
-                const monsterSeeRange = monster.seeRange * 48;
+                const monsterSeeRange = monster.seeRange * canvasSelector.tileSize;
                 if (Math.abs(playerSelector.x - monster.x) <= monsterSeeRange && Math.abs(playerSelector.y - monster.y) <= monsterSeeRange) {
-                    easystarRef.current.findPath(monster.x / 48, monster.y / 48, playerSelector.x / 48, playerSelector.y / 48, (path: any) => {
+                    easystarRef.current.findPath(monster.x / canvasSelector.tileSize, monster.y / canvasSelector.tileSize, playerSelector.x / canvasSelector.tileSize, playerSelector.y / canvasSelector.tileSize, (path: any) => {
                         setMonstersObject(prev => ({...prev, [item]: {
                             path: path,
                             enable: true,
@@ -80,11 +82,11 @@ const MonsterPlayerDetection = () => {
                         callback={() => {
                             const { id, path, counter } = value;
                             const monsterIndex = path[counter].y * mapSelector.rows + path[counter].x;
-                            const playerIndex = (playerSelector.y / 48) * mapSelector.rows + (playerSelector.x / 48);
+                            const playerIndex = (playerSelector.y / canvasSelector.tileSize) * mapSelector.rows + (playerSelector.x / canvasSelector.tileSize);
                             if (counter < Object.keys(path).length - 1 && (monsterIndex !== playerIndex)) {
                                 dispatch(setMonsterPosition({
-                                    x: path[counter].x * 48,
-                                    y: path[counter].y * 48,
+                                    x: path[counter].x * canvasSelector.tileSize,
+                                    y: path[counter].y * canvasSelector.tileSize,
                                     id: id,
                                     index: monsterIndex
                                 }));

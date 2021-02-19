@@ -91,15 +91,15 @@ function Canvas() {
 	const handleUserClick = useCallback((e) => {
 		const offsetLeftWithViewport = canvasRef.current.offsetLeft - canvasSelector.viewport.x;
 		const offsetTopWithVieport = canvasRef.current.offsetTop - canvasSelector.viewport.y;
-		let x = Math.floor((e.pageX - offsetLeftWithViewport) / 48);
+		let x = Math.floor((e.pageX - offsetLeftWithViewport) / canvasSelector.tileSize);
 		x = canvasSelector.width - canvasSelector.viewport.x <= 720 ? x -= 2 : x;
-		const y = Math.floor((e.pageY - offsetTopWithVieport) / 48);
+		const y = Math.floor((e.pageY - offsetTopWithVieport) / canvasSelector.tileSize);
 		const index = Math.floor(y * mapSelector.rows + x);
 
 		console.log(x, y, index);
 
 		dispatch(setClickedIndex({index: index, refresh: Math.random()}));
-	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch, canvasSelector.width]);
+	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch, canvasSelector.width, canvasSelector.tileSize]);
 
 
 	useEffect(() => {

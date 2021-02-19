@@ -11,6 +11,7 @@ import RightSide from './components/organisms/RightSide';
 import ItemInfoHover from './components/organisms/ItemInfoHover';
 import ItemContextMenu from './components/organisms/ItemContextMenu'
 import Modal from './components/organisms/Modal';
+import AudioHandler from './components/organisms/AudioHandler';
 
 const Container = styled.div`
 	width: 100%;
@@ -34,6 +35,7 @@ function App() {
 			<LeftSide />
 			<Canvas />
 			<RightSide />
+			<AudioHandler />
 		</Container>
   	);
 }
