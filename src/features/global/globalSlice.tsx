@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk, RootState } from '../../app/store';
-import { changeMapInterface, audioRefreshTypes, killMonsterInterface } from './payloadActionTypes';
+import { changeMapInterface, audioRefreshTypes, killMonsterInterface, healPlayerInterface } from './payloadActionTypes';
 import { saveCanvas, resetViewport, setCanvas } from '../canvas/canvasSlice';
 import { addMessage } from '../console/consoleSlice';
 import { saveMap, setMap } from '../map/mapSlice';
 import { clearMonstersCloseToPlayer, destroyMonster, resetMonstersInDungeon, saveMonsters, setMonsters } from '../monster/monsterSlice';
-import { giveExp, giveMoney, resetPlayerPosition, savePlayer, setCanMove, setNewPositionFromMap, setPlayerHp } from '../player/playerSlice';
+import { giveExp, giveMoney, resetPlayerPosition, savePlayer, setCanMove, setNewPositionFromMap, setPlayerHp, takeMoneyAway } from '../player/playerSlice';
 import { setTriggers } from '../triggers/triggersSlice';
 import { hideModal } from '../modal/modalSlice';
 
@@ -63,6 +63,20 @@ export const respawnPlayer = (name: string): AppThunk => (dispatch) => {
     dispatch(resetViewport(null));
     dispatch(hideModal());
     dispatch(setCanMove(true));
+}
+
+export const healPlayer = ({hp, maxHP, cost, healAmount, money}: healPlayerInterface): AppThunk => (dispatch) => {
+    if (money - cost >= 0 && hp !== maxHP) {
+        if (hp + healAmount > maxHP) {
+            const newHP = (maxHP - hp) + hp;
+
+            dispatch(setPlayerHp(newHP));
+            dispatch(takeMoneyAway(cost));
+        } else {
+            dispatch(setPlayerHp(hp + healAmount));
+            dispatch(takeMoneyAway(cost));
+        }
+    }
 }
 
 export const { setAudioRefresh } = globalSlice.actions;

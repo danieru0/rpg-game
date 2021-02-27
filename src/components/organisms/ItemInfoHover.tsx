@@ -19,6 +19,10 @@ interface IItemLvl {
     color: string;
 }
 
+interface IItemCost {
+    isLevelVisible: boolean;
+}
+
 const Container = styled.div<IContainer>`
     background: #000;
     position: absolute;
@@ -48,11 +52,11 @@ const ItemLvl = styled.p<IItemLvl>`
     color: ${({color}) => color};
 `
 
-const ItemCost = styled.p`
+const ItemCost = styled.p<IItemCost>`
     display: flex;
     align-items: center;
     color: ${({theme}) => theme.fontColor};
-    margin-left: 10px;
+    margin-left: ${({isLevelVisible}) => isLevelVisible ? '10px' : '-8px'};
 `
 
 const MoneyIconImg = styled.img`
@@ -70,8 +74,12 @@ const ItemInfoHover = () => {
             <ItemName color={itemInfoHoverSelector.details.rarity}>{itemInfoHoverSelector.details.name}</ItemName>
             <ItemBuff>{itemInfoHoverSelector.details.buffName}: +{itemInfoHoverSelector.details.buffValue}</ItemBuff>
             <Wrapper>
-                <ItemLvl color={ itemInfoHoverSelector.details.lvl > playerSelector.lvl ? 'red' : 'white' }>lvl: {itemInfoHoverSelector.details.lvl}</ItemLvl>
-                <ItemCost>
+                {
+                    itemInfoHoverSelector.details.lvl && (
+                        <ItemLvl color={ itemInfoHoverSelector.details.lvl > playerSelector.lvl ? 'red' : 'white' }>lvl: {itemInfoHoverSelector.details.lvl}</ItemLvl>
+                    )
+                }
+                <ItemCost isLevelVisible={Boolean(itemInfoHoverSelector.details.lvl)} >
                     <MoneyIconImg src={MoneyIcon} alt="" />
                     {itemInfoHoverSelector.details.money}
                 </ItemCost>

@@ -73,6 +73,10 @@ const initialState: MapDetails = {
                 {
                     id: 0,
                     type: "armor"
+                },
+                {
+                    id: 0,
+                    type: "potion"
                 }
             ]
         }

@@ -17,6 +17,8 @@ import NpcShop from '../../assets/entites/npc-shop.png';
 import NpcShopLeft from '../../assets/entites/npc-shopLeft.png';
 import NpcHeal from '../../assets/entites/npc-heal.png';
 import NpcHealLeft from '../../assets/entites/npc-healLeft.png';
+import HealPotionSmall from '../../assets/items/healPotionSmall.png';
+import HealPotionBig from '../../assets/items/healPotionBig.png';
 
 const Container = styled.div`
     display: none;
@@ -45,6 +47,8 @@ function TilesBuffer() {
             <img onLoad={handleImageLoad} className="npc-shopLeft" alt="" src={NpcShopLeft} />
             <img onLoad={handleImageLoad} className="npc-heal" alt="" src={NpcHeal} />
             <img onLoad={handleImageLoad} className="npc-healLeft" alt="" src={NpcHealLeft} />
+            <img onLoad={handleImageLoad} className="healPotionSmall" alt="" src={HealPotionSmall} />
+            <img onLoad={handleImageLoad} className="healPotionBig" alt="" src={HealPotionBig} />
 		</Container>
 	);
 }

@@ -8,7 +8,6 @@ import Chest from '../../assets/audio/chest.mp3';
 import Dungeon from '../../assets/audio/dungeon.ogg';
 import DungeonStep from '../../assets/audio/dungeonStep.ogg';
 
-
 const AudioHandler = () => {
     const mapSelector = useSelector(selectMap);
     const playerSelector = useSelector(selectPlayer);

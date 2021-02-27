@@ -1,4 +1,4 @@
-type itemType = "weapon" | "shield" | "armor";
+type itemType = "weapon" | "shield" | "armor" | "potion";
 type rarityType = "white" | "green" | "purple" | "red";
 
 export interface IWeapons {
@@ -40,6 +40,19 @@ export interface IShields {
         sellMoney: number;
         buyMoney: number;
         lvl: number;
+    }
+}
+
+export interface IPotions {
+    [key: number]: {
+        name: string;
+        heal: number;
+        imgName: string;
+        id: number;
+        type: itemType;
+        rarity: rarityType;
+        sellMoney: number;
+        buyMoney: number;
     }
 }
 
@@ -85,4 +98,17 @@ const shields: IShields = {
     }
 }
 
-export { weapons, armors, shields };
+const potions: IPotions = {
+    0: {
+        name: "Mała potka",
+        heal: 10,
+        id: 0,
+        imgName: ".healPotionSmall",
+        type: "potion",
+        rarity: "white",
+        sellMoney: 1,
+        buyMoney: 20
+    }
+}
+
+export { weapons, armors, shields, potions };

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setItem, clearItem } from '../../features/itemInfoHover/itemInfoHoverSlice';
 import { setContextMenu, clearContextMenu } from '../../features/itemContextMenu/itemContextMenuSlice';
-import { weapons, shields, armors } from '../../assets/items/items';
+import { weapons, shields, armors, potions } from '../../assets/items/items';
 
 import PlayerEquimpent from '../molecules/PlayerEquimpent';
 import PlayerInventory from '../molecules/PlayerInventory';
@@ -75,6 +75,21 @@ const RightSide = () => {
                         }
                     }))
                     break;
+                case "potion":
+                    dispatch(setItem({
+                        x: itemRect.left - 5,
+                        y: itemRect.top + 34,
+                        type: 'potion',
+                        details: {
+                            buffName: "heal",
+                            buffValue: potions[id].heal,
+                            name: potions[id].name,
+                            rarity: potions[id].rarity,
+                            money: potions[id].sellMoney,
+                            lvl: 0
+                        }
+                    }))
+                    break;
                 default: return false;
             }
         }
@@ -95,7 +110,7 @@ const RightSide = () => {
             dispatch(setContextMenu({
                 x: itemRect.left,
                 y: itemRect.top + 3,
-                type: 'wearable',
+                type: type !== 'potion' ? 'wearable' : 'potion',
                 details: {
                     type: type,
                     id: id,

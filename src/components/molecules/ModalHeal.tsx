@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectPlayer, setCanMove, setPlayerHp, takeMoneyAway } from '../../features/player/playerSlice';
+import { selectPlayer, setCanMove } from '../../features/player/playerSlice';
 import { hideModal } from '../../features/modal/modalSlice';
+import { healPlayer } from '../../features/global/globalSlice';
 
 import Heart from '../../assets/items/heart.png';
 import Money from '../../assets/items/money.png';
@@ -99,17 +100,13 @@ const ModalHeal = () => {
         const cost = playerSelector.lvl * 25;
         const healAmount = playerSelector.lvl * 15;
 
-        if (playerSelector.money - cost >= 0 && playerSelector.hp !== playerSelector.maxHP) {
-            if (playerSelector.hp + healAmount > playerSelector.maxHP) {
-                const newHp = (playerSelector.maxHP - playerSelector.hp) + playerSelector.hp; 
-                dispatch(setPlayerHp(newHp));
-                dispatch(takeMoneyAway(cost));
-            } else {
-                dispatch(setPlayerHp(playerSelector.hp + healAmount));
-                dispatch(takeMoneyAway(cost));
-            }
-
-        }
+        dispatch(healPlayer({
+            cost,
+            healAmount,
+            money: playerSelector.money,
+            hp: playerSelector.hp,
+            maxHP: playerSelector.maxHP
+        }));
     }
 
     return (

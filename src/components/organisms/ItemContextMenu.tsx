@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectItemContextMenu } from '../../features/itemContextMenu/itemContextMenuSlice';
 import { equipItem, takeOffItem, selectPlayer, giveItems, takeMoneyAway, removeItem, giveMoney } from '../../features/player/playerSlice';
+import { healPlayer } from '../../features/global/globalSlice';
 import returnItemData from '../../helpers/returnItemData';
+import { potions } from '../../assets/items/items';
 
 interface IContainer {
     left: number;
@@ -81,7 +83,20 @@ const ItemContextMenu = () => {
         
             dispatch(removeItem(id));
             dispatch(giveMoney(itemData!.sellMoney));
-        }        
+        }
+    }
+
+    const handlePotion = (id: number, type: string) => {
+        if (playerSelector.inventory[id]) {
+            dispatch(healPlayer({
+                cost: 0,
+                healAmount: potions[playerSelector.inventory[id]!.id].heal,
+                money: playerSelector.money,
+                hp: playerSelector.hp,
+                maxHP: playerSelector.maxHP
+            }));
+            dispatch(removeItem(id));
+        }
     }
 
     return (
@@ -98,6 +113,13 @@ const ItemContextMenu = () => {
                     itemContextMenuSelector.type === 'wearable' && (
                         <Item>
                             <Button onClick={() => handleUseButton(itemContextMenuSelector.details.equipment)}>{itemContextMenuSelector.details.equipment ? 'Take off' : 'Use'}</Button>
+                        </Item>
+                    )
+                }
+                {
+                    itemContextMenuSelector.type === 'potion' && (
+                        <Item>
+                            <Button onClick={() => handlePotion(itemContextMenuSelector.details.id, itemContextMenuSelector.details.type)}>Use</Button>
                         </Item>
                     )
                 }
