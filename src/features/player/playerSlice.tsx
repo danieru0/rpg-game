@@ -134,10 +134,12 @@ export const playerSlice = createSlice({
                 state.hp = state.maxHP;
             }
         },
-        resetPlayerPosition: (state) => {
-            state.x = state.xStart;
-            state.y = state.yStart;
-            state.currentIndex = state.startIndex;
+        resetPlayerPosition: (state, action: PayloadAction<string>) => {
+            if (maps[action.payload]) {
+                state.x = maps[action.payload].playerXStart;
+                state.y = maps[action.payload].playerYStart;
+                state.currentIndex = maps[action.payload].playerStartIndex;
+            }
         },
         setNewPositionFromMap: (state, action: PayloadAction<string>) => {
             if (maps[action.payload]) {

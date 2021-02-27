@@ -13,6 +13,7 @@ interface monsterObject {
         enable: boolean;
         id: number;
         counter: number;
+        speed: number;
         path: {
             [key: number]: {
                 x: number;
@@ -34,9 +35,13 @@ const MonsterPlayerDetection = () => {
     useEffect(() => {
         easystarRef.current = new easystarjs.js();
         easystarRef.current.setGrid(mapSelector.layers.blockTiles.tiles);
-        easystarRef.current.setAcceptableTiles([115]);
+        easystarRef.current.setAcceptableTiles([115, 58]);
         easystarRef.current.enableCornerCutting();
     }, [easystarRef]); //eslint-disable-line
+
+    useEffect(() => {
+        easystarRef.current.setGrid(mapSelector.layers.blockTiles.tiles);
+    }, [mapSelector.layers]);
 
     const calculatePath = () => {
         easystarRef.current.cancelPath();
@@ -52,7 +57,8 @@ const MonsterPlayerDetection = () => {
                             path: path,
                             enable: true,
                             id: monster.id,
-                            counter: 0
+                            counter: 0,
+                            speed: monster.speed
                         }}));
                     })
     
@@ -77,7 +83,7 @@ const MonsterPlayerDetection = () => {
                     return (
                         <ReactInterval 
                         enabled={value.enable}
-                        timeout={500}
+                        timeout={value.speed}
                         key={key}
                         callback={() => {
                             const { id, path, counter } = value;

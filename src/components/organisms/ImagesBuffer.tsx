@@ -27,6 +27,7 @@ import NpcDummy3 from '../../assets/entites/npc-dummy3.png';
 import NpcDummy3Left from '../../assets/entites/npc-dummy3left.png';
 import NpcDummy4 from '../../assets/entites/npc-dummy4.png';
 import NpcDummy4Left from '../../assets/entites/npc-dummy4left.png';
+import Boss from '../../assets/entites/boss.png';
 
 const Container = styled.div`
     display: none;
@@ -65,6 +66,7 @@ function TilesBuffer() {
             <img onLoad={handleImageLoad} className="npcDummy2Left" alt="" src={NpcDummy2Left} />
             <img onLoad={handleImageLoad} className="npcDummy3Left" alt="" src={NpcDummy3Left} />
             <img onLoad={handleImageLoad} className="npcDummy4Left" alt="" src={NpcDummy4Left} />
+            <img onLoad={handleImageLoad} className="boss" alt="" src={Boss} />
 		</Container>
 	);
 }

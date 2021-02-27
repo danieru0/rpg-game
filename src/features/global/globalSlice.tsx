@@ -59,8 +59,8 @@ export const respawnPlayer = (name: string): AppThunk => (dispatch) => {
     dispatch(addMessage('Respawning...'));
     dispatch(resetMonstersInDungeon(name));
     dispatch(setPlayerHp(null));
-    dispatch(resetPlayerPosition());
-    dispatch(resetViewport(null));
+    dispatch(resetPlayerPosition(name));
+    dispatch(resetViewport(name));
     dispatch(hideModal());
     dispatch(setCanMove(true));
 }

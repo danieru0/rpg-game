@@ -78,7 +78,6 @@ function Canvas() {
 
 	useEffect(() => {
 		if (canvasRef && canvasRef.current) {
-			console.log(canvasSelector.imagesLoaded, canvasSelector.allImagesToLoad);
 			if (canvasSelector.imagesLoaded === canvasSelector.allImagesToLoad) {
 				requestAnimationFrame(draw);
 			}

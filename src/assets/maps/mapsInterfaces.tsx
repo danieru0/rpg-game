@@ -13,6 +13,7 @@ export interface MonsterDetails {
             maxHP: number;
             attack: number;
             def: number;
+            speed: number;
         }
     },
     blockedIndexesMonsters: number[];

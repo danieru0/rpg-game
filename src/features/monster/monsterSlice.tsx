@@ -18,7 +18,8 @@ const initialState: MonsterDetails = {
             hp: 24,
             maxHP: 24,
             attack: 5,
-            def: 0
+            def: 0,
+            speed: 500
         },
         1: {
             x: 960,
@@ -32,7 +33,8 @@ const initialState: MonsterDetails = {
             hp: 24,
             maxHP: 24,
             attack: 5,
-            def: 0
+            def: 0,
+            speed: 500
         },
         2: {
             x: 768,
@@ -47,6 +49,7 @@ const initialState: MonsterDetails = {
             maxHP: 24,
             attack: 5,
             def: 0,
+            speed: 500
         },
         3: {
             x: 720,
@@ -60,7 +63,8 @@ const initialState: MonsterDetails = {
             hp: 24,
             maxHP: 24,
             attack: 5,
-            def: 0
+            def: 0,
+            speed: 500
         }
     },
     blockedIndexesMonsters: [155, 230, 76, 165],
@@ -95,6 +99,8 @@ export const monsterSlice = createSlice({
         },
         hitMonster: (state, action: PayloadAction<hitMonsterInterface>) => {
             const { id, value } = action.payload;
+
+            console.log(value);
 
             state.monsters[id].hp -= value;
         },

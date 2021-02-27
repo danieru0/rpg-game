@@ -85,8 +85,8 @@ const UserClickHandler = () => {
                 monsterAtIndex.forEach(item => {
                     if (monsterSelector.monsters[item.id]) {
                         const monster = monsterSelector.monsters[item.id];
-                        const playerTotalAttack = (playerSelector.base_attack + playerSelector.weapon_attack) - monster.def;
-        
+                        const playerTotalAttack = Math.max(0, (playerSelector.base_attack + playerSelector.weapon_attack) - monster.def);
+
                         if (monster.hp - playerTotalAttack > 0) {
                             dispatch(hitMonster({id: monster.id, value: playerTotalAttack}));
                         } else {
