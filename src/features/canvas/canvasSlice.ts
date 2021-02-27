@@ -34,7 +34,7 @@ const initialState: ICanvasState = {
     tileSize: 48,
     mapLoaded: true,
     imagesLoaded: 0,
-    allImagesToLoad: 16
+    allImagesToLoad: 24
 }
 
 export const canvasSlice = createSlice({

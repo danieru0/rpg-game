@@ -78,6 +78,7 @@ function Canvas() {
 
 	useEffect(() => {
 		if (canvasRef && canvasRef.current) {
+			console.log(canvasSelector.imagesLoaded, canvasSelector.allImagesToLoad);
 			if (canvasSelector.imagesLoaded === canvasSelector.allImagesToLoad) {
 				requestAnimationFrame(draw);
 			}
@@ -91,6 +92,8 @@ function Canvas() {
 		x = canvasSelector.width - canvasSelector.viewport.x <= 720 ? x -= 2 : x;
 		const y = Math.floor((e.pageY - offsetTopWithVieport) / canvasSelector.tileSize);
 		const index = Math.floor(y * mapSelector.rows + x);
+
+		console.log(x * 48, y * 48, index);
 
 		dispatch(setClickedIndex({index: index, refresh: Math.random()}));
 	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch, canvasSelector.width, canvasSelector.tileSize]);

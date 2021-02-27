@@ -19,6 +19,14 @@ import NpcHeal from '../../assets/entites/npc-heal.png';
 import NpcHealLeft from '../../assets/entites/npc-healLeft.png';
 import HealPotionSmall from '../../assets/items/healPotionSmall.png';
 import HealPotionBig from '../../assets/items/healPotionBig.png';
+import NpcDummy1 from '../../assets/entites/npc-dummy1.png';
+import NpcDummy1Left from '../../assets/entites/npc-dummy1left.png';
+import NpcDummy2 from '../../assets/entites/npc-dummy2.png';
+import NpcDummy2Left from '../../assets/entites/npc-dummy2left.png';
+import NpcDummy3 from '../../assets/entites/npc-dummy3.png';
+import NpcDummy3Left from '../../assets/entites/npc-dummy3left.png';
+import NpcDummy4 from '../../assets/entites/npc-dummy4.png';
+import NpcDummy4Left from '../../assets/entites/npc-dummy4left.png';
 
 const Container = styled.div`
     display: none;
@@ -49,6 +57,14 @@ function TilesBuffer() {
             <img onLoad={handleImageLoad} className="npc-healLeft" alt="" src={NpcHealLeft} />
             <img onLoad={handleImageLoad} className="healPotionSmall" alt="" src={HealPotionSmall} />
             <img onLoad={handleImageLoad} className="healPotionBig" alt="" src={HealPotionBig} />
+            <img onLoad={handleImageLoad} className="npcDummy1" alt="" src={NpcDummy1} />
+            <img onLoad={handleImageLoad} className="npcDummy2" alt="" src={NpcDummy2} />
+            <img onLoad={handleImageLoad} className="npcDummy3" alt="" src={NpcDummy3} />
+            <img onLoad={handleImageLoad} className="npcDummy4" alt="" src={NpcDummy4} />
+            <img onLoad={handleImageLoad} className="npcDummy1Left" alt="" src={NpcDummy1Left} />
+            <img onLoad={handleImageLoad} className="npcDummy2Left" alt="" src={NpcDummy2Left} />
+            <img onLoad={handleImageLoad} className="npcDummy3Left" alt="" src={NpcDummy3Left} />
+            <img onLoad={handleImageLoad} className="npcDummy4Left" alt="" src={NpcDummy4Left} />
 		</Container>
 	);
 }

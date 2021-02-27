@@ -68,6 +68,8 @@ const PlayerMovement = () => {
                     }
                 }
     
+                console.log(nextPlayerX * 48, nextPlayerY * 48, nextPlayerIndex);
+
                 dispatch(setPlayerPosition({
                     x: nextPlayerX * canvasSelector.tileSize,
                     y: nextPlayerY * canvasSelector.tileSize,
