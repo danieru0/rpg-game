@@ -67,6 +67,17 @@ const weapons: IWeapons = {
         sellMoney: 1,
         buyMoney: 10,
         lvl: 1
+    },
+    1: {
+        name: "Master sword",
+        attack: 90,
+        imgName: ".weapon2",
+        id: 1,
+        type: "weapon",
+        rarity: "purple",
+        sellMoney: 500000,
+        buyMoney: 5000000,
+        lvl: 30
     }
 }
 
@@ -81,6 +92,17 @@ const armors: IArmors = {
         sellMoney: 1,
         buyMoney: 10,
         lvl: 1
+    },
+    1: {
+        name: "Master armor",
+        hp: 300,
+        imgName: ".armor2",
+        id: 1,
+        type: "armor",
+        rarity: "purple",
+        sellMoney: 500000,
+        buyMoney: 5000000,
+        lvl: 30
     }
 }
 
@@ -95,6 +117,17 @@ const shields: IShields = {
         sellMoney: 1,
         buyMoney: 10,
         lvl: 2
+    },
+    1: {
+        name: "Master shield",
+        def: 90,
+        imgName: ".shield2",
+        id: 1,
+        type: "shield",
+        rarity: "purple",
+        sellMoney: 300000,
+        buyMoney: 3000000,
+        lvl: 30
     }
 }
 

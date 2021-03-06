@@ -507,11 +507,11 @@ const maps: IMap = {
                 seeRange: 30,
                 closeToPlayer: false,
                 id: 0,
-                lvl: 30,
-                hp: 900,
-                maxHP: 900,
-                attack: 200,
-                def: 100,
+                lvl: 45,
+                hp: 8500,
+                maxHP: 9500,
+                attack: 800,
+                def: 300,
                 speed: 50
             }
         },

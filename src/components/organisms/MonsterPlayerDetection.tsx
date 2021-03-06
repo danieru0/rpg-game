@@ -136,11 +136,11 @@ const MonsterPlayerDetection = () => {
                                 const monster = monsterSelector.monsters[id];
 
                                 if (monster) {
-                                    const playerHpAfterHit =  monster.attack - playerSelector.def > 0 ? playerSelector.hp - (monster.attack - playerSelector.def) : false;
-    
+                                    const playerHpAfterHit =  monster.attack - playerSelector.def > 0 ? playerSelector.hp - (monster.attack - playerSelector.def) : true;
+
                                     if (playerHpAfterHit > 0) {
-                                        dispatch(hitPlayer(monster.attack - playerSelector.def));
-                                    } else {
+                                        dispatch(hitPlayer(Math.max(0, monster.attack - playerSelector.def)));
+                                    } else if (playerHpAfterHit <= 0) {
                                         setTimeout(() => {
                                             dispatch(setCanMove(false));
                                             dispatch(setPlayerHp(0));

@@ -11,8 +11,11 @@ import Monster1 from '../../assets/entites/monster-1.png';
 import ChestOpen from '../../assets/items/chestOpen.png';
 import chestClosed from '../../assets/items/chestClosed.png';
 import Weapon1 from '../../assets/items/weapon1.png';
+import Weapon2 from '../../assets/items/weapon2.png';
 import Armor1 from '../../assets/items/armor1.png';
+import Armor2 from '../../assets/items/armor2.png';
 import Shield1 from '../../assets/items/shield1.png';
+import Shield2 from '../../assets/items/shield2.png';
 import NpcShop from '../../assets/entites/npc-shop.png';
 import NpcShopLeft from '../../assets/entites/npc-shopLeft.png';
 import NpcHeal from '../../assets/entites/npc-heal.png';
@@ -50,8 +53,11 @@ function TilesBuffer() {
             <img onLoad={handleImageLoad} className="chestOpen" alt="" src={ChestOpen} />
             <img onLoad={handleImageLoad} className="chestClosed" alt="" src={chestClosed} />
             <img onLoad={handleImageLoad} className="weapon1" alt="" src={Weapon1} />
+            <img onLoad={handleImageLoad} className="weapon2" alt="" src={Weapon2} />
             <img onLoad={handleImageLoad} className="armor1" alt="" src={Armor1} />
+            <img onLoad={handleImageLoad} className="armor2" alt="" src={Armor2} />
             <img onLoad={handleImageLoad} className="shield1" alt="" src={Shield1} />
+            <img onLoad={handleImageLoad} className="shield2" alt="" src={Shield2} />
             <img onLoad={handleImageLoad} className="npc-shop" alt="" src={NpcShop} />
             <img onLoad={handleImageLoad} className="npc-shopLeft" alt="" src={NpcShopLeft} />
             <img onLoad={handleImageLoad} className="npc-heal" alt="" src={NpcHeal} />

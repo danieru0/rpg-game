@@ -70,22 +70,40 @@ const initialState: IPlayerState = {
     },
     currentIndex: 93,
     startIndex: 93,
-    lvl: 1,
-    hp: 20,
-    armor_hp: 0,
+    lvl: 30,
+    hp: 1200,
+    armor_hp: 300,
     canMove: true,
-    maxHP: 20,
+    maxHP: 1200,
     exp: 0,
-    expNeeded: 20,
-    base_attack: 5,
+    expNeeded: 930,
+    base_attack: 100,
     inventoryItemsNumber: 0,
-    weapon_attack: 0,
-    def: 0,
-    money: 50,
+    weapon_attack: 90,
+    def: 90,
+    money: 542717,
     equipmnent: {
-        weapon: null,
-        armor: null,
-        shield: null
+        weapon: {
+            id: 1,
+            type: "weapon",
+            attack: 90,
+            imgName: ".weapon2",
+            name: "Master sword"
+        },
+        armor: {
+            id: 1,
+            type: "armor",
+            hp: 300,
+            imgName: ".armor2",
+            name: "Master armor"
+        },
+        shield: {
+            id: 1,
+            type: "shield",
+            def: 90,
+            imgName: ".shield2",
+            name: "Master shield"
+        }
     },
     inventory: {
         0: null,
@@ -214,6 +232,11 @@ export const playerSlice = createSlice({
                 case "armor":
                     itemId = state.equipmnent.armor?.id!;
                     state.maxHP -= state.equipmnent.armor?.hp!;
+
+                    if (state.hp > state.maxHP) {
+                        state.hp = state.hp - state.equipmnent.armor?.hp!;
+                    }
+
                     state.equipmnent.armor = null;
                     break;
                 case "shield":
