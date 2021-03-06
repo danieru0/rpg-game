@@ -100,8 +100,6 @@ export const monsterSlice = createSlice({
         hitMonster: (state, action: PayloadAction<hitMonsterInterface>) => {
             const { id, value } = action.payload;
 
-            console.log(value);
-
             state.monsters[id].hp -= value;
         },
         destroyMonster: (state, action: PayloadAction<number>) => {

@@ -4,6 +4,7 @@ import ModalExit from './ModalExit';
 import ModalShop from './ModalShop';
 import ModalHeal from './ModalHeal';
 import ModalDeath from './ModalDeath';
+import ModalDialog from './ModalDialog';
 
 interface IModalSwitchProps {
     type: string | null;
@@ -20,6 +21,8 @@ const ModalSwitch = ({type, value}: IModalSwitchProps) => {
             return <ModalHeal />
         case 'modal-death':
             return <ModalDeath />
+        case 'modal-dialog':
+            return <ModalDialog triggerId={value[1] as unknown as number} dialogId={value[0] as unknown as number} />
         default: return null;
     }
 };

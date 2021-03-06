@@ -312,12 +312,14 @@ const maps: IMap = {
             773: {
                 map: 'map3',
                 type: "modal-exit",
-                value: ['map1']
+                value: ['map1'],
+                active: true
             },
             774: {
                 map: 'map3',
                 type: "modal-exit",
-                value: ['map1']
+                value: ['map1'],
+                active: true
             }
         }
     },
@@ -419,12 +421,20 @@ const maps: IMap = {
             299: {
                 map: 'map4',
                 type: 'modal-exit',
-                value: ['map5']
+                value: ['map5'],
+                active: true
             },
             329: {
                 map: 'map4',
                 type: 'modal-exit',
-                value: ['map5']
+                value: ['map5'],
+                active: true
+            },
+            287: {
+                map: 'map4',
+                type: 'modal-dialog',
+                value: ['0', '287'],
+                active: true
             }
         }
     },

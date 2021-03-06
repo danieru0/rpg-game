@@ -94,6 +94,7 @@ export interface MapTriggers {
             map: string;
             type: string;
             value: string[] | null;
+            active: boolean;
         }
     } | null
 }
