@@ -12,6 +12,7 @@ import ItemInfoHover from './components/organisms/ItemInfoHover';
 import ItemContextMenu from './components/organisms/ItemContextMenu'
 import Modal from './components/organisms/Modal';
 import AudioHandler from './components/organisms/AudioHandler';
+import BlackScreen from './components/organisms/BlackScreen';
 
 const Container = styled.div`
 	width: 100%;
@@ -25,6 +26,7 @@ const Container = styled.div`
 function App() {
 	return (
 		<Container>
+			<BlackScreen />
 			<Modal />
 			<ItemContextMenu />
 			<ItemInfoHover />

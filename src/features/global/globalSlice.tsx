@@ -5,20 +5,22 @@ import { saveCanvas, resetViewport, setCanvas } from '../canvas/canvasSlice';
 import { addMessage } from '../console/consoleSlice';
 import { saveMap, setMap } from '../map/mapSlice';
 import { clearMonstersCloseToPlayer, destroyMonster, resetMonstersInDungeon, saveMonsters, setMonsters } from '../monster/monsterSlice';
-import { giveExp, giveMoney, resetPlayerPosition, savePlayer, setCanMove, setNewPositionFromMap, setPlayerHp, takeMoneyAway } from '../player/playerSlice';
+import { giveExp, giveMoney, resetPlayer, resetPlayerPosition, savePlayer, setCanMove, setNewPositionFromMap, setPlayerHp, takeMoneyAway } from '../player/playerSlice';
 import { setTriggers } from '../triggers/triggersSlice';
 import { hideModal } from '../modal/modalSlice';
 
 interface IGlobalSlice {
     refresh: {
         chest: string;
-    }
+    };
+    blackScreen: string;
 }
 
 const initialState: IGlobalSlice = {
     refresh: {
         chest: ''
-    }
+    },
+    blackScreen: 'hidden'
 }
 
 export const globalSlice = createSlice({
@@ -27,7 +29,11 @@ export const globalSlice = createSlice({
     reducers: {
         setAudioRefresh: (state, action: PayloadAction<audioRefreshTypes>) => {
             state.refresh[action.payload] = Math.random().toString();
+        },
+        setBlackScreen: (state, action: PayloadAction<string>) => {
+            state.blackScreen = action.payload;
         }
+
     }
 })
 
@@ -65,6 +71,24 @@ export const respawnPlayer = (name: string): AppThunk => (dispatch) => {
     dispatch(setCanMove(true));
 }
 
+export const beginEvent = (): AppThunk => (dispatch) => {
+    dispatch(setBlackScreen('visible'));
+    dispatch(setMap('map4'));
+    dispatch(setNewPositionFromMap('map4'));
+    dispatch(setMonsters('map4'));
+    dispatch(resetViewport('map4'));
+    dispatch(setCanvas('map4'));
+    dispatch(setTriggers('map4'));
+    dispatch(resetPlayer());
+    dispatch(setCanMove(true));
+    dispatch(setBlackScreen('fadeOut'));
+
+    setTimeout(() => {
+        dispatch(setBlackScreen('hidden'));
+    }, 5000);
+
+}
+
 export const healPlayer = ({hp, maxHP, cost, healAmount, money}: healPlayerInterface): AppThunk => (dispatch) => {
     if (money - cost >= 0 && hp !== maxHP) {
         if (hp + healAmount > maxHP) {
@@ -79,7 +103,7 @@ export const healPlayer = ({hp, maxHP, cost, healAmount, money}: healPlayerInter
     }
 }
 
-export const { setAudioRefresh } = globalSlice.actions;
+export const { setAudioRefresh, setBlackScreen } = globalSlice.actions;
 
 export const selectGlobal = (state: RootState) => state.global;
 

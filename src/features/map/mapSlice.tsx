@@ -16,6 +16,8 @@ const initialState: MapDetails = {
     height: 1440,
     backgroundColor: "#1C1117",
     musicTheme: '/audio/dungeon.ogg',
+    afterDeath: null,
+    canMove: true,
     stepSound: '/audio/dungeonStep.ogg',
     playerXStart: 144,
     playerYStart: 144,

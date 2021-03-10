@@ -26,6 +26,8 @@ const maps: IMap = {
         playerStartIndex: 93,
         backgroundColor: "#1C1117",
         musicTheme: DungeonBg,
+        afterDeath: null,
+        canMove: true,
         stepSound: DungeonStep,
         layers: {
             blockTiles: {
@@ -183,6 +185,8 @@ const maps: IMap = {
         playerStartIndex: 125,
         backgroundColor: "#1C1117",
         musicTheme: '/audio/dungeon.ogg',
+        afterDeath: null,
+        canMove: true,
         stepSound: '/audio/dungeonStep.ogg',
         layers: {
             blockTiles: {
@@ -239,6 +243,8 @@ const maps: IMap = {
         playerStartIndex: 301,
         backgroundColor: "#1C1117",
         musicTheme: Village,
+        afterDeath: null,
+        canMove: true,
         stepSound: VillageStep,
         layers: {
             blockTiles: {
@@ -343,6 +349,8 @@ const maps: IMap = {
         playerStartIndex: 301,
         backgroundColor: "#1C1117",
         musicTheme: Village,
+        afterDeath: null,
+        canMove: true,
         stepSound: VillageStep,
         layers: {
             blockTiles: {
@@ -458,6 +466,8 @@ const maps: IMap = {
         playerStartIndex: 360,
         backgroundColor: "#1C1117",
         musicTheme: Village,
+        afterDeath: 'beginEvent',
+        canMove: false,
         stepSound: VillageStep,
         layers: {
             blockTiles: {

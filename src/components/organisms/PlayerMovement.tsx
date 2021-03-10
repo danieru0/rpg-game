@@ -16,7 +16,7 @@ const PlayerMovement = () => {
     const [keyDown, setKeyDown] = useState(false);
 
     const handleUserKeyDown = useCallback((event) => {
-        if (!keyDown && event.srcElement.nodeName !== 'INPUT' && playerSelector.canMove) {       
+        if (!keyDown && event.srcElement.nodeName !== 'INPUT' && playerSelector.canMove && mapSelector.canMove) {       
             const { key } = event;
 
             let nextPlayerX, nextPlayerY, nextPlayerIndex, direction;
@@ -82,7 +82,7 @@ const PlayerMovement = () => {
                 }
             }
         }
-    }, [dispatch, mapSelector.rows, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.viewport.x, canvasSelector.viewport.y, monsterSelector.blockedIndexesMonsters, mapSelector.layers.blockTiles, keyDown, mapSelector.blockedIndexesMap, mapSelector.name, triggersSelector.triggers, canvasSelector.height, canvasSelector.width, playerSelector.canMove]);
+    }, [dispatch, mapSelector.rows, playerSelector.x, playerSelector.y, canvasSelector.tileSize, canvasSelector.viewport.x, canvasSelector.viewport.y, monsterSelector.blockedIndexesMonsters, mapSelector.layers.blockTiles, keyDown, mapSelector.blockedIndexesMap, mapSelector.name, triggersSelector.triggers, canvasSelector.height, canvasSelector.width, playerSelector.canMove, mapSelector.canMove]);
 
     const handleUserKeyUp = useCallback(() => {
         setKeyDown(false);

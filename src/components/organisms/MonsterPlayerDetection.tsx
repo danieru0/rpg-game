@@ -7,6 +7,7 @@ import { showModal } from '../../features/modal/modalSlice';
 import { selectCanvas } from '../../features/canvas/canvasSlice';
 import { selectMonster, setMonsterPosition, setMonsterCloseToPlayer, addMonsterCloseToPlayer, clearMonstersCloseToPlayer } from '../../features/monster/monsterSlice';
 import easystarjs from 'easystarjs';
+import { beginEvent } from '../../features/global/globalSlice';
 
 interface monsterObject {
     [key: number]: {
@@ -87,37 +88,40 @@ const MonsterPlayerDetection = () => {
                         key={key}
                         callback={() => {
                             const { id, path, counter } = value;
-                            const monsterIndex = path[counter].y * mapSelector.rows + path[counter].x;
-                            const playerIndex = (playerSelector.y / canvasSelector.tileSize) * mapSelector.rows + (playerSelector.x / canvasSelector.tileSize);
-                            if (counter < Object.keys(path).length - 1 && (monsterIndex !== playerIndex)) {
-                                dispatch(setMonsterPosition({
-                                    x: path[counter].x * canvasSelector.tileSize,
-                                    y: path[counter].y * canvasSelector.tileSize,
-                                    id: id,
-                                    index: monsterIndex
-                                }));
-                                
-                                setMonstersObject({
-                                    ...monstersObject,
-                                    [id as number]: {
-                                        ...monstersObject[id],
-                                        counter: monstersObject[id].counter + 1
-                                    } 
-                                })
-                            } else {
-                                setTimeout(() => {
+                            
+                            if (path) {
+                                const monsterIndex = path[counter].y * mapSelector.rows + path[counter].x;
+                                const playerIndex = (playerSelector.y / canvasSelector.tileSize) * mapSelector.rows + (playerSelector.x / canvasSelector.tileSize);
+                                if (counter < Object.keys(path).length - 1 && (monsterIndex !== playerIndex)) {
+                                    dispatch(setMonsterPosition({
+                                        x: path[counter].x * canvasSelector.tileSize,
+                                        y: path[counter].y * canvasSelector.tileSize,
+                                        id: id,
+                                        index: monsterIndex
+                                    }));
+                                    
                                     setMonstersObject({
                                         ...monstersObject,
                                         [id as number]: {
                                             ...monstersObject[id],
-                                            counter: 0,
-                                            enable: false
+                                            counter: monstersObject[id].counter + 1
                                         } 
-                                    });
-                                    
-                                    dispatch(setMonsterCloseToPlayer({id: id, value: true}));
-                                    dispatch(addMonsterCloseToPlayer(id));
-                                }, 50);
+                                    })
+                                } else {
+                                    setTimeout(() => {
+                                        setMonstersObject({
+                                            ...monstersObject,
+                                            [id as number]: {
+                                                ...monstersObject[id],
+                                                counter: 0,
+                                                enable: false
+                                            } 
+                                        });
+                                        
+                                        dispatch(setMonsterCloseToPlayer({id: id, value: true}));
+                                        dispatch(addMonsterCloseToPlayer(id));
+                                    }, 50);
+                                }
                             }
                         }}
                     />
@@ -145,10 +149,21 @@ const MonsterPlayerDetection = () => {
                                             dispatch(setCanMove(false));
                                             dispatch(setPlayerHp(0));
                                             setMonstersObject({});
-                                            dispatch(showModal({
-                                                type: 'modal-death',
-                                                value: []
-                                            }))
+
+                                            if (mapSelector.afterDeath) {
+                                                switch(mapSelector.afterDeath) {
+                                                    case "beginEvent":
+                                                        dispatch(beginEvent());
+                                                        break;
+                                                    default: return null;
+                                                }
+                                            } else {                                                
+                                                dispatch(showModal({
+                                                    type: 'modal-death',
+                                                    value: []
+                                                }))
+                                            }
+                                            
                                         }, 50);
                                     }
                                 }

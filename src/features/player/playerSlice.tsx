@@ -288,11 +288,33 @@ export const playerSlice = createSlice({
             } else {
                 state.exp += action.payload;
             }
+        },
+        resetPlayer: state => {
+            state.lvl = 1;
+            state.exp = 0;
+            state.expNeeded = 20 * (1 * 1.5);
+            state.maxHP = Math.floor((30 * 1) / 1.5);
+            state.hp = Math.floor((30 * 1) / 1.5);
+            state.armor_hp = 0;
+            state.base_attack = Math.floor((5 * state.lvl) / 1.5);
+            state.armor_hp = 0;
+            state.weapon_attack = 0;
+            state.money = 0;
+            state.def = 0;
+
+            for (let i = 0; i < Object.keys(state.inventory).length; i++) {
+                state.inventory[i] = null;
+            }
+
+            state.inventoryItemsNumber = 0;
+            state.equipmnent.armor = null;
+            state.equipmnent.shield = null;
+            state.equipmnent.weapon = null;
         }
     }
 })
 
-export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney, giveExp } = playerSlice.actions;
+export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney, giveExp, resetPlayer } = playerSlice.actions;
 
 export const selectPlayer = (state: RootState) => state.player;
 
