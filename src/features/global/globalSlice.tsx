@@ -72,13 +72,13 @@ export const respawnPlayer = (name: string): AppThunk => (dispatch) => {
 }
 
 export const beginEvent = (): AppThunk => (dispatch) => {
+    dispatch(setMonsters('map6'));
     dispatch(setBlackScreen('visible'));
-    dispatch(setMap('map4'));
-    dispatch(setNewPositionFromMap('map4'));
-    dispatch(setMonsters('map4'));
-    dispatch(resetViewport('map4'));
-    dispatch(setCanvas('map4'));
-    dispatch(setTriggers('map4'));
+    dispatch(setMap('map6'));
+    dispatch(setNewPositionFromMap('map6'));
+    dispatch(resetViewport('map6'));
+    dispatch(setCanvas('map6'));
+    dispatch(setTriggers('map6'));
     dispatch(resetPlayer());
     dispatch(setCanMove(true));
     dispatch(setBlackScreen('fadeOut'));

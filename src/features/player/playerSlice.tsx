@@ -3,6 +3,7 @@ import { playerPosition, clickedIndex, giveItem } from './payloadActionTypes';
 import { RootState } from '../../app/store';
 import { weapons, shields, armors } from '../../assets/items/items';
 import maps from '../../assets/maps/maps';
+import { calculateExpNeeded, calculateBaseAttack, calculateMaxHP } from '../../helpers/gameCalculations';
 
 interface IPlayerState {
     x: number;
@@ -281,10 +282,10 @@ export const playerSlice = createSlice({
         giveExp: (state, action: PayloadAction<number>) => {
             if (state.exp + action.payload >= state.expNeeded) {
                 state.lvl += 1;
-                state.expNeeded = 20 * (state.lvl * 1.5);
+                state.expNeeded = calculateExpNeeded(state.lvl);
                 state.exp = 0;
-                state.base_attack = Math.floor((5 * state.lvl) / 1.5);
-                state.maxHP = Math.floor((30 * state.lvl) / 1.5);
+                state.base_attack = calculateBaseAttack(state.lvl);
+                state.maxHP = calculateMaxHP(state.lvl);
             } else {
                 state.exp += action.payload;
             }
@@ -292,11 +293,11 @@ export const playerSlice = createSlice({
         resetPlayer: state => {
             state.lvl = 1;
             state.exp = 0;
-            state.expNeeded = 20 * (1 * 1.5);
-            state.maxHP = Math.floor((30 * 1) / 1.5);
-            state.hp = Math.floor((30 * 1) / 1.5);
+            state.expNeeded = calculateExpNeeded(state.lvl);
+            state.maxHP = calculateMaxHP(state.lvl);
+            state.hp = calculateMaxHP(state.lvl);
             state.armor_hp = 0;
-            state.base_attack = Math.floor((5 * state.lvl) / 1.5);
+            state.base_attack = calculateBaseAttack(state.lvl);
             state.armor_hp = 0;
             state.weapon_attack = 0;
             state.money = 0;

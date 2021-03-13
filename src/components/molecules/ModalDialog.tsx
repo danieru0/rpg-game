@@ -40,6 +40,7 @@ const Title = styled.span`
 const Text = styled.p`
     font-size: 18px;
     align-self: center;
+    text-align: center;
 `
 
 const StyledModalButton = styled(ModalButton)`

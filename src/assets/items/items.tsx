@@ -1,4 +1,5 @@
-type itemType = "weapon" | "shield" | "armor" | "potion";
+export type itemType = "weapon" | "shield" | "armor" | "potion";
+export type itemTypes = "weapons" | "shields" | "armors" | "potions";
 type rarityType = "white" | "green" | "purple" | "red";
 
 export interface IWeapons {
