@@ -21,6 +21,7 @@ interface IPlayerState {
     armor_hp: number;
     maxHP: number;
     exp: number;
+    expBeforeDeath: number;
     expNeeded: number;
     base_attack: number;
     inventoryItemsNumber: number;
@@ -28,6 +29,7 @@ interface IPlayerState {
     canMove: boolean;
     def: number;
     money: number;
+    moneyBeforeDeath: number;
     equipmnent: {
         weapon: {
             name: string;
@@ -77,12 +79,14 @@ const initialState: IPlayerState = {
     canMove: true,
     maxHP: 1200,
     exp: 0,
+    expBeforeDeath: 0,
     expNeeded: 930,
     base_attack: 100,
     inventoryItemsNumber: 0,
     weapon_attack: 90,
     def: 90,
     money: 542717,
+    moneyBeforeDeath: 542717,
     equipmnent: {
         weapon: {
             id: 1,
@@ -219,6 +223,7 @@ export const playerSlice = createSlice({
         },
         removeItem: (state, action: PayloadAction<number>) => {
             state.inventory[action.payload] = null;
+            state.inventoryItemsNumber -= 1;
         },
         takeOffItem: (state, action: PayloadAction<string>) => {
             const itemType = action.payload;
@@ -276,23 +281,40 @@ export const playerSlice = createSlice({
         takeMoneyAway: (state, action: PayloadAction<number>) => {
             state.money -= action.payload;
         },
+        takeMoneyAwayBeforeDeath: state => {
+            state.money -= state.moneyBeforeDeath;
+            state.moneyBeforeDeath = 0;
+        },
         giveMoney: (state, action: PayloadAction<number>) => {
             state.money += action.payload;
+        },
+        giveMoneyBeforeDeath: (state, action: PayloadAction<number>) => {
+            state.moneyBeforeDeath += action.payload;
         },
         giveExp: (state, action: PayloadAction<number>) => {
             if (state.exp + action.payload >= state.expNeeded) {
                 state.lvl += 1;
                 state.expNeeded = calculateExpNeeded(state.lvl);
                 state.exp = 0;
+                state.expBeforeDeath = 0;
                 state.base_attack = calculateBaseAttack(state.lvl);
                 state.maxHP = calculateMaxHP(state.lvl);
             } else {
                 state.exp += action.payload;
+                state.expBeforeDeath += action.payload;
+            }
+        },
+        removeExp: (state, action: PayloadAction<number | null | string>) => {
+            if (action.payload === null) {
+                state.exp -= state.expBeforeDeath;
+            } else if ('afterDeath') {
+                state.expBeforeDeath = 0;
             }
         },
         resetPlayer: state => {
             state.lvl = 1;
             state.exp = 0;
+            state.expBeforeDeath = 0;
             state.expNeeded = calculateExpNeeded(state.lvl);
             state.maxHP = calculateMaxHP(state.lvl);
             state.hp = calculateMaxHP(state.lvl);
@@ -301,6 +323,7 @@ export const playerSlice = createSlice({
             state.armor_hp = 0;
             state.weapon_attack = 0;
             state.money = 0;
+            state.moneyBeforeDeath = 0;
             state.def = 0;
 
             for (let i = 0; i < Object.keys(state.inventory).length; i++) {
@@ -315,7 +338,7 @@ export const playerSlice = createSlice({
     }
 })
 
-export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney, giveExp, resetPlayer } = playerSlice.actions;
+export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney, giveExp, resetPlayer, removeExp, giveMoneyBeforeDeath, takeMoneyAwayBeforeDeath } = playerSlice.actions;
 
 export const selectPlayer = (state: RootState) => state.player;
 

@@ -5,7 +5,7 @@ import { saveCanvas, resetViewport, setCanvas } from '../canvas/canvasSlice';
 import { addMessage } from '../console/consoleSlice';
 import { saveMap, setMap } from '../map/mapSlice';
 import { clearMonstersCloseToPlayer, destroyMonster, resetMonstersInDungeon, saveMonsters, setMonsters } from '../monster/monsterSlice';
-import { giveExp, giveMoney, resetPlayer, resetPlayerPosition, savePlayer, setCanMove, setNewPositionFromMap, setPlayerHp, takeMoneyAway } from '../player/playerSlice';
+import { giveExp, giveMoney, giveMoneyBeforeDeath, removeExp, resetPlayer, resetPlayerPosition, savePlayer, setCanMove, setNewPositionFromMap, setPlayerHp, takeMoneyAway, takeMoneyAwayBeforeDeath } from '../player/playerSlice';
 import { setTriggers } from '../triggers/triggersSlice';
 import { hideModal } from '../modal/modalSlice';
 
@@ -45,6 +45,7 @@ export const changeMap = ({newMap, prevMap}: changeMapInterface): AppThunk => (d
     dispatch(saveCanvas(prevMap));
     dispatch(setMap(newMap));
     dispatch(setNewPositionFromMap(newMap));
+    dispatch(removeExp('afterDeath'));
     dispatch(setMonsters(newMap));
     dispatch(resetViewport(newMap));
     dispatch(setCanvas(newMap));
@@ -57,6 +58,7 @@ export const killMonster = ({id, lvl}: killMonsterInterface): AppThunk => (dispa
     dispatch(destroyMonster(id));
     dispatch(giveExp(lvl * 5));
     dispatch(giveMoney(lvl * 10));
+    dispatch(giveMoneyBeforeDeath(lvl * 10));
     dispatch(addMessage(`You have gained: ${lvl * 5} exp!`));
     dispatch(addMessage(`You have got: ${lvl * 10} gold!`));
 }
@@ -67,6 +69,8 @@ export const respawnPlayer = (name: string): AppThunk => (dispatch) => {
     dispatch(setPlayerHp(null));
     dispatch(resetPlayerPosition(name));
     dispatch(resetViewport(name));
+    dispatch(removeExp(null));
+    dispatch(takeMoneyAwayBeforeDeath());
     dispatch(hideModal());
     dispatch(setCanMove(true));
 }

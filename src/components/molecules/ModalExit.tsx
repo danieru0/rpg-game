@@ -71,7 +71,7 @@ const ModalExit = ({map}: IModalExitProps) => {
     return (
         <Container>
             <TextWrapper>
-                <Text>Czy chcesz przejść dalej?</Text>
+                <Text>Do you want to move on?</Text>
             </TextWrapper>
             <ButtonsWrapper>
                 <StyledModalButton onClick={handleNoClick} text={"Nie"}/>

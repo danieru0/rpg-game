@@ -59,7 +59,7 @@ export interface IPotions {
 
 const weapons: IWeapons = {
     0: {
-        name: "Drewniany miecz",
+        name: "Wooden sword",
         attack: 3,
         imgName: ".weapon1",
         id: 0,
@@ -84,7 +84,7 @@ const weapons: IWeapons = {
 
 const armors: IArmors = {
     0: {
-        name: "Niebieska kurtka",
+        name: "Blue jacket",
         hp: 10,
         imgName: ".armor1",
         id: 0,
@@ -109,7 +109,7 @@ const armors: IArmors = {
 
 const shields: IShields = {
     0: {
-        name: "Drewniana tarcza",
+        name: "Wooden shield",
         def: 1,
         imgName: ".shield1",
         id: 0,
@@ -134,7 +134,7 @@ const shields: IShields = {
 
 const potions: IPotions = {
     0: {
-        name: "Mała potka",
+        name: "Small heal potion",
         heal: 10,
         id: 0,
         imgName: ".healPotionSmall",

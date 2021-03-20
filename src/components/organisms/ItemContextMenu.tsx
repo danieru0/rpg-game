@@ -68,10 +68,11 @@ const ItemContextMenu = () => {
         
         if (itemData) {
             if (playerSelector.money - itemData.buyMoney >= 0) {
-                dispatch(giveItems({id: id, type: type}));
-                dispatch(takeMoneyAway(itemData.buyMoney));
-            } else {
-                alert('no money');
+                if (playerSelector.inventoryItemsNumber < 20) {
+                    console.log(playerSelector.inventoryItemsNumber);
+                    dispatch(giveItems({id: id, type: type}));
+                    dispatch(takeMoneyAway(itemData.buyMoney));
+                }
             }
         }
 

@@ -20,7 +20,7 @@ interface monsterObject {
                 x: number;
                 y: number;
             }
-    }
+        }
     }
 }
 
