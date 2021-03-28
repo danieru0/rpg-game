@@ -157,6 +157,39 @@ export const playerSlice = createSlice({
                 state.hp = state.maxHP;
             }
         },
+        initPlayerStats: state => {
+            state.money = 542717;
+            state.def = 90;
+            state.lvl = 30;
+            state.hp = 1200;
+            state.maxHP = 1200;
+            state.expNeeded = 930;
+            state.base_attack = 100;
+            state.weapon_attack = 90;
+            state.equipmnent = {
+                weapon: {
+                    id: 1,
+                    type: "weapon",
+                    attack: 90,
+                    imgName: ".weapon2",
+                    name: "Master sword"
+                },
+                armor: {
+                    id: 1,
+                    type: "armor",
+                    hp: 300,
+                    imgName: ".armor2",
+                    name: "Master armor"
+                },
+                shield: {
+                    id: 1,
+                    type: "shield",
+                    def: 90,
+                    imgName: ".shield2",
+                    name: "Master shield"
+                }        
+            }
+        },
         resetPlayerPosition: (state, action: PayloadAction<string>) => {
             if (maps[action.payload]) {
                 state.x = maps[action.payload].playerXStart;
@@ -338,7 +371,7 @@ export const playerSlice = createSlice({
     }
 })
 
-export const { setPlayerPosition, setClickedIndex, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney, giveExp, resetPlayer, removeExp, giveMoneyBeforeDeath, takeMoneyAwayBeforeDeath } = playerSlice.actions;
+export const { setPlayerPosition, setClickedIndex, initPlayerStats, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney, giveExp, resetPlayer, removeExp, giveMoneyBeforeDeath, takeMoneyAwayBeforeDeath } = playerSlice.actions;
 
 export const selectPlayer = (state: RootState) => state.player;
 

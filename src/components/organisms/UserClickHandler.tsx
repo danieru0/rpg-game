@@ -49,7 +49,7 @@ const UserClickHandler = () => {
                         if (mapSelector.chests[mapSelector.chestsAreaDetection[playerSelector.currentIndex].id].open === false) {
                             dispatch(openChest(mapSelector.chestsAreaDetection[playerSelector.currentIndex].id));
 
-                            dispatch(addMessage(`You have opened a chest!`));
+                            dispatch(addMessage(`You've opened a chest!`));
                             dispatch(setAudioRefresh('chest'));
 
                             mapSelector.chests[mapSelector.chestsAreaDetection[playerSelector.currentIndex].id].itemsId.forEach((item) => {

@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { selectMap } from './features/map/mapSlice';
 
+import StartGame from './components/organisms/StartGame';
 import Canvas from './components/organisms/Canvas';
 import TilesBuffer from './components/organisms/ImagesBuffer';
 import PlayerMovement from './components/organisms/PlayerMovement';
@@ -24,22 +27,29 @@ const Container = styled.div`
 `
 
 function App() {
-	return (
-		<Container>
-			<BlackScreen />
-			<Modal />
-			<ItemContextMenu />
-			<ItemInfoHover />
-			<UserClickHandler />
-			<MonsterPlayerDetection />
-			<PlayerMovement />
-			<TilesBuffer />
-			<LeftSide />
-			<Canvas />
-			<RightSide />
-			<AudioHandler />
-		</Container>
-  	);
+	const mapSelector = useSelector(selectMap);
+
+	if (mapSelector.name === '') {
+		return <StartGame />
+	} else {		
+		return (
+			<Container>
+				<BlackScreen />
+				<Modal />
+				<ItemContextMenu />
+				<ItemInfoHover />
+				<UserClickHandler />
+				<MonsterPlayerDetection />
+				<PlayerMovement />
+				<TilesBuffer />
+				<LeftSide />
+				<Canvas />
+				<RightSide />
+				<AudioHandler />
+			</Container>
+		  );
+	}
+
 }
 
 export default App;

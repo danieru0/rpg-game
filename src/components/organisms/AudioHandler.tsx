@@ -28,7 +28,10 @@ const AudioHandler = () => {
         setBackgroundAudio(mapSelector.musicTheme);
         backgroundAudioRef.current.pause();
         backgroundAudioRef.current.load();
-        backgroundAudioRef.current.play();
+
+        setTimeout(() => {
+            backgroundAudioRef.current.play();
+        }, 150);
     }, [mapSelector.musicTheme]);
 
     useEffect(() => {
@@ -67,7 +70,7 @@ const AudioHandler = () => {
 
     return (
         <>
-            <audio autoPlay ref={backgroundAudioRef} src={backgroundAudio}></audio>
+            <audio ref={backgroundAudioRef} src={backgroundAudio}></audio>
             <audio ref={stepSoundRef} src={stepSound}></audio>
             <audio ref={miscSoundRef} src={miscSound}></audio>
         </>

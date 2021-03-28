@@ -5,7 +5,7 @@ import { saveCanvas, resetViewport, setCanvas } from '../canvas/canvasSlice';
 import { addMessage } from '../console/consoleSlice';
 import { saveMap, setMap } from '../map/mapSlice';
 import { clearMonstersCloseToPlayer, destroyMonster, resetMonstersInDungeon, saveMonsters, setMonsters } from '../monster/monsterSlice';
-import { giveExp, giveMoney, giveMoneyBeforeDeath, removeExp, resetPlayer, resetPlayerPosition, savePlayer, setCanMove, setNewPositionFromMap, setPlayerHp, takeMoneyAway, takeMoneyAwayBeforeDeath } from '../player/playerSlice';
+import { giveExp, giveMoney, giveMoneyBeforeDeath, initPlayerStats, removeExp, resetPlayer, resetPlayerPosition, savePlayer, setCanMove, setNewPositionFromMap, setPlayerHp, takeMoneyAway, takeMoneyAwayBeforeDeath } from '../player/playerSlice';
 import { setTriggers } from '../triggers/triggersSlice';
 import { hideModal } from '../modal/modalSlice';
 
@@ -37,6 +37,16 @@ export const globalSlice = createSlice({
     }
 })
 
+export const initGame = (): AppThunk => dispatch => {
+    dispatch(setMap('map4'));
+    dispatch(setNewPositionFromMap('map4'));
+    dispatch(setMonsters('map4'));
+    dispatch(setCanvas('map4'));
+    dispatch(resetViewport('map4'));
+    dispatch(setTriggers('map4'));
+    dispatch(initPlayerStats());
+}
+
 export const changeMap = ({newMap, prevMap}: changeMapInterface): AppThunk => (dispatch) => {
     dispatch(addMessage('Changing map...'));
     dispatch(saveMap(prevMap));
@@ -59,12 +69,11 @@ export const killMonster = ({id, lvl}: killMonsterInterface): AppThunk => (dispa
     dispatch(giveExp(lvl * 5));
     dispatch(giveMoney(lvl * 10));
     dispatch(giveMoneyBeforeDeath(lvl * 10));
-    dispatch(addMessage(`You have gained: ${lvl * 5} exp!`));
-    dispatch(addMessage(`You have got: ${lvl * 10} gold!`));
+    dispatch(addMessage(`You've gained: ${lvl * 5} exp!`));
+    dispatch(addMessage(`You've got: ${lvl * 10} gold!`));
 }
 
 export const respawnPlayer = (name: string): AppThunk => (dispatch) => {
-    dispatch(addMessage('Respawning...'));
     dispatch(resetMonstersInDungeon(name));
     dispatch(setPlayerHp(null));
     dispatch(resetPlayerPosition(name));

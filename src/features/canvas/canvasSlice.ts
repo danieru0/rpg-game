@@ -21,8 +21,8 @@ interface ICanvasState {
 }
 
 const initialState: ICanvasState = {
-    width: 1440,
-    height: 1440,
+    width: 0,
+    height: 0,
     viewport: {
         width: 816,
         height: 816,
@@ -30,7 +30,7 @@ const initialState: ICanvasState = {
         y: 0,
         refresh: 0
     },
-    map: "map1",
+    map: "",
     tileSize: 48,
     mapLoaded: true,
     imagesLoaded: 0,

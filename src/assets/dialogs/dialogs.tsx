@@ -12,7 +12,7 @@ const dialogs: IDialogs = {
     },
     1: {
         title: "Stranger",
-        texts: ["Oh, you've finally woke up", "I have found you lying under a tree while escaping the monsters.", "You were fighting with the guy who attacked the village?", "Hmm, i don't know what could have happend to your equipment.", "But i think you should be able to reach a nearby village.", "Just follow this road, but be careful, there is alot of monsters out there."]
+        texts: ["Oh, you've finally woke up", "I've found you lying under a tree while escaping the monsters.", "You were fighting with the guy who attacked the village?", "Hmm, i don't know what could have happend to your equipment.", "But i think you should be able to reach a nearby village.", "Just follow this road, but be careful, there is alot of monsters out there."]
     },
     2: {
         title: "Villager",
