@@ -3,7 +3,7 @@
 # RPG game
 
 > Simple project made for fun, i always wanted to do my own game so here it is.
-> Although it ain't much, but it's honest work
+> It ain't much, but it's honest work
 
 ***Technologies***
 
