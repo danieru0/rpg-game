@@ -89,13 +89,12 @@ function Canvas() {
 		const offsetTopWithVieport = canvasRef.current.offsetTop - canvasSelector.viewport.y;
 		let x = Math.floor((e.pageX - offsetLeftWithViewport) / canvasSelector.tileSize);
 		x = canvasSelector.width - canvasSelector.viewport.x <= 720 ? x -= 2 : x;
-		const y = Math.floor((e.pageY - offsetTopWithVieport) / canvasSelector.tileSize);
+		let y = Math.floor((e.pageY - offsetTopWithVieport) / canvasSelector.tileSize);
+		y = canvasSelector.height - canvasSelector.viewport.y <= 720 ? y -= 2 : y;
 		const index = Math.floor(y * mapSelector.rows + x);
 
-		console.log(x * 48, y * 48, index);
-
 		dispatch(setClickedIndex({index: index, refresh: Math.random()}));
-	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch, canvasSelector.width, canvasSelector.tileSize]);
+	}, [canvasSelector.viewport.x, canvasSelector.viewport.y, mapSelector.rows, dispatch, canvasSelector.width, canvasSelector.height, canvasSelector.tileSize]);
 
 
 	useEffect(() => {

@@ -8,6 +8,8 @@ import Village from '../../assets/tiles/village.png';
 import DungeonItems from '../../assets/tiles/dungeonItems.png';
 import Player from '../../assets/entites/player.png';
 import Monster1 from '../../assets/entites/monster-1.png';
+import Monster3 from '../../assets/entites/monster-3.png';
+import Monster4 from '../../assets/entites/monster-4.png';
 import ChestOpen from '../../assets/items/chestOpen.png';
 import chestClosed from '../../assets/items/chestClosed.png';
 import Weapon1 from '../../assets/items/weapon1.png';
@@ -50,6 +52,8 @@ function TilesBuffer() {
             <img onLoad={handleImageLoad} className="dungeonItems" alt="" src={DungeonItems} />
             <img onLoad={handleImageLoad} className="player" alt="" src={Player} />
             <img onLoad={handleImageLoad} className="monster1" alt="" src={Monster1} />
+            <img onLoad={handleImageLoad} className="monster3" alt="" src={Monster3} />
+            <img onLoad={handleImageLoad} className="monster4" alt="" src={Monster4} />
             <img onLoad={handleImageLoad} className="chestOpen" alt="" src={ChestOpen} />
             <img onLoad={handleImageLoad} className="chestClosed" alt="" src={chestClosed} />
             <img onLoad={handleImageLoad} className="weapon1" alt="" src={Weapon1} />

@@ -67,8 +67,6 @@ const PlayerMovement = () => {
                         dispatch(setViewportPositionY(canvasSelector.viewport.y - canvasSelector.tileSize));
                     }
                 }
-    
-                console.log(nextPlayerX * 48, nextPlayerY * 48, nextPlayerIndex);
 
                 dispatch(setPlayerPosition({
                     x: nextPlayerX * canvasSelector.tileSize,
