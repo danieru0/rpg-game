@@ -1,24 +1,27 @@
 {
   "files": {
-    "main.js": "/rpg-game/static/js/main.dacfb4c2.chunk.js",
-    "main.js.map": "/rpg-game/static/js/main.dacfb4c2.chunk.js.map",
+    "main.js": "/rpg-game/static/js/main.92c5555e.chunk.js",
+    "main.js.map": "/rpg-game/static/js/main.92c5555e.chunk.js.map",
     "runtime-main.js": "/rpg-game/static/js/runtime-main.86d4a9dc.js",
     "runtime-main.js.map": "/rpg-game/static/js/runtime-main.86d4a9dc.js.map",
-    "static/js/2.f6568e38.chunk.js": "/rpg-game/static/js/2.f6568e38.chunk.js",
-    "static/js/2.f6568e38.chunk.js.map": "/rpg-game/static/js/2.f6568e38.chunk.js.map",
+    "static/js/2.aa417c8f.chunk.js": "/rpg-game/static/js/2.aa417c8f.chunk.js",
+    "static/js/2.aa417c8f.chunk.js.map": "/rpg-game/static/js/2.aa417c8f.chunk.js.map",
     "index.html": "/rpg-game/index.html",
-    "static/js/2.f6568e38.chunk.js.LICENSE.txt": "/rpg-game/static/js/2.f6568e38.chunk.js.LICENSE.txt",
+    "static/js/2.aa417c8f.chunk.js.LICENSE.txt": "/rpg-game/static/js/2.aa417c8f.chunk.js.LICENSE.txt",
+    "static/media/boss.46e00ffc.mp3": "/rpg-game/static/media/boss.46e00ffc.mp3",
     "static/media/chest.c49ea6d6.mp3": "/rpg-game/static/media/chest.c49ea6d6.mp3",
     "static/media/dungeon.706b256c.ogg": "/rpg-game/static/media/dungeon.706b256c.ogg",
     "static/media/dungeonItems.24235a64.png": "/rpg-game/static/media/dungeonItems.24235a64.png",
     "static/media/dungeonStep.d5231ca5.ogg": "/rpg-game/static/media/dungeonStep.d5231ca5.ogg",
     "static/media/village.8ee4808d.png": "/rpg-game/static/media/village.8ee4808d.png",
     "static/media/village.b7b90a0a.mp3": "/rpg-game/static/media/village.b7b90a0a.mp3",
+    "static/media/village2.7a77ae13.ogg": "/rpg-game/static/media/village2.7a77ae13.ogg",
+    "static/media/villageDepression.d5bc9d89.ogg": "/rpg-game/static/media/villageDepression.d5bc9d89.ogg",
     "static/media/villageStep.a7766d03.ogg": "/rpg-game/static/media/villageStep.a7766d03.ogg"
   },
   "entrypoints": [
     "static/js/runtime-main.86d4a9dc.js",
-    "static/js/2.f6568e38.chunk.js",
-    "static/js/main.dacfb4c2.chunk.js"
+    "static/js/2.aa417c8f.chunk.js",
+    "static/js/main.92c5555e.chunk.js"
   ]
 }
