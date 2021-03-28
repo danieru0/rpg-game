@@ -76,6 +76,11 @@ const Console = () => {
                     }
                     break;
                 }
+                case "help": {
+                    dispatch(addMessage('Available commands:'));
+                    dispatch(addMessage('* /setmap [map name]'));
+                    break;
+                }
                 default: return false;
             }
         }
