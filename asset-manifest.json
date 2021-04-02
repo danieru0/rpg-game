@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/rpg-game/static/js/main.4d298f88.chunk.js",
-    "main.js.map": "/rpg-game/static/js/main.4d298f88.chunk.js.map",
+    "main.js": "/rpg-game/static/js/main.5c67232e.chunk.js",
+    "main.js.map": "/rpg-game/static/js/main.5c67232e.chunk.js.map",
     "runtime-main.js": "/rpg-game/static/js/runtime-main.86d4a9dc.js",
     "runtime-main.js.map": "/rpg-game/static/js/runtime-main.86d4a9dc.js.map",
     "static/js/2.aa417c8f.chunk.js": "/rpg-game/static/js/2.aa417c8f.chunk.js",
@@ -22,6 +22,6 @@
   "entrypoints": [
     "static/js/runtime-main.86d4a9dc.js",
     "static/js/2.aa417c8f.chunk.js",
-    "static/js/main.4d298f88.chunk.js"
+    "static/js/main.5c67232e.chunk.js"
   ]
 }
