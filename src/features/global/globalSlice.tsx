@@ -5,7 +5,7 @@ import { saveCanvas, resetViewport, setCanvas } from '../canvas/canvasSlice';
 import { addMessage } from '../console/consoleSlice';
 import { saveMap, setMap } from '../map/mapSlice';
 import { clearMonstersCloseToPlayer, destroyMonster, resetMonstersInDungeon, saveMonsters, setMonsters } from '../monster/monsterSlice';
-import { giveExp, giveMoney, giveMoneyBeforeDeath, initPlayerStats, removeExp, resetPlayer, resetPlayerPosition, savePlayer, setCanMove, setNewPositionFromMap, setPlayerHp, takeMoneyAway, takeMoneyAwayBeforeDeath } from '../player/playerSlice';
+import { clearHpAfterDeath, clearMoneyBeforeDeath, giveExp, giveMoney, giveMoneyBeforeDeath, initPlayerStats, removeExp, resetPlayer, resetPlayerPosition, savePlayer, setCanMove, setHpAfterDeath, setNewPositionFromMap, setPlayerHp, takeMoneyAway, takeMoneyAwayBeforeDeath } from '../player/playerSlice';
 import { setTriggers } from '../triggers/triggersSlice';
 import { hideModal } from '../modal/modalSlice';
 
@@ -56,6 +56,8 @@ export const changeMap = ({newMap, prevMap}: changeMapInterface): AppThunk => (d
     dispatch(setMap(newMap));
     dispatch(setNewPositionFromMap(newMap));
     dispatch(removeExp('afterDeath'));
+    dispatch(clearMoneyBeforeDeath());
+    dispatch(clearHpAfterDeath());
     dispatch(setMonsters(newMap));
     dispatch(resetViewport(newMap));
     dispatch(setCanvas(newMap));
@@ -75,9 +77,10 @@ export const killMonster = ({id, lvl}: killMonsterInterface): AppThunk => (dispa
 
 export const respawnPlayer = (name: string): AppThunk => (dispatch) => {
     dispatch(resetMonstersInDungeon(name));
-    dispatch(setPlayerHp(null));
+    //dispatch(setPlayerHp(null));
     dispatch(resetPlayerPosition(name));
     dispatch(resetViewport(name));
+    dispatch(setHpAfterDeath());
     dispatch(removeExp(null));
     dispatch(takeMoneyAwayBeforeDeath());
     dispatch(hideModal());

@@ -18,6 +18,7 @@ interface IPlayerState {
     startIndex: number;
     lvl: number;
     hp: number;
+    hpAfterDeath: number;
     armor_hp: number;
     maxHP: number;
     exp: number;
@@ -75,6 +76,7 @@ const initialState: IPlayerState = {
     startIndex: 93,
     lvl: 30,
     hp: 1200,
+    hpAfterDeath: 0,
     armor_hp: 300,
     canMove: true,
     maxHP: 1200,
@@ -318,11 +320,20 @@ export const playerSlice = createSlice({
             state.money -= state.moneyBeforeDeath;
             state.moneyBeforeDeath = 0;
         },
+        clearHpAfterDeath: state => {
+            state.hpAfterDeath = state.hp;
+        },
+        setHpAfterDeath: state => {
+            state.hp = state.hpAfterDeath;
+        },
         giveMoney: (state, action: PayloadAction<number>) => {
             state.money += action.payload;
         },
         giveMoneyBeforeDeath: (state, action: PayloadAction<number>) => {
             state.moneyBeforeDeath += action.payload;
+        },
+        clearMoneyBeforeDeath: state => {
+            state.moneyBeforeDeath = 0;
         },
         giveExp: (state, action: PayloadAction<number>) => {
             if (state.exp + action.payload >= state.expNeeded) {
@@ -340,6 +351,7 @@ export const playerSlice = createSlice({
         removeExp: (state, action: PayloadAction<number | null | string>) => {
             if (action.payload === null) {
                 state.exp -= state.expBeforeDeath;
+                state.expBeforeDeath = 0;
             } else if ('afterDeath') {
                 state.expBeforeDeath = 0;
             }
@@ -351,6 +363,7 @@ export const playerSlice = createSlice({
             state.expNeeded = calculateExpNeeded(state.lvl);
             state.maxHP = calculateMaxHP(state.lvl);
             state.hp = calculateMaxHP(state.lvl);
+            state.hpAfterDeath = calculateMaxHP(state.lvl);
             state.armor_hp = 0;
             state.base_attack = calculateBaseAttack(state.lvl);
             state.armor_hp = 0;
@@ -371,7 +384,7 @@ export const playerSlice = createSlice({
     }
 })
 
-export const { setPlayerPosition, setClickedIndex, initPlayerStats, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney, giveExp, resetPlayer, removeExp, giveMoneyBeforeDeath, takeMoneyAwayBeforeDeath } = playerSlice.actions;
+export const { setPlayerPosition, setClickedIndex, clearMoneyBeforeDeath, clearHpAfterDeath, setHpAfterDeath, initPlayerStats, hitPlayer, setPlayerHp, resetPlayerPosition, giveItems, equipItem, takeOffItem, setNewPositionFromMap, setCanMove, savePlayer, takeMoneyAway, removeItem, giveMoney, giveExp, resetPlayer, removeExp, giveMoneyBeforeDeath, takeMoneyAwayBeforeDeath } = playerSlice.actions;
 
 export const selectPlayer = (state: RootState) => state.player;
 

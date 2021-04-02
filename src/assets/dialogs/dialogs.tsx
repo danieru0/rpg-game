@@ -16,7 +16,7 @@ const dialogs: IDialogs = {
     },
     2: {
         title: "Villager",
-        texts: ["Who are you?", "Well, if you need the equipment, turn right, there is a guy who can sell you some stuff.", "If you need some healing, next to the red small house you will find a healer.", "Now, if you want go further, there is no other option than going through a dungeon.", "You should be able to find it on your own."]
+        texts: ["Who are you?", "Well, if you need some equipment, turn right, there is a guy who can sell you some stuff.", "If you need some healing, next to the red small house you'll find a healer.", "Now, if you want go further, there is no other option than going through a dungeon.", "You should be able to find it on your own."]
     }
 }
 
