@@ -14,4 +14,4 @@
 - easystarjs
 
 ## Demo
-https://elosiktv.github.io/rpg-game/
+https://danieru0.github.io/rpg-game/
